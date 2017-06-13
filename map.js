@@ -45,16 +45,13 @@ $(document).ready(function() {
 
 		var cw = 1000;
 		var ch = 1000;
-		var multi = 1;
+		var m = 1;
 
 		var w = 0;
 		var h = 0;
 		var z = 1;
 		var ox = 0;
 		var oy = 0;
-
-		var background = new Image();
-		background.src = 'images/background2.jpg';
 
 		function setup(){
 			resize();
@@ -70,7 +67,7 @@ $(document).ready(function() {
 			h = canvas.height = window.innerHeight;
 			var difW = cw/w;
 			var difH = ch/h;
-			multi = Math.max(difW, difH);
+			m = Math.max(difW, difH);
 			draw();
 		}
 
@@ -109,25 +106,24 @@ $(document).ready(function() {
 
 				// function x(inX){ return (((ox+(w/z))/2)+(inX*z)); }
 				// function y(inY){ return (((oy+(h/z))/2)+(inY*z)); }
-		function x(inX){ return ((inX+ox)*z)/multi; }
-		function y(inY){ return ((inY+oy)*z)/multi; }
+		function x(inX){ return ((inX+ox)*z)/m; }
+		function y(inY){ return ((inY+oy)*z)/m; }
 
 		function draw(){
 			ctx.clearRect(0, 0, w, h);
-			ctx.fillStyle = "rgb(0,0,0)";
-			ctx.fillRect(0, 0, w, h);
-			background.onload = function(){
-    			ctx.drawImage(background, 0, 0, w, h);
+			// ctx.fillStyle = "rgb(0,0,0)";
+			// ctx.fillRect(0, 0, w, h);
+			ctx.drawImage(document.getElementById('background'), 0, 0, w, h);
 			};
 			// drawRect(0, 0, 10, 10, "rgb(255,255,255)");
 
 			for(var i=0; i<=10; ++i) {
-				drawLine(i*(cw/10), 0, i*(cw/10), ch, "rgb(255,255,255)");
+				drawLine(i*(cw/10), 0, i*(cw/10), ch, "rgb(50,50,50)");
 			}
 			for(var i=0; i<=10; ++i) {
-				drawLine(0, i*(ch/10), cw, i*(ch/10), "rgb(255,255,255)");
+				drawLine(0, i*(ch/10), cw, i*(ch/10), "rgb(50,50,50)");
 			}
-			drawLine(-50, -50, 50, 50, "rgb(128,128,128)");
+			// drawLine(-50, -50, 50, 50, "rgb(128,128,128)");
 		}
 
 		function drawRect(x1, y1, x2, y2, colour){
