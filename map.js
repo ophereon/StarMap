@@ -111,10 +111,10 @@ $(document).ready(function() {
 
 		function draw(){
 			ctx.clearRect(0, 0, w, h);
-			// ctx.fillStyle = "rgb(0,0,0)";
-			// ctx.fillRect(0, 0, w, h);
-			ctx.drawImage(document.getElementById('background'), 0, 0, w, h);
-			};
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillRect(0, 0, w, h);
+			// ctx.drawImage(document.getElementById('background'), 0, 0, w, h);
+			// };
 			// drawRect(0, 0, 10, 10, "rgb(255,255,255)");
 
 			for(var i=0; i<=10; ++i) {
