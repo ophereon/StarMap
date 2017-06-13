@@ -4,7 +4,7 @@ $(document).ready(function() {
 	canvas.height = window.innerHeight;
 
 	$("#zoom").on("input", function(){
-		zoom(parseInt($(this).val()));
+		zoom(parseInt($(this).val()), 0, 0);
 	});
 
 	var press = false;
@@ -28,16 +28,24 @@ $(document).ready(function() {
         press = false;
     });
 	$(window).bind('mousewheel DOMMouseScroll', function(event){
+		startX = event.originalEvent.clientX;
+		startY = event.originalEvent.clientY;
 	    if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
-	        zoom(z + 0.1);
+	        zoom(z + 0.1, startX, startY);
 	    }
 	    else {
-	        zoom(z - 0.1);
+	        zoom(z - 0.1, startX, startY);
 	    }
 	});
+	window.onresize = function(){ resize(); }
+	$('body').css('top', -(document.documentElement.scrollTop) + 'px').addClass('noscroll');
 
 	if(canvas.getContext){
-		var ctw = canvas.getContext('2d');
+		var ctx = canvas.getContext('2d');
+
+		var cw = 1000;
+		var ch = 1000;
+		var multi = 1;
 
 		var w = 0;
 		var h = 0;
@@ -45,39 +53,53 @@ $(document).ready(function() {
 		var ox = 0;
 		var oy = 0;
 
+		var background = new Image();
+		background.src = 'images/background2.jpg';
+
 		function setup(){
 			resize();
-			zoom(1);
+			zoom(1, 0, 0);
 			offsetX(0);
 			offsetY(0);
 			loop();
 		}
 
 		function resize(){
-			ctw.clearRect(0, 0, w, h);
+			ctx.clearRect(0, 0, w, h);
 			w = canvas.width = window.innerWidth;
 			h = canvas.height = window.innerHeight;
-			ctw.strokeStyle = "rgb(0,0,0)";
-			ctw.lineWidth = 1;
-			ctw.lineCap = "round";
+			var difW = cw/w;
+			var difH = ch/h;
+			multi = Math.max(difW, difH);
 			draw();
 		}
 
-		function zoom(level){
+		function zoom(level, posX, posY){
 			if(level<1) z = 1;
 			else if(level>10) z = 10;
-			else z = level;
+			else{
+				var difX = (ox+(posX/z)) - ((ox+(posX/level)));
+				var difY = (oy+(posY/z)) - ((oy+(posY/level)));
+				z = level;
+				offsetX(ox-difX);
+				offsetY(oy-difY);
+			}
 			// console.log("l: " + level);
 		}
 
 		function offsetX(inX){
-			ox = inX;
-			// console.log("x: " + x);
+			// console.log(inX);
+			if(inX<-(w-(w/z))) ox = -(w-(w/z));
+			else if(inX>0) ox = 0;
+			else ox = inX;
+			if(cw*z<w) ox += (w-(cw*z))/2;
 		}
-
 		function offsetY(inY){
-			oy = inY;
-			// console.log("y: " + y);
+			// console.log(inY);
+			if(inY<-(ch-(ch/z))) oy = -(ch-(ch/z));
+			else if(inY>0) oy = 0;
+			else oy = inY;
+			if(ch*z<h) oy += (h-(ch*z))/2;
 		}
 
 		function loop(){
@@ -85,19 +107,42 @@ $(document).ready(function() {
 			draw();
 		}
 
-		function x(inX){
-			return ((inX*z)+ox)+(w/2);
-		}
-		function y(inY){
-			return ((inY*z)+oy)+(h/2);
-		}
+				// function x(inX){ return (((ox+(w/z))/2)+(inX*z)); }
+				// function y(inY){ return (((oy+(h/z))/2)+(inY*z)); }
+		function x(inX){ return ((inX+ox)*z)/multi; }
+		function y(inY){ return ((inY+oy)*z)/multi; }
 
 		function draw(){
-			ctw.clearRect(0, 0, w, h);
-			ctw.beginPath();
-			ctw.moveTo(x(-50), y(-50));
-			ctw.lineTo(x(50), y(50));
-			ctw.stroke();
+			ctx.clearRect(0, 0, w, h);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillRect(0, 0, w, h);
+			background.onload = function(){
+    			ctx.drawImage(background, 0, 0, w, h);
+			};
+			// drawRect(0, 0, 10, 10, "rgb(255,255,255)");
+
+			for(var i=0; i<=10; ++i) {
+				drawLine(i*(cw/10), 0, i*(cw/10), ch, "rgb(255,255,255)");
+			}
+			for(var i=0; i<=10; ++i) {
+				drawLine(0, i*(ch/10), cw, i*(ch/10), "rgb(255,255,255)");
+			}
+			drawLine(-50, -50, 50, 50, "rgb(128,128,128)");
+		}
+
+		function drawRect(x1, y1, x2, y2, colour){
+			ctx.fillStyle = colour;
+			ctx.fillRect(x(x1), y(y1), x(x2), y(y2));
+		}
+
+		function drawLine(x1, y1, x2, y2, colour){
+			ctx.strokeStyle = colour;
+			ctx.lineWidth = 1;
+			ctx.lineCap = "round";
+			ctx.beginPath();
+			ctx.moveTo(x(x1), y(y1));
+			ctx.lineTo(x(x2), y(y2));
+			ctx.stroke();
 		}
 	}
 

@@ -5,10 +5,18 @@
 	<title>map</title>
 	<script src="jquery-3.2.1.min.js"></script>
 	<script src="map.js"></script>
-	<style>html, body { margin: 0; padding: 0; }</style>
+	<style>
+	html, body { margin: 0; padding: 0; }
+	body.noscroll {
+	    position: fixed;
+	    overflow-y: scroll;
+	    width: 100%;
+	}
+	</style>
 </head>
 <body>
 	<!-- <input type="range" name="zoom" id="zoom" value="1" min="1" max="10" data-show-value="true" data-popup-enabled="true" data-highlight="true" /> -->
+	<!-- <img id="background" src="images/background2.jpg" style="width: 90%; height: 90%; opacity: 0.5;"> -->
 <canvas id="map">
 </canvas>
 </body>
