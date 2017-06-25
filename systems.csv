@@ -1,3 +1,4 @@
-﻿name,x,y,solar mass,star type
-sol,600,600,1,orange
-alpha,300,300,1.2,white
+star,name,x,y,mass,type
+1,sol,600,600,1,orange
+0,earth,1,90,1,terran
+1,alpha,300,300,1.2,white

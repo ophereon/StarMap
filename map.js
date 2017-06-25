@@ -16,8 +16,8 @@ $(document).ready(function() {
     })
     .mousemove(function(e){
         if(press){
-			offsetX(ox + (e.originalEvent.clientX - startX));
-			offsetY(oy + (e.originalEvent.clientY - startY));
+			offsetX(ox + (e.originalEvent.clientX - startX)/z);
+			offsetY(oy + (e.originalEvent.clientY - startY)/z);
 			startX = e.originalEvent.clientX;
 			startY = e.originalEvent.clientY;
 		}
@@ -65,6 +65,7 @@ $(document).ready(function() {
         		type: "GET", url: "systems.csv", dataType: "text",
 		        success: function(file){ read(file); }
      		});
+			loop();
 		}
 		function resize(){
 			ctx.clearRect(0, 0, w, h);
@@ -78,11 +79,20 @@ $(document).ready(function() {
 		function read(file){
     		var lines = file.split(/\r\n|\n/);
 			var headers = lines[0].split(',');
-			for (var i=1; i<lines.length; i++) {
+			var sys = new system(null);
+			for(var i=1; i<lines.length; i++) {
 		        var inst = lines[i].split(',');
-		        if (inst.length == headers.length)
-		            systems.push(new system(inst[0], inst[1], inst[2], inst[3], inst[4]));
+		        if(inst.length == headers.length){
+					if(parseInt(inst[0])==1){
+						if(sys.name!=null) systems.push(sys);
+					    sys = new system(inst[1], parseInt(inst[2]), parseInt(inst[3]), parseInt(inst[4]), inst[5]);
+					}
+					else if(parseInt(inst[0])==0){
+						sys.stars.push(new star(inst[1], parseInt(inst[2]), parseInt(inst[3]), parseInt(inst[4]), inst[5]));
+					}
+				}
 		    }
+			if(sys.name!=null) systems.push(sys);
 		}
 		function loop(){
 			window.requestAnimationFrame(loop);
@@ -126,34 +136,33 @@ $(document).ready(function() {
 			ctx.globalAlpha = 0.5;
 			ctx.drawImage(document.getElementById('background'), (w/2)-h, 0, (w/2)+h, h);
 			ctx.globalAlpha = (1-(z/mz))/2;
-			ctx.drawImage(document.getElementById('nebula'), (w/2)-h, 0, (w/2)+h, h);//x(0)-gx, y(0)-gy, x(cw)+gx, y(ch)+gy);
+			ctx.drawImage(document.getElementById('nebula'), (w/2)-h, 0, (w/2)+h, h); //x(0)-gx, y(0)-gy, x(cw)+gx, y(ch)+gy);
 			ctx.globalAlpha = 1.0;
-			for(var i=0; i<=60; ++i) drawLine(i*(cw/60), 0, i*(cw/60), ch, "rgb(50,50,50)");
-			for(var i=0; i<=60; ++i) drawLine(0, i*(ch/60), cw, i*(ch/60), "rgb(50,50,50)");
+			// for(var i=0; i<=60; ++i) drawLine(i*(cw/60), 0, i*(cw/60), ch, 0, "rgb(50,50,50)");
+			// for(var i=0; i<=60; ++i) drawLine(0, i*(ch/60), cw, i*(ch/60), 0, "rgb(50,50,50)");
 			drawSystems();
 		}
 
 		function drawSystems(){
-			drawCirc(cw/2, ch/2, 10, 0, "rgb(255,255,255)");
+			drawCirc(cw/2, ch/2, 10, 0, "rgb(0,0,0)");
 			for(var i=0; i<systems.length; ++i){
-				switch(systems[i].colour){
-					case orange:
-						drawCirc(systems[1], systems[2], systems[3]*10, "rgb(255,155,55)");
+				var colour = "rgb(0,0,0)";
+				switch(systems[i].type){
+					case "orange":
+						colour = "rgb(255,155,55)";
 						break;
-					case white:
-						drawCirc(systems[1], systems[2], systems[3]*10, "rgb(255,255,255)");
-						break;
-					default:
-						drawCirc(systems[1], systems[2], systems[3]*10, "rgb(255,255,255)");
+					case "white":
+						colour = "rgb(255,255,255)";
 						break;
 				}
+				drawCirc(systems[i].x, systems[i].y, systems[i].mass*10, 0, colour);
+				// console.log("drew system "+systems[i].name+" at "+systems[i].x+", "+systems[i].y+" with colour "+systems[i].type);
 			}
 		}
 
 		function drawLine(x1, y1, x2, y2, stroke, colour){
 			ctx.strokeStyle = colour;
 			ctx.lineWidth = stroke;
-			ctx.lineCap = "round";
 			ctx.beginPath();
 			ctx.moveTo(x(x1), y(y1));
 			ctx.lineTo(x(x2), y(y2));
@@ -169,25 +178,35 @@ $(document).ready(function() {
 			else ctx.stroke(rectangle);
 		}
 		function drawCirc(x1, y1, r1, stroke, colour){
+			// console.log(x1+", "+y1+", "+r1+", "+stroke+", "+colour);
 			ctx.fillStyle = colour;
 			ctx.strokeStyle = colour;
 			ctx.lineWidth = stroke;
-			var circle = new Path2D();
-    		circle.arc(x(x1), y(y1), r(r1), 0, 2 * Math.PI);
-			if(stroke==0) ctx.fill(circle);
-			else ctx.stroke(circle);
+			ctx.beginPath();
+    		ctx.arc(x(x1), y(y1), r(r1), 0, 2 * Math.PI);
+			if(stroke==0) ctx.fill();
+			else ctx.stroke();
 			// console.log("drawn circle at "+x(x1)+", "+y(y1)+" of radius "+r(r1)+", colour: "+colour);
 		}
 	}
 
-	function system(name, x, y, sm, type){
-		var name = this.name;
-		var x = this.x;
-		var y = this.y;
-		var sm = this.sm;
-		var type = this.type;
-		function star(){
-
+	class system{
+		constructor(name, x, y, mass, type){
+			this.name = name;
+			this.x = x;
+			this.y = y;
+			this.mass = mass;
+			this.type = type;
+			this.stars = new Array();
+		}
+	}
+	class star{
+		constructor(name, r, th,  mass, type){
+			this.name = name;
+			this.r = r;
+			this.th = th;
+			this.mass = mass;
+			this.type = type;
 		}
 	}
 
