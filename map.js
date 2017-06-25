@@ -2,11 +2,9 @@ $(document).ready(function() {
 	var canvas = $('#map')[0];
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
-
 	$("#zoom").on("input", function(){
 		zoom(parseInt($(this).val()), 0, 0);
 	});
-
 	var press = false;
 	var startX = 0;
 	var startY = 0;
@@ -23,10 +21,10 @@ $(document).ready(function() {
 			startX = e.originalEvent.clientX;
 			startY = e.originalEvent.clientY;
 		}
-		console.clear();
-		console.log("px: "+e.originalEvent.clientX+", py: "+e.originalEvent.clientY);
-		console.log("cx: "+x(e.originalEvent.clientX)+", cy: "+y(e.originalEvent.clientY));
-		console.log("gx: "+gx+", gy: "+gy);
+		// console.clear();
+		// console.log("px: "+e.originalEvent.clientX+", py: "+e.originalEvent.clientY);
+		// console.log("cx: "+x(e.originalEvent.clientX)+", cy: "+y(e.originalEvent.clientY));
+		// console.log("gx: "+gx+", gy: "+gy);
      })
     .mouseup(function(){
         press = false;
@@ -54,6 +52,7 @@ $(document).ready(function() {
 		var mz = 20; //max-zoom
 		var gx = 0; //
 		var gy = 0; //
+		var systems = new Array();
 
 		function setup(){
 			resize();
@@ -62,7 +61,10 @@ $(document).ready(function() {
 			offsetY(0);
 			gx = x(0)-((w-cw)/2);
 			gy = y(0)-((h-ch)/2);
-			loop();
+			$.ajax({
+        		type: "GET", url: "systems.csv", dataType: "text",
+		        success: function(file){ read(file); }
+     		});
 		}
 		function resize(){
 			ctx.clearRect(0, 0, w, h);
@@ -72,6 +74,15 @@ $(document).ready(function() {
 			var dh = ch/h;
 			m = Math.max(dw, dh);
 			draw();
+		}
+		function read(file){
+    		var lines = file.split(/\r\n|\n/);
+			var headers = lines[0].split(',');
+			for (var i=1; i<lines.length; i++) {
+		        var inst = lines[i].split(',');
+		        if (inst.length == headers.length)
+		            systems.push(new system(inst[0], inst[1], inst[2], inst[3], inst[4]));
+		    }
 		}
 		function loop(){
 			window.requestAnimationFrame(loop);
@@ -104,6 +115,7 @@ $(document).ready(function() {
 		}
 		function x(inX){ return ((inX+ox)*z)/m; }
 		function y(inY){ return ((inY+oy)*z)/m; }
+		function r(inR){ return ((inR)*z)/m; }
 		function x2(inX){ return ((inX+ox)*((z/2)+0.5))/m; }
 		function y2(inY){ return ((inY+oy)*((z/2)+0.5))/m; }
 
@@ -118,21 +130,66 @@ $(document).ready(function() {
 			ctx.globalAlpha = 1.0;
 			for(var i=0; i<=60; ++i) drawLine(i*(cw/60), 0, i*(cw/60), ch, "rgb(50,50,50)");
 			for(var i=0; i<=60; ++i) drawLine(0, i*(ch/60), cw, i*(ch/60), "rgb(50,50,50)");
+			drawSystems();
 		}
 
-		function drawRect(x1, y1, x2, y2, colour){
-			ctx.fillStyle = colour;
-			ctx.fillRect(x(x1), y(y1), x(x2), y(y2));
+		function drawSystems(){
+			drawCirc(cw/2, ch/2, 10, 0, "rgb(255,255,255)");
+			for(var i=0; i<systems.length; ++i){
+				switch(systems[i].colour){
+					case orange:
+						drawCirc(systems[1], systems[2], systems[3]*10, "rgb(255,155,55)");
+						break;
+					case white:
+						drawCirc(systems[1], systems[2], systems[3]*10, "rgb(255,255,255)");
+						break;
+					default:
+						drawCirc(systems[1], systems[2], systems[3]*10, "rgb(255,255,255)");
+						break;
+				}
+			}
 		}
-		function drawLine(x1, y1, x2, y2, colour){
+
+		function drawLine(x1, y1, x2, y2, stroke, colour){
 			ctx.strokeStyle = colour;
-			ctx.lineWidth = 1;
+			ctx.lineWidth = stroke;
 			ctx.lineCap = "round";
 			ctx.beginPath();
 			ctx.moveTo(x(x1), y(y1));
 			ctx.lineTo(x(x2), y(y2));
 			ctx.stroke();
 		}
+		function drawRect(x1, y1, x2, y2, stroke, colour){
+			ctx.fillStyle = colour;
+			ctx.strokeStyle = colour;
+			ctx.lineWidth = stroke;
+			var rectangle = new Path2D();
+    		rectangle.rect(x(x1), y(y1), x(x2), y(y2));
+			if(stroke==0) ctx.fill(rectangle);
+			else ctx.stroke(rectangle);
+		}
+		function drawCirc(x1, y1, r1, stroke, colour){
+			ctx.fillStyle = colour;
+			ctx.strokeStyle = colour;
+			ctx.lineWidth = stroke;
+			var circle = new Path2D();
+    		circle.arc(x(x1), y(y1), r(r1), 0, 2 * Math.PI);
+			if(stroke==0) ctx.fill(circle);
+			else ctx.stroke(circle);
+			// console.log("drawn circle at "+x(x1)+", "+y(y1)+" of radius "+r(r1)+", colour: "+colour);
+		}
 	}
+
+	function system(name, x, y, sm, type){
+		var name = this.name;
+		var x = this.x;
+		var y = this.y;
+		var sm = this.sm;
+		var type = this.type;
+		function star(){
+
+		}
+	}
+
 	setup();
 });
