@@ -1,58 +1,16 @@
 $(document).ready(function() {
 	var canvas = $('#map')[0];
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
-	$("#zoom").on("input", function(){
-		zoom(parseInt($(this).val()), 0, 0);
-	});
-	var press = false;
-	var startX = 0;
-	var startY = 0;
-	$(canvas)
-	.mousedown(function(e){
-        press = true;
-		startX = e.originalEvent.clientX;
-		startY = e.originalEvent.clientY;
-    })
-    .mousemove(function(e){
-        if(press){
-			offsetX(ox + (e.originalEvent.clientX - startX)/z);
-			offsetY(oy + (e.originalEvent.clientY - startY)/z);
-			startX = e.originalEvent.clientX;
-			startY = e.originalEvent.clientY;
-		}
-		console.clear();
-		console.log("px: "+e.originalEvent.clientX+", py: "+e.originalEvent.clientY);
-		console.log("cx: "+x(e.originalEvent.clientX)+", cy: "+y(e.originalEvent.clientY));
-		console.log("gx: "+gx+", gy: "+gy);
-     })
-    .mouseup(function(){
-        press = false;
-    });
-	$(window).bind('mousewheel DOMMouseScroll', function(event){
-		startX = event.originalEvent.clientX;
-		startY = event.originalEvent.clientY;
-	    if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
-	        zoom(z + z*0.1, startX, startY);
-	    }
-	    else {
-	        zoom(z - z*0.1, startX, startY);
-	    }
-	});
-	window.onresize = function(){ resize(); }
-	$('body').css('top', -(document.documentElement.scrollTop) + 'px').addClass('noscroll');
 
 	if(canvas.getContext){
 		var ctx = canvas.getContext('2d'); //canvas context
-		var c = 500
-		var cw = c*2, ch = c*2; //canvas size
-		var w = 0, h = 0; //width and height of window
+		var w = canvas.width = window.innerWidth;
+		var h = canvas.height = window.innterHeight;
+		var cw = 600;
+		var ch = 600;
 		var ox = 0, oy = 0; //offset x and offset y
 		var z = 1; //zoom level
-		var m = 1; //multiplier
-		var mz = 20; //max-zoom
-		var gx = 0; //
-		var gy = 0; //
+		var minZ = 0;
+		var maxZ = 20; //max-zoom
 		var systems = new Array();
 
 		function setup(){
@@ -60,8 +18,6 @@ $(document).ready(function() {
 			zoom(1, 0, 0);
 			offsetX(0);
 			offsetY(0);
-			gx = x(0);
-			gy = y(0);
 			$.ajax({
         		type: "GET", url: "systems.csv", dataType: "text",
 		        success: function(file){ read(file); }
@@ -72,9 +28,10 @@ $(document).ready(function() {
 			ctx.clearRect(0, 0, w, h);
 			w = canvas.width = window.innerWidth;
 			h = canvas.height = window.innerHeight;
-			var dw = cw/w;
-			var dh = ch/h;
-			m = Math.max(dw, dh);
+			var rw = (cw*2)/w;
+			var rh = (ch*2)/h;
+			minZ = Math.max(rw, rh);
+			zoom(minZ, ox, oy);
 			draw();
 		}
 		function read(file){
@@ -101,67 +58,42 @@ $(document).ready(function() {
 		}
 
 		function zoom(level, posX, posY){
-			if(level<1) z = 1;
-			else if(level>mz) z = mz;
+			if(level<minZ) z = minZ; //don't go below zoom level 1
+			else if(level>maxZ) z = maxZ; //don't go above max zoom level
 			else{
-				var difX = (ox+(posX/z)) - ((ox+(posX/level)));
-				var difY = (oy+(posY/z)) - ((oy+(posY/level)));
-				z = level;
-				offsetX(ox-difX);
-				offsetY(oy-difY);
+				// var difX = (ox+(posX/z)) - ((ox+(posX/level))); //Δx = offset(x) + pos(x)/currentZoom - offset(x) - pos(x)/newZoom
+				// var difY = (oy+(posY/z)) - ((oy+(posY/level))); //Δy = offset(y) + pos(y)/currentZoom - offset(y) - pos(y)/newZoom
+				z = level; //set zoom to new level
+				// offsetX(ox-difX);
+				// offsetY(oy-difY);
 			}
-			// console.log("l: " + level);
 		}
 		function offsetX(inX){
-			if(inX<-(w-(w/z))) ox = -(w-(w/z));
-			else if(inX>0) ox = 0;
-			else ox = inX;
-			if(cw*z<w) ox += (w-(cw*z))/2;
+			// if(inX<-(w-(w/z))) ox = -(w-(w/z));
+			// else if(inX>0) ox = 0;
+			// else ox = inX;
+			// if(cw*z<w) ox += (w-(cw*z))/2;
+			ox = inX;
 		}
 		function offsetY(inY){
-			if(inY<-(ch-(ch/z))) oy = -(ch-(ch/z));
-			else if(inY>0) oy = 0;
-			else oy = inY;
-			if(ch*z<h) oy += (h-(ch*z))/2;
+			// if(inY<-(ch-(ch/z))) oy = -(ch-(ch/z));
+			// else if(inY>0) oy = 0;
+			// else oy = inY;
+			// if(ch*z<h) oy += (h-(ch*z))/2;
+			oy = inY;
 		}
-		function x(inX){ return (((inX+ox)*z)/m)+(c); }
-		function y(inY){ return (((inY+oy)*z)/m)+(c); }
-		function r(inR){ return ((inR)*z)/m; }
-		function x2(inX){ return ((inX+ox)*((z/2)+0.5))/m; }
-		function y2(inY){ return ((inY+oy)*((z/2)+0.5))/m; }
+		function x(inX){ return (inX*z)+ox+(w/2); } //(((inX+ox)*z)/m)+(c);
+		function y(inY){ return (inY*z)+oy+(h/2); } //(((inY+oy)*z)/m)+(c); }
+		function r(inR){ return inR*z; } //((inR)*z)/m; }
 
 		function draw(){
 			ctx.clearRect(0, 0, w, h);
 			ctx.fillStyle = "rgb(0,0,0)";
 			ctx.fillRect(0, 0, w, h);
-			ctx.globalAlpha = 0.5;
-			ctx.drawImage(document.getElementById('background'), (w/2)-h, 0, (w/2)+h, h);
-			ctx.globalAlpha = (1-(z/mz))/2;
-			ctx.drawImage(document.getElementById('nebula'), (w/2)-h, 0, (w/2)+h, h); //x(0), y(0), x(cw), y(ch));
-			drawRect(-c, -c, c, c, 2, "rgb(255,255,255)");
-			drawLine(-c, -c, c, c, 2, "rgb(255,255,255)");
-			drawLine(c, -c, -c, c, 2, "rgb(255,255,255)");
 			ctx.globalAlpha = 1.0;
-			// for(var i=0; i<=60; ++i) drawLine(i*(cw/60), 0, i*(cw/60), ch, 1, "rgb(50,50,50)");
-			// for(var i=0; i<=60; ++i) drawLine(0, i*(ch/60), cw, i*(ch/60), 1, "rgb(50,50,50)");
-			drawSystems();
-		}
-
-		function drawSystems(){
-			drawCirc(0, 0, 10, 0, "rgb(0,0,0)");
-			for(var i=0; i<systems.length; ++i){
-				var colour = "rgb(0,0,0)";
-				switch(systems[i].type){
-					case "orange":
-						colour = "rgb(255,155,55)";
-						break;
-					case "white":
-						colour = "rgb(255,255,255)";
-						break;
-				}
-				drawCirc(systems[i].x, systems[i].y, systems[i].mass*10, 0, colour);
-				// console.log("drew system "+systems[i].name+" at "+systems[i].x+", "+systems[i].y+" with colour "+systems[i].type);
-			}
+			drawRect(-300, -300, 300, 300, 2, "rgb(255,0,0)");
+			drawLine(-300, -300, 300, 300, 2, "rgb(0,255,0)");
+			drawLine(300, -300, -300, 300, 2, "rgb(0,0,255)");
 		}
 
 		function drawLine(x1, y1, x2, y2, stroke, colour){
@@ -185,17 +117,6 @@ $(document).ready(function() {
 			if(stroke==0) ctx.fill();
 			else ctx.stroke();
 		}
-		function drawCirc(x1, y1, r1, stroke, colour){
-			// console.log(x1+", "+y1+", "+r1+", "+stroke+", "+colour);
-			ctx.fillStyle = colour;
-			ctx.strokeStyle = colour;
-			ctx.lineWidth = stroke;
-			ctx.beginPath();
-    		ctx.arc(x(x1), y(y1), r(r1), 0, 2 * Math.PI);
-			if(stroke==0) ctx.fill();
-			else ctx.stroke();
-			// console.log("drawn circle at "+x(x1)+", "+y(y1)+" of radius "+r(r1)+", colour: "+colour);
-		}
 	}
 
 	class system{
@@ -216,6 +137,41 @@ $(document).ready(function() {
 			this.mass = mass;
 			this.type = type;
 		}
+	}
+
+	{
+		var press = false;
+		var startX = 0;
+		var startY = 0;
+		$(canvas)
+		.mousedown(function(e){
+		    press = true;
+			startX = e.originalEvent.clientX;
+			startY = e.originalEvent.clientY;
+		})
+		.mousemove(function(e){
+			if(press){
+				// offsetX(ox + (e.originalEvent.clientX - startX)/z);
+				// offsetY(oy + (e.originalEvent.clientY - startY)/z);
+				startX = e.originalEvent.clientX;
+				startY = e.originalEvent.clientY;
+			}
+		})
+		.mouseup(function(){
+		   press = false;
+		});
+		$(window).bind('mousewheel DOMMouseScroll', function(event){
+		   startX = event.originalEvent.clientX;
+		   startY = event.originalEvent.clientY;
+		   if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
+			   zoom(z + z*0.1, startX, startY);
+		   }
+		   else {
+			   zoom(z - z*0.1, startX, startY);
+		   }
+		});
+		window.onresize = function(){ resize(); }
+		$('body').css('top', -(document.documentElement.scrollTop) + 'px').addClass('noscroll');
 	}
 
 	setup();
