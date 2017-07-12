@@ -1,14 +1,15 @@
 $(document).ready(function() {
+
 	var canvas = $('#map')[0];
 
 	if(canvas.getContext){
 
 		{ //global variables
 			var ctx = canvas.getContext('2d'); //canvas context
-			var w = 0; var h = 0; //width and height of window
-			var cw = 0, ch = 0; //width and height of canvas
-			var ox = 0, oy = 0; //offset x and offset y
-			var maxZ = 20, minZ = 0; //minimum and maximum zoom level
+			var w = h = 0; //width and height of window
+			var cw = ch = 0; //width and height of canvas
+			var ox = oy = 0; //offset x and offset y
+			var minZ = maxZ = 20; //minimum and maximum zoom level
 			var z = 0; //current zoom level
 			var systems = new Array();
 		}
@@ -21,8 +22,7 @@ $(document).ready(function() {
 			cw = 600, ch = 600;
 			resize();
 			zoom(0, ox, oy); //zoom out to initial view
-			offsetX(0);
-			offsetY(0);
+			offset(0, 0);
 			loop();
 		}
 		function resize(){
@@ -30,7 +30,7 @@ $(document).ready(function() {
 			h = canvas.height = window.innerHeight;
 			var rw = (cw)/w; //horizontal ratio = width of canvas / width of window
 			var rh = (ch)/h; //horizontal ratio = height of canvas / height of window
-			minZ = Math.max(rw, rh); //minimum zoom = highest of these two
+			minZ = 0.90 * Math.max(rw, rh); //minimum zoom = highest of these two
 			draw();
 		}
 		function read(file){
@@ -63,11 +63,10 @@ $(document).ready(function() {
 				if(l<minZ) z = minZ; //don't go below min zoom level
 				else if(l>maxZ) z = maxZ; //don't go above max zoom level
 				else if(l <= (z + z*0.1) || l >= (z - z*0.1)){ //if single increment zoom, do this
-					var dx = ox + (px/2)-(w/2);
-					var dy = oy - (py/2)-(h/2);
 					z = l; //set zoom to new level
-					offsetX(dx);
-					offsetY(dy);
+					var dx = ox + ((px-ox)/(l/z));
+					var dy = oy + ((py-oy)/(l/z));
+					offset(ox, oy);
 				}
 				else{
 					// for(var i=z; i<level; i+=0.1){ //if multi-increment zoom, do this
@@ -82,24 +81,32 @@ $(document).ready(function() {
 			}
 		}
 
-		function offsetX(inX){
-			var old = ox; //memorise old offset
-			ox = inX; //change offset
-			if(x(-cw/2)>0) ox = old; //if new offset puts the left edge on the
-				//screen, change it back (don't let it be altered)
-			if(x(cw/2)<w) ox = old; //if new offset puts the right edge on the
-				//screen, change it back (don't let it be altered)
-		}
-		function offsetY(inY){
-			var old = oy;
-			oy = inY;
-			if(y(-ch/2)>0) oy = old;
-			if(y(ch/2)<h) oy = old;
+		function offset(ix, iy){
+			var ax = ox; //memorise old x offset
+			var ay = oy; //memorise old y offset
+			ox = ix; //try new x offset
+			oy = iy; //try new y offset
+			if(x(-cw/2)>0 && x(cw/2)<w)
+				ox = 0;
+			else{
+				while(x(-cw/2)>0)
+					ox -= 1;
+				while(x(cw/2)<w)
+					ox += 1;
+			}
+			if(y(-ch/2)>0 && y(ch/2)<h)
+				oy = 0;
+			else{
+				while(y(-ch/2)>0)
+					oy -= 1;
+				while(y(ch/2)<h)
+					oy += 1;
+			}
 		}
 
-		function x(inX){ return (inX*z)+ox+(w/2); } //(((inX+ox)*z)/m)+(c); }
-		function y(inY){ return (inY*z)+oy+(h/2); } //(((inY+oy)*z)/m)+(c); }
-		function r(inR){ return inR*z; } //((inR)*z)/m; }
+		function x(ix){ return (ix*z)+ox+(w/2); }
+		function y(iy){ return (iy*z)+oy+(h/2); }
+		function r(ir){ return (ir*z); }
 
 		function draw(){
 			{ //draw map backgrounds
@@ -215,8 +222,7 @@ $(document).ready(function() {
 		})
 		.mousemove(function(e){
 			if(press){
-				offsetX(ox + (e.originalEvent.clientX - startX));
-				offsetY(oy + (e.originalEvent.clientY - startY));
+				offset(ox + (e.originalEvent.clientX - startX), oy + (e.originalEvent.clientY - startY));
 				startX = e.originalEvent.clientX;
 				startY = e.originalEvent.clientY;
 			}
@@ -238,4 +244,5 @@ $(document).ready(function() {
 	}
 
 	setup();
+
 });
