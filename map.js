@@ -73,11 +73,13 @@ $(document).ready(function() {
 					// console.log('incremental zoom');
 					for(var i=z; i<l; i+=0.1){ //if multi-increment zoom, do this
 						while(z < l){
-							setTimeout(function(){z += z*0.1;},10);
+							// setTimeout(function(){z += z*0.1;},10);
+							z += z*0.1;
 							draw();
 						}
 						while(z > l){
-							setTimeout(function(){z -= z*0.1;},10);
+							// setTimeout(function(){z -= z*0.1;},10);
+							z -= z*0.1;
 							draw();
 						}
 						var dx = ox //px - ((px-ox)/2);
