@@ -80,8 +80,8 @@ $(document).ready(function() {
 							setTimeout(function(){z -= z*0.1;},10);
 							draw();
 						}
-						var dx = px - ((px-ox)/2);
-						var dy = py - ((py-oy)/2);
+						var dx = ox //px - ((px-ox)/2);
+						var dy = oy //py - ((py-oy)/2);
 						offset(dx, dy);
 					}
 				}
