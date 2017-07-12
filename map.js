@@ -62,21 +62,28 @@ $(document).ready(function() {
 			if(l != z || l == 0){
 				if(l<minZ) z = minZ; //don't go below min zoom level
 				else if(l>maxZ) z = maxZ; //don't go above max zoom level
-				else if(l <= (z + z*0.1) || l >= (z - z*0.1)){ //if single increment zoom, do this
+				else if(l >= (z - z*0.1) && l <= (z + z*0.1)){ //if single increment zoom, do this
+					// console.log('single zoom, '+(z - z*0.1)+' <= '+l+' <= '+(z + z*0.1));
 					z = l; //set zoom to new level
-					var dx = ox + ((px-ox)/(l/z));
-					var dy = oy + ((py-oy)/(l/z));
-					offset(ox, oy);
+					var dx = px - ((px-ox)/2);
+					var dy = py - ((py-oy)/2);
+					offset(dx, dy);
 				}
 				else{
-					// for(var i=z; i<level; i+=0.1){ //if multi-increment zoom, do this
-					// 	if(level > z)
-					// 		z += 0.1; //set zoom to new level
-					// 	else
-					// 		z -= 0.1;
-					// 	offsetX(ox-difX);
-					// 	offsetY(oy-difY);
-					// }
+					// console.log('incremental zoom');
+					for(var i=z; i<l; i+=0.1){ //if multi-increment zoom, do this
+						while(z < l){
+							setTimeout(function(){z += z*0.1;},10);
+							draw();
+						}
+						while(z > l){
+							setTimeout(function(){z -= z*0.1;},10);
+							draw();
+						}
+						var dx = px - ((px-ox)/2);
+						var dy = py - ((py-oy)/2);
+						offset(dx, dy);
+					}
 				}
 			}
 		}
@@ -155,6 +162,8 @@ $(document).ready(function() {
 						break;
 				}
 				drawCirc(systems[i].x, systems[i].y, systems[i].mass*10, 0, colour);
+				if(systems[i].click)
+					drawCirc(systems[i].x, systems[i].y, systems[i].mass*15, 3, colour);
 			}
 		}
 
@@ -198,6 +207,7 @@ $(document).ready(function() {
 			this.mass = mass;
 			this.type = type;
 			this.stars = new Array();
+			this.click = false;
 		}
 	}
 	class star{
@@ -219,8 +229,23 @@ $(document).ready(function() {
 		    press = true;
 			startX = e.originalEvent.clientX;
 			startY = e.originalEvent.clientY;
+			for(var i=0; i<systems.length; ++i){
+				if(systems[i].click){
+					zoom(maxZ, x(systems[i].x), y(systems[i].y));
+					// console.log('zooming into system '+systems[i].name);
+				}
+			}
 		})
 		.mousemove(function(e){
+			for(var i=0; i<systems.length; ++i){
+				if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x)),2)
+				+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
+				< systems[i].mass*15){
+					systems[i].click = true;
+				}
+				else
+					systems[i].click = false;
+			}
 			if(press){
 				offset(ox + (e.originalEvent.clientX - startX), oy + (e.originalEvent.clientY - startY));
 				startX = e.originalEvent.clientX;
