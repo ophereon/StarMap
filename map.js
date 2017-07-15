@@ -30,69 +30,61 @@ $(document).ready(function() {
 			h = canvas.height = window.innerHeight;
 			var rw = (cw)/w; //horizontal ratio = width of canvas / width of window
 			var rh = (ch)/h; //horizontal ratio = height of canvas / height of window
-			minZ = 0.90 * Math.max(rw, rh); //minimum zoom = highest of these two
+			minZ = 1/Math.max(rw, rh); //minimum zoom = highest of these two
+			draw();
+		}
+		function loop(){
+			window.requestAnimationFrame(loop);
 			draw();
 		}
 		function read(file){
     		var lines = file.split(/\r\n|\n/);
 			var headers = lines[0].split(',');
 			var sys = new system(null);
+			// console.log(lines.length);
 			for(var i=1; i<lines.length; i++) {
+				// console.log(i+': '+lines[i]);
 		        var inst = lines[i].split(',');
 		        if(inst.length == headers.length){
 					if(parseInt(inst[0])==1){
 						if(sys.name!=null) systems.push(sys);
+					    var arr = inst[6].split(";");
+						// console.log(arr);
+						var points = new Array();
+						for(var j=0; j<arr.length; j++){
+							var temp = arr[j].split(":");
+							p = new point(temp[0], temp[1]);
+							points.push(p);
+						}
 					    sys = new system(inst[1], parseInt(inst[2]),
-							parseInt(inst[3]), parseInt(inst[4]), inst[5]);
+							parseInt(inst[3]), parseInt(inst[4]), inst[5], points);
+						// console.log('new system '+inst[1]);
 					}
 					else if(parseInt(inst[0])==0){
-						sys.stars.push(new star(inst[1], parseInt(inst[2]),
+						sys.planets.push(new planet(inst[1], parseInt(inst[2]),
 							parseInt(inst[3]), parseInt(inst[4]), inst[5]));
+						// console.log('adding planet '+inst[1]+' to system '+sys.name);
 					}
 				}
 		    }
 			if(sys.name!=null) systems.push(sys);
-		}
-		function loop(){
-			window.requestAnimationFrame(loop);
-			draw();
 		}
 
 		function zoom(l, px, py){
 			if(l != z || l == 0){
 				if(l<minZ) z = minZ; //don't go below min zoom level
 				else if(l>maxZ) z = maxZ; //don't go above max zoom level
-				else if(l >= (z - z*0.1) && l <= (z + z*0.1)){ //if single increment zoom, do this
-					// console.log('single zoom, '+(z - z*0.1)+' <= '+l+' <= '+(z + z*0.1));
+				else{ //if single increment zoom, do this
+					// console.log('px='+px+', py='+py+' \nox='+ox+', oy='+oy);
+					var dx = ox - (px*(l/maxZ));
+					var dy = oy - (py*(l/maxZ));
 					z = l; //set zoom to new level
-					var dx = px - ((px-ox)/2);
-					var dy = py - ((py-oy)/2);
 					offset(dx, dy);
-				}
-				else{
-					// console.log('incremental zoom');
-					for(var i=z; i<l; i+=0.1){ //if multi-increment zoom, do this
-						while(z < l){
-							// setTimeout(function(){z += z*0.1;},10);
-							z += z*0.1;
-							draw();
-						}
-						while(z > l){
-							// setTimeout(function(){z -= z*0.1;},10);
-							z -= z*0.1;
-							draw();
-						}
-						var dx = ox //px - ((px-ox)/2);
-						var dy = oy //py - ((py-oy)/2);
-						offset(dx, dy);
-					}
 				}
 			}
 		}
 
 		function offset(ix, iy){
-			var ax = ox; //memorise old x offset
-			var ay = oy; //memorise old y offset
 			ox = ix; //try new x offset
 			oy = iy; //try new y offset
 			if(x(-cw/2)>0 && x(cw/2)<w)
@@ -111,6 +103,7 @@ $(document).ready(function() {
 				while(y(ch/2)<h)
 					oy += 1;
 			}
+			draw();
 		}
 
 		function x(ix){ return (ix*z)+ox+(w/2); }
@@ -123,12 +116,12 @@ $(document).ready(function() {
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.fillRect(0, 0, w, h);
 				ctx.globalAlpha = 0.5;
-				if(w>h*2){
+				if(w>(h*2)){
 					ctx.drawImage(document.getElementById('background'),
 						0, (h/2)-(w/2), w, (h/2)+(w/2));
 					ctx.globalAlpha = (1-(z/maxZ))/2;
 					ctx.drawImage(document.getElementById('nebula'),
-						0, (h/2)-(w/2), w, (h/2)+(w/2)); //x(0), y(0), x(cw), y(ch));
+						0, (h/2)-(w/2), w, (h/2)+(w/2));
 				}
 				else {
 					ctx.drawImage(document.getElementById('background'),
@@ -152,10 +145,12 @@ $(document).ready(function() {
 		}
 
 		function drawSystems(){
-			drawCirc(0, 0, 10, 0, "rgb(0,0,0)");
-			for(var i=0; i<systems.length; ++i){
+			// drawCirc(0, 0, 10, 0, "rgb(0,0,0)");
+			for(var k=0; k<systems.length; k++){
+				var star = systems[k];
+				// console.log('drawing '+star.name);
 				var colour = "rgb(0,0,0)";
-				switch(systems[i].type){
+				switch(star.type){
 					case "orange":
 						colour = "rgb(255,155,55)";
 						break;
@@ -163,13 +158,28 @@ $(document).ready(function() {
 						colour = "rgb(255,255,255)";
 						break;
 				}
-				drawCirc(systems[i].x, systems[i].y, systems[i].mass*10, 0, colour);
-				if(systems[i].click)
-					drawCirc(systems[i].x, systems[i].y, systems[i].mass*15, 3, colour);
+				if(star.click){
+					ctx.globalAlpha = 1.0;
+					drawImage(star.x, star.y, star.mass*50, 'glow');
+					// drawCirc(star.x, star.y, star.mass*15, 3, colour);
+				}
+				for(var j=0; j<star.planets.length; j++){
+					var planet = star.planets[j];
+					// console.log('drawing planet '+planet.name+', '+(j+1)+' of '+star.planets.length);
+					ctx.globalAlpha = ((z/maxZ))/2;
+					drawCirc(star.x, star.y, ((20*planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(128,128,128)");
+					ctx.globalAlpha = 1.0;
+					drawImage(star.x+(((20*planet.r)/(maxZ/minZ))*(z/minZ)), star.y, planet.mass*3, planet.type);
+				}
+				// ctx.globalAlpha = 0.5;
+				// drawCirc(star.x, star.y, star.mass*10, 0, colour);
+				ctx.globalAlpha = 1.0;
+				drawImage(star.x, star.y, star.mass*22, star.type);
 			}
 		}
 
 		function drawLine(x1, y1, x2, y2, stroke, colour){
+			ctx.globalAlpha = 1.0;
 			ctx.strokeStyle = colour;
 			ctx.lineWidth = stroke;
 			ctx.beginPath();
@@ -178,6 +188,7 @@ $(document).ready(function() {
 			ctx.stroke();
 		}
 		function drawRect(x1, y1, x2, y2, stroke, colour){
+			ctx.globalAlpha = 1.0;
 			ctx.fillStyle = colour;
 			ctx.strokeStyle = colour;
 			ctx.lineWidth = stroke;
@@ -191,6 +202,7 @@ $(document).ready(function() {
 			else ctx.stroke();
 		}
 		function drawCirc(x1, y1, r1, stroke, colour){
+			// ctx.globalAlpha = 1.0;
 			ctx.fillStyle = colour;
 			ctx.strokeStyle = colour;
 			ctx.lineWidth = stroke;
@@ -199,26 +211,38 @@ $(document).ready(function() {
 			if(stroke==0) ctx.fill();
 			else ctx.stroke();
 		}
+		function drawImage(x1, y1, r1, image){
+			ctx.drawImage(document.getElementById(image), x(x1-(r1/2)), y(y1-(r1/2)), r(r1), r(r1));
+			// console.log('drew '+image+' star at '+x1+', '+y1+' with radius '+r1);
+				// x(x1-(((21.5*star.mass/(maxZ/minZ))*(z/minZ))/2)), y(star.y-(((21.5*star.mass/(maxZ/minZ))*(z/minZ))/2)), 35*star.mass*(z/minZ), 35*star.mass*(z/minZ));
+		}
 	}
 
 	class system{
-		constructor(name, x, y, mass, type){
+		constructor(name, x, y, mass, type, points){
 			this.name = name;
 			this.x = x;
 			this.y = y;
 			this.mass = mass;
 			this.type = type;
-			this.stars = new Array();
+			this.points = points;
+			this.planets = new Array();
 			this.click = false;
 		}
 	}
-	class star{
+	class planet{
 		constructor(name, r, th,  mass, type){
 			this.name = name;
 			this.r = r;
 			this.th = th;
 			this.mass = mass;
 			this.type = type;
+		}
+	}
+	class point{
+		constructor(x, y){
+			this.x = x;
+			this.y = y;
 		}
 	}
 
@@ -233,7 +257,10 @@ $(document).ready(function() {
 			startY = e.originalEvent.clientY;
 			for(var i=0; i<systems.length; ++i){
 				if(systems[i].click){
-					zoom(maxZ, x(systems[i].x), y(systems[i].y));
+					// for(var j=z; j<z+0.1; j+=0.1){ //if multi-increment zoom, do this
+						zoom(maxZ, systems[i].x, systems[i].y); //set zoom to new level
+						// sleep(100);
+					// }
 					// console.log('zooming into system '+systems[i].name);
 				}
 			}
@@ -242,7 +269,7 @@ $(document).ready(function() {
 			for(var i=0; i<systems.length; ++i){
 				if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x)),2)
 				+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
-				< systems[i].mass*15){
+				< systems[i].mass*r(10)){
 					systems[i].click = true;
 				}
 				else
@@ -253,6 +280,9 @@ $(document).ready(function() {
 				startX = e.originalEvent.clientX;
 				startY = e.originalEvent.clientY;
 			}
+			// console.clear();
+			// console.log("mx: "+(e.originalEvent.clientX-(w/2))+", my: "+(e.originalEvent.clientY-(h/2)));
+			// console.log("ox: "+ox+", oy: "+oy);
 		})
 		.mouseup(function(){
 		   press = false;
@@ -262,12 +292,18 @@ $(document).ready(function() {
 		   startY = event.originalEvent.clientY;
 		   if (event.originalEvent.wheelDelta > 0
 			   || event.originalEvent.detail < 0)
-			   zoom(z + z*0.1, startX, startY);
+			   zoom(z + z*0.1, startX-(w/2), startY-(h/2));
 		   else
-			   zoom(z - z*0.1, startX, startY);
+			   zoom(z - z*0.1, startX-(w/2), startY-(h/2));
+			offset(ox+1, oy+1); offset(ox-1, oy-1);
 		});
 		window.onresize = function(){ resize(); }
 		$('body').css('top', -(document.documentElement.scrollTop) + 'px').addClass('noscroll');
+	}
+
+	function sleep(ms){
+		var time = new Date().getTime();
+		while (time + ms >= new Date().getTime()){}
 	}
 
 	setup();
