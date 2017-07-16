@@ -9,7 +9,7 @@ $(document).ready(function() {
 			var w = h = 0; //width and height of window
 			var cw = ch = 0; //width and height of canvas
 			var ox = oy = 0; //offset x and offset y
-			var minZ = maxZ = 20; //minimum and maximum zoom level
+			var minZ = maxZ = 0; //minimum and maximum zoom level
 			var z = 0; //current zoom level
 			var systems = new Array();
 		}
@@ -31,6 +31,7 @@ $(document).ready(function() {
 			var rw = (cw)/w; //horizontal ratio = width of canvas / width of window
 			var rh = (ch)/h; //horizontal ratio = height of canvas / height of window
 			minZ = 1/Math.max(rw, rh); //minimum zoom = highest of these two
+			maxZ = minZ * 20;
 			draw();
 		}
 		function loop(){
@@ -75,9 +76,11 @@ $(document).ready(function() {
 				if(l<minZ) z = minZ; //don't go below min zoom level
 				else if(l>maxZ) z = maxZ; //don't go above max zoom level
 				else{ //if single increment zoom, do this
-					// console.log('px='+px+', py='+py+' \nox='+ox+', oy='+oy);
+					console.log('px='+px+', py='+py+' \nox='+ox+', oy='+oy);
 					var dx = ox - (px*(l/maxZ));
 					var dy = oy - (py*(l/maxZ));
+					// var dx = ox - (px*((l-z)/(maxZ*minZ)));
+					// var dy = oy - (py*((l-z)/(maxZ*minZ)));
 					z = l; //set zoom to new level
 					offset(dx, dy);
 				}
@@ -133,7 +136,7 @@ $(document).ready(function() {
 			}
 			{ //draw canvas markers
 				ctx.globalAlpha = 1.0;
-				for(var i=300; i>10; i=i/3*2){
+				for(var i=300; i>0; i=i-25){
 					drawRect(-i, -i, i, i, 2, "rgb(128,128,128)");
 				}
 				drawLine(-cw/2, -ch/2, cw/2, ch/2, 2, "rgb(128,128,128)");
@@ -167,12 +170,15 @@ $(document).ready(function() {
 					var planet = star.planets[j];
 					// console.log('drawing planet '+planet.name+', '+(j+1)+' of '+star.planets.length);
 					ctx.globalAlpha = ((z/maxZ))/2;
-					drawCirc(star.x, star.y, ((20*planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(128,128,128)");
+					if(planet.click)
+						drawCirc(star.x, star.y, ((20*planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(255,255,255)");
+					else
+						drawCirc(star.x, star.y, ((20*planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(128,128,128)");
 					ctx.globalAlpha = 1.0;
 					drawImage(star.x+(((20*planet.r)/(maxZ/minZ))*(z/minZ)), star.y, planet.mass*3, planet.type);
 				}
 				// ctx.globalAlpha = 0.5;
-				// drawCirc(star.x, star.y, star.mass*10, 0, colour);
+				drawCirc(star.x, star.y, star.mass*10, 0, colour);
 				ctx.globalAlpha = 1.0;
 				drawImage(star.x, star.y, star.mass*22, star.type);
 			}
@@ -237,6 +243,7 @@ $(document).ready(function() {
 			this.th = th;
 			this.mass = mass;
 			this.type = type;
+			this.click = false;
 		}
 	}
 	class point{
@@ -257,11 +264,36 @@ $(document).ready(function() {
 			startY = e.originalEvent.clientY;
 			for(var i=0; i<systems.length; ++i){
 				if(systems[i].click){
+					console.log('z='+z+', maxZ='+maxZ);
+					if(z == maxZ){
+						console.log('zooming out');
+						zoom(0, 0, 0);
+						offset(0, 0);
+					}
+					else{
 					// for(var j=z; j<z+0.1; j+=0.1){ //if multi-increment zoom, do this
 						zoom(maxZ, systems[i].x, systems[i].y); //set zoom to new level
+						var m = 62;
+						var px = -systems[i].x*(z/minZ);
+						var py = -systems[i].y*(z/minZ);
+						var pm = systems[i].mass*m*(z/minZ);
+						var nx = ny = 0;
+						if(systems[i].x<0) nx = px+pm;
+						else if (systems[i].x>0) nx = px-pm;
+						else nx = 0;
+						if(systems[i].y<0) ny = py+pm;
+						else if (systems[i].y>0) ny = py-pm;
+						else ny = 0;
+						offset(nx, ny);
 						// sleep(100);
-					// }
+					}
 					// console.log('zooming into system '+systems[i].name);
+				}
+				for(var j=0; j<systems[i].planets.length; ++j){
+					if(systems[i].planets[j].click){
+						press = false;
+						window.open("http://createthisworld.wikia.com/wiki/"+systems[i].planets[j].name);
+					}
 				}
 			}
 		})
@@ -270,19 +302,31 @@ $(document).ready(function() {
 				if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x)),2)
 				+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
 				< systems[i].mass*r(10)){
+					document.body.style.cursor = 'cursor-url';
 					systems[i].click = true;
 				}
-				else
+				else{
 					systems[i].click = false;
+					for(var j=0; j<systems[i].planets.length; ++j){
+						if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x+(((20*systems[i].planets[j].r)/(maxZ/minZ))*(z/minZ)))),2)
+						+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
+						< systems[i].planets[j].mass*r(2)){
+							document.body.style.cursor = 'cursor-url';
+							systems[i].planets[j].click = true;
+						}
+						else
+							systems[i].planets[j].click = false;
+					}
+				}
 			}
 			if(press){
 				offset(ox + (e.originalEvent.clientX - startX), oy + (e.originalEvent.clientY - startY));
 				startX = e.originalEvent.clientX;
 				startY = e.originalEvent.clientY;
 			}
-			// console.clear();
-			// console.log("mx: "+(e.originalEvent.clientX-(w/2))+", my: "+(e.originalEvent.clientY-(h/2)));
-			// console.log("ox: "+ox+", oy: "+oy);
+			console.clear();
+			console.log("mx: "+(e.originalEvent.clientX-(w/2))+", my: "+(e.originalEvent.clientY-(h/2)));
+			console.log("ox: "+ox+", oy: "+oy);
 		})
 		.mouseup(function(){
 		   press = false;
