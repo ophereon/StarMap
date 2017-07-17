@@ -62,10 +62,16 @@ $(document).ready(function() {
 						// console.log('new system '+inst[1]);
 					}
 					else if(parseInt(inst[0])==0){
-						sys.planets.push(new planet(inst[1], parseInt(inst[2]),
-							parseInt(inst[3]), parseInt(inst[4]), inst[5]));
+						var col = inst[6].split(":");
+						// console.log(col);
+						var atmosphere = "rgb("+col[0]+","+col[1]+","+col[2]+")";
+						// console.log(inst[1]);
+						if(inst[1]!=null)
+							sys.planets.push(new planet(inst[1], parseInt(inst[2]),
+							parseInt(inst[3]), parseInt(inst[4]), inst[5], atmosphere));
 						// console.log('adding planet '+inst[1]+' to system '+sys.name);
 					}
+					// console.log('system '+sys.name+' has '+sys.planets.length+' planets');
 				}
 		    }
 			if(sys.name!=null) systems.push(sys);
@@ -151,7 +157,7 @@ $(document).ready(function() {
 			// drawCirc(0, 0, 10, 0, "rgb(0,0,0)");
 			for(var k=0; k<systems.length; k++){
 				var star = systems[k];
-				// console.log('drawing '+star.name);
+				// console.log('drawing '+star.name+' with '+star.planets.length+' planets.');
 				var colour = "rgb(0,0,0)";
 				switch(star.type){
 					case "orange":
@@ -170,15 +176,20 @@ $(document).ready(function() {
 					var planet = star.planets[j];
 					// console.log('drawing planet '+planet.name+', '+(j+1)+' of '+star.planets.length);
 					ctx.globalAlpha = ((z/maxZ))/2;
-					if(planet.click)
+					drawCirc(star.x, star.y, ((20*planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(128,128,128)");
+					if(planet.click){
 						drawCirc(star.x, star.y, ((20*planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(255,255,255)");
-					else
-						drawCirc(star.x, star.y, ((20*planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(128,128,128)");
+						ctx.shadowBlur = 30*planet.r;
+						ctx.shadowColor = planet.atmosphere;
+					}
 					ctx.globalAlpha = 1.0;
-					drawImage(star.x+(((20*planet.r)/(maxZ/minZ))*(z/minZ)), star.y, planet.mass*3, planet.type);
+					var px = (((20*planet.r)/(maxZ/minZ))*(z/minZ)) * Math.sin(planet.th);
+					var py = (((20*planet.r)/(maxZ/minZ))*(z/minZ)) * Math.cos(planet.th);
+					// console.log('drawing planet at x='+(star.x+px)+', y='+(star.y+py));
+					drawImage(star.x+px, star.y+py, planet.mass*3, planet.type);
+					ctx.shadowBlur = 0;
 				}
-				// ctx.globalAlpha = 0.5;
-				drawCirc(star.x, star.y, star.mass*10, 0, colour);
+				// drawCirc(star.x, star.y, star.mass*10, 0, colour);
 				ctx.globalAlpha = 1.0;
 				drawImage(star.x, star.y, star.mass*22, star.type);
 			}
@@ -237,12 +248,13 @@ $(document).ready(function() {
 		}
 	}
 	class planet{
-		constructor(name, r, th,  mass, type){
+		constructor(name, r, th,  mass, type, atmosphere){
 			this.name = name;
 			this.r = r;
 			this.th = th;
 			this.mass = mass;
 			this.type = type;
+			this.atmosphere = atmosphere;
 			this.click = false;
 		}
 	}
