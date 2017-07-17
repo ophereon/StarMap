@@ -31,7 +31,7 @@ $(document).ready(function() {
 			var rw = (cw)/w; //horizontal ratio = width of canvas / width of window
 			var rh = (ch)/h; //horizontal ratio = height of canvas / height of window
 			minZ = 1/Math.max(rw, rh); //minimum zoom = highest of these two
-			maxZ = minZ * 20;
+			maxZ = minZ * 15;
 			draw();
 		}
 		function loop(){
@@ -169,29 +169,27 @@ $(document).ready(function() {
 				}
 				if(star.click){
 					ctx.globalAlpha = 1.0;
-					drawImage(star.x, star.y, star.mass*50, 'glow');
-					// drawCirc(star.x, star.y, star.mass*15, 3, colour);
+					drawImage(star.x, star.y, star.mass*2.5, 'glow');
 				}
 				for(var j=0; j<star.planets.length; j++){
 					var planet = star.planets[j];
 					// console.log('drawing planet '+planet.name+', '+(j+1)+' of '+star.planets.length);
 					ctx.globalAlpha = ((z/maxZ))/2;
-					drawCirc(star.x, star.y, ((20*planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(128,128,128)");
+					drawCirc(star.x, star.y, ((star.mass/2+planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(128,128,128)");
 					if(planet.click){
-						drawCirc(star.x, star.y, ((20*planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(255,255,255)");
-						ctx.shadowBlur = 30*planet.r;
+						drawCirc(star.x, star.y, ((star.mass/2+planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(255,255,255)");
+						ctx.shadowBlur = 3*planet.r;
 						ctx.shadowColor = planet.atmosphere;
 					}
 					ctx.globalAlpha = 1.0;
-					var px = (((20*planet.r)/(maxZ/minZ))*(z/minZ)) * Math.sin(planet.th);
-					var py = (((20*planet.r)/(maxZ/minZ))*(z/minZ)) * Math.cos(planet.th);
+					var px = star.x - (((star.mass/2+planet.r)/(maxZ/minZ))*(z/minZ)) * Math.sin((-planet.th*Math.PI)/180);
+					var py = star.y - (((star.mass/2+planet.r)/(maxZ/minZ))*(z/minZ)) * Math.cos((-planet.th*Math.PI)/180);
+					drawImage(px, py, planet.mass*.15, planet.type);
 					// console.log('drawing planet at x='+(star.x+px)+', y='+(star.y+py));
-					drawImage(star.x+px, star.y+py, planet.mass*3, planet.type);
 					ctx.shadowBlur = 0;
 				}
-				// drawCirc(star.x, star.y, star.mass*10, 0, colour);
 				ctx.globalAlpha = 1.0;
-				drawImage(star.x, star.y, star.mass*22, star.type);
+				drawImage(star.x, star.y, star.mass*1.1, star.type);
 			}
 		}
 
@@ -230,8 +228,7 @@ $(document).ready(function() {
 		}
 		function drawImage(x1, y1, r1, image){
 			ctx.drawImage(document.getElementById(image), x(x1-(r1/2)), y(y1-(r1/2)), r(r1), r(r1));
-			// console.log('drew '+image+' star at '+x1+', '+y1+' with radius '+r1);
-				// x(x1-(((21.5*star.mass/(maxZ/minZ))*(z/minZ))/2)), y(star.y-(((21.5*star.mass/(maxZ/minZ))*(z/minZ))/2)), 35*star.mass*(z/minZ), 35*star.mass*(z/minZ));
+			// console.log('drew '+image+' at '+x1+', '+y1+' with radius '+r1);
 		}
 	}
 
@@ -267,62 +264,30 @@ $(document).ready(function() {
 
 	{ //interaction functions
 		var press = false;
-		var startX = 0;
-		var startY = 0;
+		var sx = sy = 0;
+		var startX = startY = 0;
 		$(canvas)
 		.mousedown(function(e){
 		    press = true;
-			startX = e.originalEvent.clientX;
-			startY = e.originalEvent.clientY;
-			for(var i=0; i<systems.length; ++i){
-				if(systems[i].click){
-					console.log('z='+z+', maxZ='+maxZ);
-					if(z == maxZ){
-						console.log('zooming out');
-						zoom(0, 0, 0);
-						offset(0, 0);
-					}
-					else{
-					// for(var j=z; j<z+0.1; j+=0.1){ //if multi-increment zoom, do this
-						zoom(maxZ, systems[i].x, systems[i].y); //set zoom to new level
-						var m = 62;
-						var px = -systems[i].x*(z/minZ);
-						var py = -systems[i].y*(z/minZ);
-						var pm = systems[i].mass*m*(z/minZ);
-						var nx = ny = 0;
-						if(systems[i].x<0) nx = px+pm;
-						else if (systems[i].x>0) nx = px-pm;
-						else nx = 0;
-						if(systems[i].y<0) ny = py+pm;
-						else if (systems[i].y>0) ny = py-pm;
-						else ny = 0;
-						offset(nx, ny);
-						// sleep(100);
-					}
-					// console.log('zooming into system '+systems[i].name);
-				}
-				for(var j=0; j<systems[i].planets.length; ++j){
-					if(systems[i].planets[j].click){
-						press = false;
-						window.open("http://createthisworld.wikia.com/wiki/"+systems[i].planets[j].name);
-					}
-				}
-			}
+			startX = sx = e.originalEvent.clientX;
+			startY = sy = e.originalEvent.clientY;
 		})
 		.mousemove(function(e){
 			for(var i=0; i<systems.length; ++i){
 				if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x)),2)
 				+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
-				< systems[i].mass*r(10)){
+				< systems[i].mass*r(1)){
 					document.body.style.cursor = 'cursor-url';
 					systems[i].click = true;
 				}
 				else{
 					systems[i].click = false;
 					for(var j=0; j<systems[i].planets.length; ++j){
-						if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x+(((20*systems[i].planets[j].r)/(maxZ/minZ))*(z/minZ)))),2)
-						+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
-						< systems[i].planets[j].mass*r(2)){
+						if(Math.sqrt(Math.pow((e.originalEvent.clientX -
+							x(systems[i].x - (((systems[i].mass/2+systems[i].planets[j].r)/(maxZ/minZ))*(z/minZ)) * Math.sin((-systems[i].planets[j].th*Math.PI)/180))),2)
+							+ Math.pow((e.originalEvent.clientY -
+							y(systems[i].y - (((systems[i].mass/2+systems[i].planets[j].r)/(maxZ/minZ))*(z/minZ)) * Math.cos((-systems[i].planets[j].th*Math.PI)/180))),2))
+						< systems[i].planets[j].mass*r(.1)){
 							document.body.style.cursor = 'cursor-url';
 							systems[i].planets[j].click = true;
 						}
@@ -332,25 +297,62 @@ $(document).ready(function() {
 				}
 			}
 			if(press){
-				offset(ox + (e.originalEvent.clientX - startX), oy + (e.originalEvent.clientY - startY));
-				startX = e.originalEvent.clientX;
-				startY = e.originalEvent.clientY;
+				offset(ox + (e.originalEvent.clientX - sx), oy + (e.originalEvent.clientY - sy));
+				sx = e.originalEvent.clientX;
+				sy = e.originalEvent.clientY;
 			}
 			console.clear();
 			console.log("mx: "+(e.originalEvent.clientX-(w/2))+", my: "+(e.originalEvent.clientY-(h/2)));
 			console.log("ox: "+ox+", oy: "+oy);
 		})
-		.mouseup(function(){
-		   press = false;
+		.mouseup(function(e){
+			console.log()
+			if(startX == e.originalEvent.clientX && startY == e.originalEvent.clientY){
+				for(var i=0; i<systems.length; ++i){
+					if(systems[i].click){
+						console.log('z='+z+', maxZ='+maxZ);
+						if(z == maxZ){
+							console.log('zooming out');
+							zoom(0, 0, 0);
+							offset(0, 0);
+						}
+						else{
+						// for(var j=z; j<z+0.1; j+=0.1){ //if multi-increment zoom, do this
+							zoom(maxZ, systems[i].x, systems[i].y); //set zoom to new level
+							var m = 62;
+							var px = -systems[i].x*(z/minZ);
+							var py = -systems[i].y*(z/minZ);
+							var pm = systems[i].mass*m*(z/minZ);
+							var nx = ny = 0;
+							if(systems[i].x<0) nx = px+pm;
+							else if (systems[i].x>0) nx = px-pm;
+							else nx = 0;
+							if(systems[i].y<0) ny = py+pm;
+							else if (systems[i].y>0) ny = py-pm;
+							else ny = 0;
+							offset(nx, ny);
+							// sleep(100);
+						}
+						// console.log('zooming into system '+systems[i].name);
+					}
+					for(var j=0; j<systems[i].planets.length; ++j){
+						if(systems[i].planets[j].click){
+							press = false;
+							window.open("http://createthisworld.wikia.com/wiki/"+systems[i].planets[j].name);
+						}
+					}
+				}
+			}
+		   	press = false;
 		});
 		$(window).bind('mousewheel DOMMouseScroll', function(event){
-		   startX = event.originalEvent.clientX;
-		   startY = event.originalEvent.clientY;
+		   sx = event.originalEvent.clientX;
+		   sy = event.originalEvent.clientY;
 		   if (event.originalEvent.wheelDelta > 0
 			   || event.originalEvent.detail < 0)
-			   zoom(z + z*0.1, startX-(w/2), startY-(h/2));
+			   zoom(z + z*0.1, sx-(w/2), sy-(h/2));
 		   else
-			   zoom(z - z*0.1, startX-(w/2), startY-(h/2));
+			   zoom(z - z*0.1, sx-(w/2), sy-(h/2));
 			offset(ox+1, oy+1); offset(ox-1, oy-1);
 		});
 		window.onresize = function(){ resize(); }
