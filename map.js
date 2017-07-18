@@ -11,6 +11,7 @@ $(document).ready(function() {
 			var ox = oy = 0; //offset x and offset y
 			var minZ = maxZ = 0; //minimum and maximum zoom level
 			var z = 0; //current zoom level
+			var prm = 12.5; //planet radius magnitute
 			var systems = new Array();
 		}
 
@@ -47,7 +48,7 @@ $(document).ready(function() {
 				// console.log(i+': '+lines[i]);
 		        var inst = lines[i].split(',');
 		        if(inst.length == headers.length){
-					if(parseInt(inst[0])==1){
+					if(parseInt(inst[0])==0){
 						if(sys.name!=null) systems.push(sys);
 					    var arr = inst[6].split(";");
 						// console.log(arr);
@@ -61,14 +62,16 @@ $(document).ready(function() {
 							parseInt(inst[3]), parseInt(inst[4]), inst[5], points);
 						// console.log('new system '+inst[1]);
 					}
-					else if(parseInt(inst[0])==0){
+					else if(parseInt(inst[0])>=1){
 						var col = inst[6].split(":");
-						// console.log(col);
 						var atmosphere = "rgb("+col[0]+","+col[1]+","+col[2]+")";
-						// console.log(inst[1]);
+						var inhabited;
+						if(inst[0]==1)
+							inhabited = true;
+						else inhabited = false;
 						if(inst[1]!=null)
 							sys.planets.push(new planet(inst[1], parseInt(inst[2]),
-							parseInt(inst[3]), parseInt(inst[4]), inst[5], atmosphere));
+							parseInt(inst[3]), parseInt(inst[4]), inst[5], inhabited, atmosphere));
 						// console.log('adding planet '+inst[1]+' to system '+sys.name);
 					}
 					// console.log('system '+sys.name+' has '+sys.planets.length+' planets');
@@ -82,11 +85,13 @@ $(document).ready(function() {
 				if(l<minZ) z = minZ; //don't go below min zoom level
 				else if(l>maxZ) z = maxZ; //don't go above max zoom level
 				else{ //if single increment zoom, do this
-					console.log('px='+px+', py='+py+' \nox='+ox+', oy='+oy);
+					// console.log('px='+px+', py='+py+' \nox='+ox+', oy='+oy);
 					var dx = ox - (px*(l/maxZ));
 					var dy = oy - (py*(l/maxZ));
 					// var dx = ox - (px*((l-z)/(maxZ*minZ)));
 					// var dy = oy - (py*((l-z)/(maxZ*minZ)));
+					// var dx = ox - (px*((l-z)*maxZ));
+					// var dy = oy - (py*((l-z)*maxZ));
 					z = l; //set zoom to new level
 					offset(dx, dy);
 				}
@@ -143,12 +148,12 @@ $(document).ready(function() {
 			{ //draw canvas markers
 				ctx.globalAlpha = 1.0;
 				for(var i=300; i>0; i=i-25){
-					drawRect(-i, -i, i, i, 2, "rgb(128,128,128)");
+					drawRect(-i, -i, i, i, 2, "rgb(64,64,64)");
 				}
-				drawLine(-cw/2, -ch/2, cw/2, ch/2, 2, "rgb(128,128,128)");
-				drawLine(cw/2, -ch/2, -cw/2, ch/2, 2, "rgb(128,128,128)");
-				drawLine(-cw/2, 0, cw/2, 0, 2, "rgb(128,128,128)");
-				drawLine(0, -ch/2, 0, ch/2, 2, "rgb(128,128,128)");
+				drawLine(-cw/2, -ch/2, cw/2, ch/2, 2, "rgb(64,64,64)");
+				drawLine(cw/2, -ch/2, -cw/2, ch/2, 2, "rgb(64,64,64)");
+				drawLine(-cw/2, 0, cw/2, 0, 2, "rgb(64,64,64)");
+				drawLine(0, -ch/2, 0, ch/2, 2, "rgb(64,64,64)");
 			}
 			drawSystems();
 		}
@@ -158,38 +163,36 @@ $(document).ready(function() {
 			for(var k=0; k<systems.length; k++){
 				var star = systems[k];
 				// console.log('drawing '+star.name+' with '+star.planets.length+' planets.');
-				var colour = "rgb(0,0,0)";
-				switch(star.type){
-					case "orange":
-						colour = "rgb(255,155,55)";
-						break;
-					case "white":
-						colour = "rgb(255,255,255)";
-						break;
-				}
 				if(star.click){
 					ctx.globalAlpha = 1.0;
-					drawImage(star.x, star.y, star.mass*2.5, 'glow');
+					drawImage(star.x, star.y, star.mass*2, 'glow');
 				}
 				for(var j=0; j<star.planets.length; j++){
 					var planet = star.planets[j];
 					// console.log('drawing planet '+planet.name+', '+(j+1)+' of '+star.planets.length);
 					ctx.globalAlpha = ((z/maxZ))/2;
-					drawCirc(star.x, star.y, ((star.mass/2+planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(128,128,128)");
+					if(planet.inhabited)
+						drawCirc(star.x, star.y, ((star.mass/2+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ))*(z/minZ), 2, "rgb(128,128,128)");
+					else if(planet.type!="asteroid") drawCirc(star.x, star.y, ((star.mass/2+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ))*(z/minZ), 2, "rgb(64,64,64)");
 					if(planet.click){
-						drawCirc(star.x, star.y, ((star.mass/2+planet.r)/(maxZ/minZ))*(z/minZ), 2, "rgb(255,255,255)");
-						ctx.shadowBlur = 3*planet.r;
+						drawCirc(star.x, star.y, ((star.mass/2+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ))*(z/minZ), 2, "rgb(255,255,255)");
+					}
+				}
+				for(var j=0; j<star.planets.length; j++){
+					var planet = star.planets[j];
+					if(planet.click){
+						ctx.shadowBlur = 3*(planet.r*(prm/star.planets[star.planets.length-1].r));
 						ctx.shadowColor = planet.atmosphere;
 					}
 					ctx.globalAlpha = 1.0;
-					var px = star.x - (((star.mass/2+planet.r)/(maxZ/minZ))*(z/minZ)) * Math.sin((-planet.th*Math.PI)/180);
-					var py = star.y - (((star.mass/2+planet.r)/(maxZ/minZ))*(z/minZ)) * Math.cos((-planet.th*Math.PI)/180);
+					var px = star.x - (((star.mass/2+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ))*(z/minZ)) * Math.sin((-planet.th*Math.PI)/180);
+					var py = star.y - (((star.mass/2+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ))*(z/minZ)) * Math.cos((-planet.th*Math.PI)/180);
 					drawImage(px, py, planet.mass*.15, planet.type);
 					// console.log('drawing planet at x='+(star.x+px)+', y='+(star.y+py));
 					ctx.shadowBlur = 0;
 				}
 				ctx.globalAlpha = 1.0;
-				drawImage(star.x, star.y, star.mass*1.1, star.type);
+				drawImage(star.x, star.y, star.mass, star.type);
 			}
 		}
 
@@ -227,7 +230,10 @@ $(document).ready(function() {
 			else ctx.stroke();
 		}
 		function drawImage(x1, y1, r1, image){
-			ctx.drawImage(document.getElementById(image), x(x1-(r1/2)), y(y1-(r1/2)), r(r1), r(r1));
+			if(image=="asteroid")
+				{}//do something
+			else
+				ctx.drawImage(document.getElementById(image), x(x1-(r1/2)), y(y1-(r1/2)), r(r1), r(r1));
 			// console.log('drew '+image+' at '+x1+', '+y1+' with radius '+r1);
 		}
 	}
@@ -245,12 +251,13 @@ $(document).ready(function() {
 		}
 	}
 	class planet{
-		constructor(name, r, th,  mass, type, atmosphere){
+		constructor(name, r, th,  mass, type, inhabited, atmosphere){
 			this.name = name;
 			this.r = r;
 			this.th = th;
 			this.mass = mass;
 			this.type = type;
+			this.inhabited = inhabited;
 			this.atmosphere = atmosphere;
 			this.click = false;
 		}
@@ -276,7 +283,7 @@ $(document).ready(function() {
 			for(var i=0; i<systems.length; ++i){
 				if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x)),2)
 				+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
-				< systems[i].mass*r(1)){
+				< systems[i].mass*r(.45)){
 					document.body.style.cursor = 'cursor-url';
 					systems[i].click = true;
 				}
@@ -284,9 +291,9 @@ $(document).ready(function() {
 					systems[i].click = false;
 					for(var j=0; j<systems[i].planets.length; ++j){
 						if(Math.sqrt(Math.pow((e.originalEvent.clientX -
-							x(systems[i].x - (((systems[i].mass/2+systems[i].planets[j].r)/(maxZ/minZ))*(z/minZ)) * Math.sin((-systems[i].planets[j].th*Math.PI)/180))),2)
+							x(systems[i].x - (((systems[i].mass/2+(systems[i].planets[j].r*(prm/systems[i].planets[systems[i].planets.length-1].r)))/(maxZ/minZ))*(z/minZ)) * Math.sin((-systems[i].planets[j].th*Math.PI)/180))),2)
 							+ Math.pow((e.originalEvent.clientY -
-							y(systems[i].y - (((systems[i].mass/2+systems[i].planets[j].r)/(maxZ/minZ))*(z/minZ)) * Math.cos((-systems[i].planets[j].th*Math.PI)/180))),2))
+							y(systems[i].y - (((systems[i].mass/2+(systems[i].planets[j].r*(prm/systems[i].planets[systems[i].planets.length-1].r)))/(maxZ/minZ))*(z/minZ)) * Math.cos((-systems[i].planets[j].th*Math.PI)/180))),2))
 						< systems[i].planets[j].mass*r(.1)){
 							document.body.style.cursor = 'cursor-url';
 							systems[i].planets[j].click = true;
