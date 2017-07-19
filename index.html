@@ -8,6 +8,8 @@
 	<script src="map.js"></script>
 	<style>
 	html, body { margin: 0; padding: 0; }
+	body { cursor: -webkit-grab; }
+	body:active { cursor: -webkit-grabbing; }
 	body.noscroll {
 	    position: fixed;
 	    overflow-y: scroll;
@@ -24,9 +26,11 @@
 		<img id="nebula" src="images/nebula.jpg">
 		<!-- stars -->
 		<img id="glow" src="images/glow.png">
+		<img id="black" src="images/white.png">
 		<img id="orange" src="images/orange.png">
 		<img id="white" src="images/white.png">
 		<!-- planets -->
+		<img id="unknown" src="images/unknown.png">
 		<img id="mercurian" src="images/mercurian.png">
 		<img id="venutian" src="images/venutian.png">
 		<img id="terran" src="images/terran.png">
@@ -35,6 +39,7 @@
 		<img id="saturn" src="images/saturn.png">
 		<img id="uranus" src="images/uranus.png">
 		<img id="neptune" src="images/neptune.png">
+		<img id="asteroid" src="images/asteroid.png">
 	</div>
 <canvas id="map">
 </canvas>
