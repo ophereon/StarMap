@@ -62,23 +62,26 @@ $(document).ready(function() {
 						var mass = parseInt(inst[4]);
 						var type = inst[5];
 						if(type=="black"){
-							var one = Math.floor((Math.random() * 16) + 5);
-							var two = Math.floor((Math.random() * 16) + 5);
+							var one = 4 * Math.floor((Math.random() * 4) + 1);
+							var two = 4 * Math.floor((Math.random() * 4) + 1);
 							mass = (one+two)/2;
-							// switch(mass) {
-							// 	case 20:
-							// 	case 19:
-							//  		type = red;
-							//  		break;
-							// 	case 2:
-							// 		type = white;
-							//  		break;
-							// 	case 1:
-							// 		type = binary
-							// 		break;
-							// 	default:
-							// 		type = black;
-							// }
+							switch(mass) {
+								case 20: //red supergiant
+							 	case 15:
+									type = white;
+							 		break;
+								case 3:
+									type = binary
+									break;
+								case 2:
+									type = ternary
+									break;
+								case 1:
+									type = vampire
+									break;
+								default:
+									type = orange;
+							}
 						}
 					    sys = new system(inst[1], parseInt(inst[2]),
 							parseInt(inst[3]), mass, type, points);
