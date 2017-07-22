@@ -13,11 +13,12 @@ $(document).ready(function() {
 			var z = 0; //current zoom level
 			var prm = 12.5; //planet radius magnitute
 			var systems = new Array();
-			var bridges = new Array();
+			var network = new Array();
+			var proximity = new Array();
+			var cursorX = cursorY = 0;
 		}
 
 	 	function setup(){
-			console.log("setting up");
 			var minW = maxW = 0;
 			var minH = maxH = 0;
 			for(var i=0; i<systems.length; i++){
@@ -26,10 +27,42 @@ $(document).ready(function() {
 				if(systems[i].y < minH) minH = systems[i].y;
 				if(systems[i].y > minH) minH = systems[i].y;
 			}
-			cw = ch = 2.3 * Math.max(Math.abs(minW), Math.abs(maxW), Math.abs(minH), Math.abs(maxH));
+			// cw = ch = 2.3 * Math.max(Math.abs(minW), Math.abs(maxW), Math.abs(minH), Math.abs(maxH));
+			cw = ch = 800;
 			resize();
 			zoom(0, ox, oy); //zoom out to initial view
 			offset(0, 0);
+			{ // colour drawing stuff
+				// for(var i=0; i<systems.length; i++){
+				// 	var one = Math.floor(Math.random() * 256);
+				// 	var two = Math.floor(Math.random() * 256);
+				// 	var three = Math.floor(Math.random() * 256);
+				// 	var col = "rgb("+one+","+two+","+three+")";
+				// 	systems[i].colour = col;
+				// 	// console.log("star "+systems[i].id+" = "+systems[i].colour);
+				// }
+				// for(var i=-400; i<400; i++){
+				// 	for(var j=-400; j<400; j++){
+				// 		var star = new system(null);
+				// 		var d = Number.MAX_SAFE_INTEGER;
+				// 		for(var k=0; k<systems.length; k++){
+				// 			var distance = Math.sqrt(Math.pow(Math.abs((i+400)-(systems[k].x+400)),2)+Math.pow(Math.abs((j+400)-(systems[k].y+400)),2));
+				// 			if(distance<d){
+				// 				star = systems[k];
+				// 				d = distance;
+				// 			}
+				// 		}
+				// 		var col = star.colour.substring(4);
+				// 		var vals = col.split(',');
+				// 		proximity.push(new vertex(i, j, star));
+				// 		// console.log("point "+i+", "+j+" closest to star "+star.id);
+				// 	}
+				// }
+				// loop();
+				// var canvas = document.getElementById("map");
+				// var img = canvas.toDataURL("image/png");
+				// window.location.href = img;
+			}
 			loop();
 		}
 		function resize(){
@@ -46,61 +79,39 @@ $(document).ready(function() {
 			draw();
 		}
 		function read(){
-			$.ajax({ //read data files
+			$.ajax({ //read systems files
 				type: "GET", url: "systems.csv", dataType: "text",
 				success: function(file){
 					var lines = file.split(/\r\n|\n/);
-					var headers = lines[0].split(',');
 					var sys = new system(null);
 					for(var i=1; i<lines.length; i++) {
-						var inst = lines[i].split(',');
-						if(inst.length == headers.length){
-							if(parseInt(inst[0])==0){
+						if(lines[i]!="" || lines[i]!=null){
+							var inst = lines[i].split(',');
+							if(parseInt(inst[0])==1){
 								if(sys.name!=null) systems.push(sys);
-								var arr = inst[6].split(";");
-								var points = new Array();
-								for(var j=0; j<arr.length; j++){
-									var temp = arr[j].split(":");
-									p = new point(temp[0], temp[1]);
-									points.push(p);
-								}
-								var mass = parseInt(inst[4]);
-								var type = inst[5];
-								if(type=="black"){
+								var mass = parseInt(inst[5]);
+								var klass = inst[6];
+								if(klass=="blank"){
 									var one = 4 * Math.floor((Math.random() * 4) + 1);
 									var two = 4 * Math.floor((Math.random() * 4) + 1);
 									mass = (one+two)/2;
-									/*switch(mass) {
-										case 20: //red supergiant
-										case 15:
-											type = white;
-											break;
-										case 3:
-											type = binary
-											break;
-										case 2:
-											type = ternary
-											break;
-										case 1:
-											type = vampire
-											break;
-										default:
-											type = orange;
-									}*/
 								}
-								sys = new system(inst[1], parseInt(inst[2]),
-									parseInt(inst[3]), mass, type, points, inst[7].substring(1));
+								sys = new system(parseInt(inst[0]), inst[1], parseInt(inst[3]),
+									parseInt(inst[4]), mass, klass, inst[7].substring(1), parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14]);
 							}
-							else if(parseInt(inst[0])>=1){
-								var col = inst[6].split(":");
+							else if(parseInt(inst[0])>1){
+								var inhabited = (inst[2] == 'TRUE');
+								var col = inst[7].split(":");
 								var atmosphere = "rgb("+col[0]+","+col[1]+","+col[2]+")";
-								var inhabited;
-								if(inst[0]==1)
-									inhabited = true;
-								else inhabited = false;
-								if(inst[1]!=null)
-									sys.planets.push(new planet(inst[1], parseInt(inst[2]),
-									parseInt(inst[3]), parseInt(inst[4]), inst[5], inhabited, atmosphere));
+								if(inst[1]!=null){
+									sys.planets.push(new planet(parseInt(inst[0]), inst[1], inhabited, parseInt(inst[3]),
+									parseInt(inst[4]), parseInt(inst[5]), inst[6], atmosphere, parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14]));
+								}
+							}
+							else if(parseInt(inst[0])<1){
+								if(sys.name!=null) systems.push(sys);
+								sys = new system(parseInt(inst[0]), inst[1], parseInt(inst[3]),
+									parseInt(inst[4]), parseInt(inst[5]), inst[6], inst[7].substring(1), parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14]);
 							}
 						}
 					}
@@ -108,16 +119,14 @@ $(document).ready(function() {
 					setup();
 				}
 			});
-			$.ajax({ //read data files
+			$.ajax({ //read network files
 				type: "GET", url: "connections.csv", dataType: "text",
 				success: function(file){
 					var lines = file.split(/\r\n|\n/);
 					for(var i=0; i<lines.length; i++){
-						// console.log(lines[i]);
 						var inst = lines[i].split(',');
 						if(inst.length == 2){
-							bridges.push(new bridge(parseInt(inst[0]), parseInt(inst[1])));
-							// console.log("new stellar bridge between star systems "+inst[0]+" and "+inst[1]);
+							network.push(new edge(parseInt(inst[0]), parseInt(inst[1])));
 						}
 					}
 				}
@@ -176,87 +185,147 @@ $(document).ready(function() {
 				ctx.fillRect(0, 0, w, h);
 				ctx.globalAlpha = 0.5;
 				if(w>(h*2)){
-					ctx.drawImage(document.getElementById('background'),
-						0, (h/2)-(w/2), w, (h/2)+(w/2));
+					ctx.drawImage(document.getElementById('background'), 0, (h/2)-(w/2), w, (h/2)+(w/2));
 					ctx.globalAlpha = (1-(z/maxZ))/2;
-					ctx.drawImage(document.getElementById('nebula'),
-						0, (h/2)-(w/2), w, (h/2)+(w/2));
+					ctx.drawImage(document.getElementById('nebula'), 0, (h/2)-(w/2), w, (h/2)+(w/2));
 				}
 				else {
-					ctx.drawImage(document.getElementById('background'),
-						(w/2)-h, 0, (w/2)+h, h);
+					ctx.drawImage(document.getElementById('background'), (w/2)-h, 0, (w/2)+h, h);
 					ctx.globalAlpha = (1-(z/maxZ))/2;
-					ctx.drawImage(document.getElementById('nebula'),
-						(w/2)-h, 0, (w/2)+h, h);
+					ctx.drawImage(document.getElementById('nebula'), (w/2)-h, 0, (w/2)+h, h);
 				}
 			}
 			{ //draw canvas markers
-				// ctx.globalAlpha = 1.0;
-				// for(var i=cw/2; i>0; i=i-cw/24){
-				// 	drawRect(-i, -i, i, i, 2, "rgb(64,64,64)");
+				// drawCirc(0, 0, 1, 0, "rgb(0,0,0)", 1);
+				// drawRect(-cw/2, -cw/2, cw/2, cw/2, 2, "rgb(64,64,64)");
+				// for(var i=cw/2; i>-cw/2; i=i-cw/800){
+				// 	drawLine(-cw/2, i, cw/2, i, 2, "rgb(0,0,0)", 0.06);
+				// 	drawLine(i, ch/2, i, -ch/2, 2, "rgb(0,0,0)", 0.06);
+				// 	// drawRect(-i, -i, i, i, 2, "rgb(64,64,64)");
+				// }
+				// for(var i=cw/2; i>-cw/2; i=i-cw/80){
+				// 	drawLine(-cw/2, i, cw/2, i, 2, "rgb(0,0,0)", 0.12);
+				// 	drawLine(i, ch/2, i, -ch/2, 2, "rgb(0,0,0)", 0.12);
+				// 	// drawRect(-i, -i, i, i, 2, "rgb(64,64,64)");
+				// }
+				// for(var i=cw/2; i>-cw/2; i=i-cw/8){
+				// 	drawLine(-cw/2, i, cw/2, i, 2, "rgb(0,0,0)", 0.24);
+				// 	drawLine(i, ch/2, i, -ch/2, 2, "rgb(0,0,0)", 0.24);
+				// 	// drawRect(-i, -i, i, i, 2, "rgb(64,64,64)");
+				// }
+				// for(var i=0; i<proximity.length; i++){
+				// 	drawCirc(proximity[i].x, proximity[i].y, 1,0, proximity[i].star.colour);
 				// }
 				// drawLine(-cw/2, -ch/2, cw/2, ch/2, 2, "rgb(64,64,64)");
 				// drawLine(cw/2, -ch/2, -cw/2, ch/2, 2, "rgb(64,64,64)");
 				// drawLine(-cw/2, 0, cw/2, 0, 2, "rgb(64,64,64)");
 				// drawLine(0, -ch/2, 0, ch/2, 2, "rgb(64,64,64)");
 			}
-			drawBridges();
+			{ //colour drawing stuff
+				// drawCirc(0, 0, 1, 0, "rgb(0,0,0)", 1.0);
+				// for(var i=0; i<proximity.length; i++){
+				// 	drawCirc(proximity[i].x, proximity[i].y, 1, 0, proximity[i].star.colour, 1.0);
+				// }
+				// for(var i=0; i<systems.length; i++){
+				// 	if(systems[i].type==0)
+				// 		drawCirc(systems[i].x, systems[i].y, 1, 0, "rgb(0,0,0)", 1.0);
+				// 	else drawCirc(systems[i].x, systems[i].y, 1, 0, "rgb(255,255,255)", 1.0);
+				// }
+			}
+			drawNetwork();
 			drawSystems();
+			drawDialogue();
 		}
 
-		function drawBridges(){
-			for(var i=0; i<bridges.length; ++i){
-				var bridge = bridges[i];
+		function drawNetwork(){
+			for(var i=0; i<network.length; ++i){
+				var e = network[i];
 				var a = b = new system(null);
 				for(var j=0; j<systems.length; ++j){
-					if(bridge.a == systems[j].id)
+					if(e.a == systems[j].id)
 						a = systems[j];
-					else if(bridge.b == systems[j].id)
+					else if(e.b == systems[j].id)
 						b = systems[j];
 				}
-				drawLine(a.x, a.y, b.x, b.y, 2, "rgb(64,64,64)", 0.5);
+				drawLine(a.x, a.y, b.x, b.y, 2, "rgb(128,128,128)", 0.5);
 			}
 		}
-
 		function drawSystems(){
-			// drawCirc(0, 0, 10, 0, "rgb(0,0,0)");
 			for(var i=0; i<systems.length; i++){
 				var star = systems[i];
-				// console.log('drawing '+star.name+' with '+star.planets.length+' planet(s).');
-				if(star.click){
-					ctx.globalAlpha = 1.0;
-					drawImage(star.x, star.y, star.mass*2, 'glow');
-				}
-				// ((star.mass/2+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ))*(z/minZ)
-				// drawCirc(star.x, star.y, r2((15)/(maxZ/minZ)), 2, "rgb(255,0,0)");
+				if(star.click && star.klass!="black")
+					drawImage(star.x, star.y, star.mass*2, 'glow', 1.0);
 				for(var j=0; j<star.planets.length; j++){
 					var planet = star.planets[j];
-					// console.log('drawing planet '+planet.name+', '+(j+1)+' of '+star.planets.length);
 					ctx.globalAlpha = ((z/maxZ))/2;
 					if(planet.inhabited)
 						drawCirc(star.x, star.y, ((star.mass/1.5+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ))*(((z/minZ)+2)/3), 2, "rgb(128,128,128)");
-					else if(planet.type!="asteroid") drawCirc(star.x, star.y, ((star.mass/1.5+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ))*(((z/minZ)+2)/3), 2, "rgb(64,64,64)");
+					else if(planet.klass!="asteroid")
+						drawCirc(star.x, star.y, ((star.mass/1.5+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ))*(((z/minZ)+2)/3), 2, "rgb(64,64,64)");
 					if(planet.click){
 						drawCirc(star.x, star.y, ((star.mass/1.5+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ))*(((z/minZ)+2)/3), 2, "rgb(255,255,255)");
 					}
 				}
 				for(var j=0; j<star.planets.length; j++){
 					var planet = star.planets[j];
-					if(planet.click){
+					if(planet.click){ //if planet is hovered over
 						ctx.shadowBlur = 20; //3*(planet.r*(prm/star.planets[star.planets.length-1].r));
-						ctx.shadowColor = planet.atmosphere;
+						ctx.shadowColor = planet.atmosphere; //set glow to atmosphere colour
 					}
-					ctx.globalAlpha = 1.0;
-					var px = star.x - (((star.mass/1.5+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ)) * (((z/minZ)+2)/3)) * Math.sin((-planet.th*Math.PI)/180);
-					var py = star.y - (((star.mass/1.5+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ)) * (((z/minZ)+2)/3)) * Math.cos((-planet.th*Math.PI)/180);
-					if(planet.type=="asteroid")
-						drawImage(star.x, star.y, (((star.mass/1.5+(2.9*planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ)) * (z/maxZ)), planet.type);
-					else drawImage(px, py, (planet.mass*.15)*(z/maxZ), planet.type);
-					// console.log('drawing planet at x='+(star.x+px)+', y='+(star.y+py));
+					var px = star.x - (((star.mass/1.5+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ)) * (((z/minZ)+2)/3)) * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
+					var py = star.y - (((star.mass/1.5+(planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ)) * (((z/minZ)+2)/3)) * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
+					if(planet.klass=="asteroid")
+						drawImage(star.x, star.y, (((star.mass/1.5+(2.9*planet.r*(prm/star.planets[star.planets.length-1].r)))/(maxZ/minZ)) * (z/maxZ)), planet.klass, 1.0); //draw asteroid belt
+					else drawImage(px, py, (planet.mass*.15)*(z/maxZ), planet.klass, 1.0); //draw non-asteroid planet
 					ctx.shadowBlur = 0;
 				}
 				ctx.globalAlpha = 1.0;
-				drawImage(star.x, star.y, star.mass, star.type, true);
+				drawImage(star.x, star.y, star.mass, star.klass, 1.0, true); //draw star
+			}
+		}
+		function drawDialogue(){
+			var object = null;
+			for(var i=0; i<systems.length; i++){
+				if(systems[i].click)//if star is hovered over,
+					object = systems[i];
+				else for(var j=0; j<systems[i].planets.length; j++)
+					if(systems[i].planets[j].click) //if planet is hovered over,
+						object = systems[i].planets[j];
+				if(object!=null){
+					drawRect2(cursorX-100, cursorY-120, cursorX+100, cursorY-20, 0, "rgb(50,50,64)", 1); //draw dialogue box
+					drawRect2(cursorX-100, cursorY-120, cursorX-70, cursorY-20, 0, "rgb(40,40,54)", 1); //draw dialogue box
+					drawRect2(cursorX-100, cursorY-120, cursorX+100, cursorY-20, 4, "rgb(30,30,44)", 1); //draw dialogue box
+					drawText(object.name, cursorX-57.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
+					if(object.type==1) drawText("☉", cursorX+80, cursorY-95, 20, "rgb(255,255,255)", 'center');
+					else if(object.type==2) drawText("🜨", cursorX+80, cursorY-95, 24, "rgb(255,255,255)", 'center');
+					else if(object.type==3) drawText("☽", cursorX+80, cursorY-95, 18, "rgb(255,255,255)", 'center');
+					drawLine2(cursorX-57.5, cursorY-70, cursorX+87.5, cursorY-70, 2, "rgb(255,255,255)", 1);
+					if(object.inhabited) drawText("⚘", cursorX+80, cursorY-75, 20, "rgb(255,255,255)", 'center');
+					if(object.text1!=""){
+						if(object.text2!=null){
+							drawText(object.text1, cursorX-57.5, cursorY-50, 16, "rgb(255,255,255)", 'left');
+							drawText(object.text2, cursorX-57.5, cursorY-30, 16, "rgb(255,255,255)", 'left');
+						}
+						else drawText(object.text1, cursorX-57.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
+					}
+					else drawText("Unclaimed", cursorX-57.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
+					if(object.pl==-1) object.pl = Math.round(Math.random());
+					if(object.pl==0) drawText("Pl", cursorX-85, cursorY-100, 16, "rgb(0,0,0)", 'center');
+					else drawText("Pl", cursorX-85, cursorY-100, 16, "rgb(255,255,255)", 'center');
+					if(object.li==-1) object.li = Math.round(Math.random());
+					if(object.li==0) drawText("Li", cursorX-85, cursorY-82.5, 16, "rgb(0,0,0)", 'center');
+					else drawText("Li", cursorX-85, cursorY-82.5, 16, "rgb(255,255,255)", 'center');
+					if(object.de==-1) object.de = Math.round(Math.random());
+					if(object.de==0) drawText("²H", cursorX-85, cursorY-65, 16, "rgb(0,0,0)", 'center');
+					else drawText("²H", cursorX-85, cursorY-65, 16, "rgb(255,255,255)", 'center');
+					if(object.he==-1) object.he = Math.round(Math.random());
+					if(object.he==0) drawText("³He", cursorX-85, cursorY-47.5, 16, "rgb(0,0,0)", 'center');
+					else drawText("³He", cursorX-85, cursorY-47.5, 16, "rgb(255,255,255)", 'center');
+					if(object.ha==-1) object.ha = Math.round(Math.random());
+					if(object.ha==0) drawText("Ha", cursorX-85, cursorY-30, 16, "rgb(0,0,0)", 'center');
+					else drawText("Ha", cursorX-85, cursorY-30, 16, "rgb(255,255,255)", 'center');
+
+				}
 			}
 		}
 
@@ -268,9 +337,21 @@ $(document).ready(function() {
 			ctx.moveTo(x(x1), y(y1));
 			ctx.lineTo(x(x2), y(y2));
 			ctx.stroke();
-		}
-		function drawRect(x1, y1, x2, y2, stroke, colour){
 			ctx.globalAlpha = 1.0;
+		}
+		function drawLine2(x1, y1, x2, y2, stroke, colour, alpha){
+			if(alpha!=null) ctx.globalAlpha = alpha;
+			ctx.strokeStyle = colour;
+			ctx.lineWidth = stroke;
+			ctx.beginPath();
+			ctx.moveTo(x1, y1);
+			ctx.lineTo(x2, y2);
+			ctx.stroke();
+			ctx.globalAlpha = 1.0;
+		}
+		function drawRect(x1, y1, x2, y2, stroke, colour, alpha){
+			console.log("drawing rectangle");
+			if(alpha!=null) ctx.globalAlpha = alpha;
 			ctx.fillStyle = colour;
 			ctx.strokeStyle = colour;
 			ctx.lineWidth = stroke;
@@ -282,9 +363,26 @@ $(document).ready(function() {
 			ctx.lineTo(x(x1), y(y1));
 			if(stroke==0) ctx.fill();
 			else ctx.stroke();
+			ctx.globalAlpha = 1.0;
 		}
-		function drawCirc(x1, y1, r1, stroke, colour){
-			// ctx.globalAlpha = 1.0;
+		function drawRect2(x1, y1, x2, y2, stroke, colour, alpha){
+			if(alpha!=null) ctx.globalAlpha = alpha;
+			ctx.fillStyle = colour;
+			ctx.strokeStyle = colour;
+			ctx.lineWidth = stroke;
+			ctx.beginPath();
+			ctx.moveTo(x1, y1);
+			ctx.lineTo(x1, y2);
+			ctx.lineTo(x2, y2);
+			ctx.lineTo(x2, y1);
+			ctx.lineTo(x1, y1);
+			if(stroke==0) ctx.fill();
+			else ctx.stroke();
+			ctx.globalAlpha = 1.0;
+		}
+		function drawCirc(x1, y1, r1, stroke, colour, alpha){
+			// console.log("drawing circle at "+x1+", "+y1+", with radius "+r1);
+			if(alpha!=null) ctx.globalAlpha = alpha;
 			ctx.fillStyle = colour;
 			ctx.strokeStyle = colour;
 			ctx.lineWidth = stroke;
@@ -292,53 +390,95 @@ $(document).ready(function() {
     		ctx.arc(x(x1), y(y1), r(r1), 0, 2 * Math.PI);
 			if(stroke==0) ctx.fill();
 			else ctx.stroke();
+			ctx.globalAlpha = 1.0;
 		}
-		function drawImage(x1, y1, r1, image, star){
+		function drawImage(x1, y1, d1, image, alpha, star){
+			if(alpha!=null) ctx.globalAlpha = alpha;
 			if(star)
-				ctx.drawImage(document.getElementById(image), x(x1)-r2(r1/2), y(y1)-r2(r1/2), r2(r1), r2(r1));
+				ctx.drawImage(document.getElementById(image), x(x1)-r2(d1/2), y(y1)-r2(d1/2), r2(d1), r2(d1));
 			else if(image=="asteroid")
-				ctx.drawImage(document.getElementById(image), x(x1-(r1/2)), y(y1-(r1/2)), r2(r1), r2(r1));
+				ctx.drawImage(document.getElementById(image), x(x1-(d1/2)), y(y1-(d1/2)), r2(d1), r2(d1));
 			else
-				ctx.drawImage(document.getElementById(image), x(x1)-r2(r1/2), y(y1)-r2(r1/2), r2(r1), r2(r1));
-			// console.log('drew '+image+' at '+x1+', '+y1+' with radius '+r1);
+				ctx.drawImage(document.getElementById(image), x(x1)-r2(d1/2), y(y1)-r2(d1/2), r2(d1), r2(d1));
+			ctx.globalAlpha = 1.0;
+		}
+		function drawImage2(x1, y1, d1, image, alpha){
+			if(alpha!=null) ctx.globalAlpha = alpha;
+			ctx.drawImage(document.getElementById(image), x1-(d1/2), y1-(d1/2), d1, d1);
+			ctx.globalAlpha = 1.0;
+		}
+		function drawText(text, x1, y1, size, colour, align){
+			ctx.globalAlpha = 1.0;
+			ctx.fillStyle = colour;
+			ctx.font = size+"px Agency FB";
+			ctx.textAlign = "center";
+			if(align!=null) ctx.textAlign = align;
+			ctx.fillText(text, x1, y1);
+			ctx.globalAlpha = 1.0;
 		}
 	}
 
 	class system{
-		constructor(name, x, y, mass, type, points, id){
+		constructor(type, name, x, y, mass, klass, id, pl, li, de, he, ha, text1, text2){
+			this.type = type;
 			this.name = name;
+			this.inhabited = false;
 			this.x = x;
 			this.y = y;
 			this.mass = mass;
-			this.type = type;
-			this.points = points;
+			this.klass = klass;
 			this.id = id;
+			this.pl = pl;
+			this.li = li;
+			this.de = de;
+			this.he = he;
+			this.ha = ha;
+			this.text1 = text1;
+			this.text2 = text2;
 			this.planets = new Array();
 			this.click = false;
+			this.colour = "rgb(0,0,0)";
 		}
 	}
 	class planet{
-		constructor(name, r, th,  mass, type, inhabited, atmosphere){
+		constructor(type, name, inhabited, r, th,  mass, klass, atmosphere, pl, li, de, he, ha, text1, text2){
+			this.type = type;
 			this.name = name;
+			this.inhabited = inhabited;
 			this.r = r;
 			this.th = th;
 			this.mass = mass;
-			this.type = type;
-			this.inhabited = inhabited;
+			this.klass = klass;
 			this.atmosphere = atmosphere;
+			this.pl = pl;
+			this.li = li;
+			this.de = de;
+			this.he = he;
+			this.ha = ha;
+			this.text1 = text1;
+			this.text2 = text2;
 			this.click = false;
 		}
 	}
-	class point{
-		constructor(x, y){
+	class vertex{
+		constructor(x, y, star){
 			this.x = x;
 			this.y = y;
+			this.star = star;
 		}
 	}
-	class bridge{
+	class edge{
 		constructor(a, b){
 			this.a = a;
 			this.b = b;
+		}
+	}
+	class line{
+		constructor(x1, y1, x2, y2){
+			this.x1 = x1;
+			this.y1 = y1;
+			this.x2 = x2;
+			this.y2 = y2;
 		}
 	}
 
@@ -354,34 +494,37 @@ $(document).ready(function() {
 			startY = sy = e.originalEvent.clientY;
 		})
 		.mousemove(function(e){
+			cursorX = e.originalEvent.clientX;
+			cursorY = e.originalEvent.clientY;
 			if(press){
 				document.body.style.cursor = '-webkit-grabbing';
 				offset(ox + (e.originalEvent.clientX - sx), oy + (e.originalEvent.clientY - sy));
 				sx = e.originalEvent.clientX;
 				sy = e.originalEvent.clientY;
 			}
-			else document.body.style.cursor = '-webkit-grab';
-			console.clear();
-			console.log("mx: "+(e.originalEvent.clientX-(w/2))+", my: "+(e.originalEvent.clientY-(h/2)));
-			console.log("ox: "+ox+", oy: "+oy);
+			else document.body.style.cursor = 'default';
+			// console.clear();
+			// console.log("mx: "+(e.originalEvent.clientX-(w/2))+", my: "+(e.originalEvent.clientY-(h/2)));
+			// console.log("ox: "+ox+", oy: "+oy);
+			// console.log("z: "+z);
 			for(var i=0; i<systems.length; ++i){
 				if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x)),2)
 				+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
-				< systems[i].mass*r(.45)){
+				< systems[i].mass*r(.2)){
 					if(z!=maxZ)
 						document.body.style.cursor = 'zoom-in';
 					else document.body.style.cursor = 'zoom-out';
-					systems[i].click = true;
-					console.log("star: "+systems[i].id);
+					if(systems[i].type!=0) systems[i].click = true;
+					// console.log("star: "+systems[i].id);
 				}
 				else{
 					systems[i].click = false;
 					for(var j=0; j<systems[i].planets.length; ++j){
 						if(Math.sqrt(Math.pow((e.originalEvent.clientX -
-							x(systems[i].x - (((systems[i].mass/2+(systems[i].planets[j].r*(prm/systems[i].planets[systems[i].planets.length-1].r)))/(maxZ/minZ))*(z/minZ)) * Math.sin((-systems[i].planets[j].th*Math.PI)/180))),2)
+							x(systems[i].x - (((systems[i].mass/1.5+(systems[i].planets[j].r*(prm/systems[i].planets[systems[i].planets.length-1].r)))/(maxZ/minZ)) * (((z/minZ)+2)/3)) * Math.sin((-systems[i].planets[j].th*Math.PI)/180))),2)
 							+ Math.pow((e.originalEvent.clientY -
-							y(systems[i].y - (((systems[i].mass/2+(systems[i].planets[j].r*(prm/systems[i].planets[systems[i].planets.length-1].r)))/(maxZ/minZ))*(z/minZ)) * Math.cos((-systems[i].planets[j].th*Math.PI)/180))),2))
-						< systems[i].planets[j].mass*r(.1)){
+							y(systems[i].y - (((systems[i].mass/1.5+(systems[i].planets[j].r*(prm/systems[i].planets[systems[i].planets.length-1].r)))/(maxZ/minZ)) * (((z/minZ)+2)/3)) * Math.cos((-systems[i].planets[j].th*Math.PI)/180))),2))
+						< systems[i].planets[j].mass*r(.03)){
 							if(z!=maxZ)
 								document.body.style.cursor = 'zoom-in';
 							else document.body.style.cursor = 'pointer';
@@ -394,13 +537,12 @@ $(document).ready(function() {
 			}
 		})
 		.mouseup(function(e){
-			console.log()
 			if(startX == e.originalEvent.clientX && startY == e.originalEvent.clientY){
 				for(var i=0; i<systems.length; ++i){
 					if(systems[i].click){
-						console.log('z='+z+', maxZ='+maxZ);
+						// console.log('z='+z+', maxZ='+maxZ);
 						if(z == maxZ){
-							console.log("zooming out");
+							// console.log("zooming out");
 							while(z>minZ){
 								setTimeout(zoom(z-z*0.01, 0, 0), 1);
 								// zoom(0, 0, 0);
@@ -458,12 +600,6 @@ $(document).ready(function() {
 		$('body').css('top', -(document.documentElement.scrollTop) + 'px').addClass('noscroll');
 	}
 
-	function sleep(ms){
-		var time = new Date().getTime();
-		while (time + ms >= new Date().getTime()){}
-	}
-
 	read();
-	setTimeout(setup(), 100);
 
 });

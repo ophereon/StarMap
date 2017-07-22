@@ -8,7 +8,7 @@
 	<script src="map.js"></script>
 	<style>
 	html, body { margin: 0; padding: 0; }
-	body { cursor: -webkit-grab; }
+	body { cursor: default; }
 	body:active { cursor: -webkit-grabbing; }
 	body.noscroll {
 	    position: fixed;
@@ -22,24 +22,47 @@
 	<!-- <input type="range" name="zoom" id="zoom" value="1" min="1" max="10" data-show-value="true" data-popup-enabled="true" data-highlight="true" /> -->
 	<!-- <img id="background" src="images/background2.jpg" style="width: 90%; height: 90%; opacity: 0.5;"> -->
 	<div style="display:none;"> <!-- image collection -->
-  		<img id="background" src="images/background.jpg">
-		<img id="nebula" src="images/nebula.jpg">
+  		<img id="background" src="images/backgrounds/background.jpg">
+		<img id="nebula" src="images/backgrounds/nebula.jpg">
 		<!-- stars -->
-		<img id="glow" src="images/glow.png">
-		<img id="black" src="images/unknownstar.png">
-		<img id="orange" src="images/orange.png">
-		<img id="white" src="images/white.png">
+		<img id="glow" src="images/stars/glow.png">
+		<img id="blank" src="images/stars/unknownstar2.png">
+		<img id="orange" src="images/stars/orange.png">
+		<img id="white" src="images/stars/white.png">
+		<img id="black" src="images/stars/black.png">
+		<img id="xray" src="images/stars/xray.png">
+		<img id="microquasar" src="images/stars/microquasar.png">
+		<img id="invisible" src="images/stars/invisible.png">
 		<!-- planets -->
-		<img id="unknown" src="images/unknownplanet.png">
-		<img id="mercurian" src="images/mercurian.png">
-		<img id="venutian" src="images/venutian.png">
-		<img id="terran" src="images/terran.png">
-		<img id="martian" src="images/martian.png">
-		<img id="jupiter" src="images/jupiter.png">
-		<img id="saturn" src="images/saturn.png">
-		<img id="uranus" src="images/uranus.png">
-		<img id="neptune" src="images/neptune.png">
-		<img id="asteroid" src="images/asteroid.png">
+		<img id="unknown" src="images/planets/unknownplanet.png">
+		<img id="mercurian" src="images/planets/mercurian.png">
+		<img id="venutian" src="images/planets/venutian.png">
+		<img id="terran" src="images/planets/terran.png">
+		<img id="martian" src="images/planets/martian.png">
+		<img id="jupiter" src="images/planets/jupiter.png">
+		<img id="saturn" src="images/planets/saturn.png">
+		<img id="uranus" src="images/planets/uranus.png">
+		<img id="neptune" src="images/planets/neptune.png">
+		<img id="asteroid" src="images/planets/asteroid.png">
+		<!--<img id="unknown" src="images/planets/unknownplanet.png">
+		<img id="mercurian" src="images/planets/rock.png">
+		<img id="venutian" src="images/planets/gas_brown.png">
+		<img id="terran" src="images/planets/terrestrial.png">
+		<img id="martian" src="images/planets/continental.png">
+		<img id="jupiter" src="images/planets/gas_brown.png">
+		<img id="saturn" src="images/planets/gas_brown.png">
+		<img id="uranus" src="images/planets/gas_blue.png">
+		<img id="neptune" src="images/planets/gas_blue.png">
+		<img id="asteroid" src="images/planets/asteroid.png">-->
+		<!-- icons -->
+		<img id="pl_b" src="images/icons/pl_b.png">
+		<img id="pl_w" src="images/icons/pl_w.png">
+		<img id="li_b" src="images/icons/li_b.png">
+		<img id="li_w" src="images/icons/li_w.png">
+		<img id="2h_b" src="images/icons/2h_b2.png">
+		<img id="2h_w" src="images/icons/2h_w2.png">
+		<img id="h3_b" src="images/icons/h3_b2.png">
+		<img id="h3_w" src="images/icons/h3_w2.png">
 	</div>
 <canvas id="map">
 </canvas>
