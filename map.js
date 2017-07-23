@@ -168,8 +168,8 @@ $(document).ready(function() {
 				else if(l>maxZ) z = maxZ; //don't go above max zoom level
 				else{ //if single increment zoom, do this
 					// console.log('px='+px+', py='+py+' \nox='+ox+', oy='+oy);
-					var dx = ox - (px*(l/maxZ));
-					var dy = oy - (py*(l/maxZ));
+					var dx = ox - (px*2*(l/maxZ));
+					var dy = oy - (py*2*(l/maxZ));
 					// var dx = ox - (px*((l-z)/(maxZ*minZ)));
 					// var dy = oy - (py*((l-z)/(maxZ*minZ)));
 					// var dx = ox - (px*((l-z)*maxZ));
