@@ -14,7 +14,8 @@ $(document).ready(function() {
 			var prm = 12.5; //planet radius magnitute
 			var systems = new Array();
 			var network = new Array();
-			var proximity = new Array();
+			var claims = new Array();
+			// var proximity = new Array();
 			var cursorX = cursorY = 0;
 		}
 
@@ -94,14 +95,15 @@ $(document).ready(function() {
 								if(klass=="blank"){
 									var one = 4 * Math.floor((Math.random() * 4) + 1);
 									var two = 4 * Math.floor((Math.random() * 4) + 1);
-									mass = (one+two)/2;
+									// mass = (one+two)/2;
+									mass = 10;
 								}
 								sys = new system(parseInt(inst[0]), inst[1], parseInt(inst[3]),
 									parseInt(inst[4]), mass, klass, inst[7].substring(1), parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14]);
 							}
 							else if(parseInt(inst[0])>1){
 								var inhabited = (inst[2] == 'TRUE');
-								var col = inst[7].split(":");
+								var col = inst[7].split(";");
 								var atmosphere = "rgb("+col[0]+","+col[1]+","+col[2]+")";
 								if(inst[1]!=null){
 									sys.planets.push(new planet(parseInt(inst[0]), inst[1], inhabited, parseInt(inst[3]),
@@ -127,6 +129,33 @@ $(document).ready(function() {
 						var inst = lines[i].split(',');
 						if(inst.length == 2){
 							network.push(new edge(parseInt(inst[0]), parseInt(inst[1])));
+						}
+					}
+				}
+			});
+			$.ajax({ //read claim files
+				type: "GET", url: "claims.csv", dataType: "text",
+				success: function(file){
+					var lines = file.split(/\r\n|\n/);
+					for(var i=2; i<lines.length-1; i++){
+						// console.log("-> "+lines[i]);
+						if(lines[i]!=" " || lines[i]!=null){
+							var inst = lines[i].split(',');
+							var name = inst[0];
+							var col = inst[1].split(";");
+							var colour = "rgb("+col[0]+","+col[1]+","+col[2]+")";
+							var polygons = new Array();
+							for(var j=2; j<inst.length; j++){
+								var p = new polygon(new Array());
+								var vertices = inst[j].split(";");
+								for(var k=0; k<vertices.length; k++){
+									var points = vertices[k].split(":");
+									p.vertices.push(new vertex(points[0], points[1]));
+								}
+								polygons.push(p);
+							}
+							claims.push(new claim(name, colour, polygons));
+							// console.log("added new claim "+name);
 						}
 					}
 				}
@@ -232,11 +261,29 @@ $(document).ready(function() {
 				// 	else drawCirc(systems[i].x, systems[i].y, 1, 0, "rgb(255,255,255)", 1.0);
 				// }
 			}
+			drawClaims();
 			drawNetwork();
 			drawSystems();
 			drawDialogue();
 		}
 
+		function drawClaims(){
+			for(var i=0; i<claims.length; i++){
+				for(var j=0; j<claims[i].polygons.length; j++){
+					ctx.globalAlpha = 0.25;
+					ctx.fillStyle = claims[i].colour;
+					ctx.strokeStyle = claims[i].colour;
+					ctx.lineWidth = 4;
+					ctx.beginPath();
+					for(var k=0; k<claims[i].polygons[j].vertices.length; k++){
+						ctx.lineTo(x(claims[i].polygons[j].vertices[k].x), y(claims[i].polygons[j].vertices[k].y));
+					}
+					ctx.lineTo(x(claims[i].polygons[j].vertices[0].x), y(claims[i].polygons[j].vertices[0].y));
+					ctx.fill();
+					ctx.globalAlpha = 1.0;
+				}
+			}
+		}
 		function drawNetwork(){
 			for(var i=0; i<network.length; ++i){
 				var e = network[i];
@@ -481,6 +528,18 @@ $(document).ready(function() {
 			this.y2 = y2;
 		}
 	}
+	class claim{
+		constructor(name, colour, polygons){
+			this.name = name;
+			this.colour = colour;
+			this.polygons = polygons;
+		}
+	}
+	class polygon{
+		constructor(vertices){
+			this.vertices = vertices;
+		}
+	}
 
 	{ //interaction functions
 		var press = false;
@@ -511,9 +570,9 @@ $(document).ready(function() {
 				if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x)),2)
 				+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
 				< systems[i].mass*r(.2)){
-					if(z!=maxZ)
+					if(z!=maxZ && systems[i].type!=0)
 						document.body.style.cursor = 'zoom-in';
-					else document.body.style.cursor = 'zoom-out';
+					else if(systems[i].type!=0) document.body.style.cursor = 'zoom-out';
 					if(systems[i].type!=0) systems[i].click = true;
 					// console.log("star: "+systems[i].id);
 				}
@@ -544,8 +603,7 @@ $(document).ready(function() {
 						if(z == maxZ){
 							// console.log("zooming out");
 							while(z>minZ){
-								setTimeout(zoom(z-z*0.01, 0, 0), 1);
-								// zoom(0, 0, 0);
+								setTimeout(zoom(z-z*0.01, 0, 0), 0);
 								draw();
 							}
 							// offset(0, 0);
