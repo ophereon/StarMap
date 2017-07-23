@@ -342,7 +342,10 @@ $(document).ready(function() {
 					drawRect2(cursorX-100, cursorY-120, cursorX+100, cursorY-20, 0, "rgb(50,50,64)", 1); //draw dialogue box
 					drawRect2(cursorX-100, cursorY-120, cursorX-70, cursorY-20, 0, "rgb(40,40,54)", 1); //draw dialogue box
 					drawRect2(cursorX-100, cursorY-120, cursorX+100, cursorY-20, 4, "rgb(30,30,44)", 1); //draw dialogue box
-					drawText(object.name, cursorX-57.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
+					if(object.name=='Unknown' && object.type==1)
+						drawText("Star #"+object.id, cursorX-57.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
+					else
+						drawText(object.name, cursorX-57.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
 					if(object.type==1) drawText("☉", cursorX+80, cursorY-95, 20, "rgb(255,255,255)", 'center');
 					else if(object.type==2) drawText("🜨", cursorX+80, cursorY-95, 24, "rgb(255,255,255)", 'center');
 					else if(object.type==3) drawText("☽", cursorX+80, cursorY-95, 18, "rgb(255,255,255)", 'center');
