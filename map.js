@@ -215,12 +215,12 @@ $(document).ready(function() {
 				ctx.globalAlpha = 0.5;
 				if(w>(h*2)){
 					ctx.drawImage(document.getElementById('background'), 0, (h/2)-(w/2), w, (h/2)+(w/2));
-					ctx.globalAlpha = (1-(z/maxZ))/2;
+					ctx.globalAlpha = (1-(z/maxZ))/4 * 2.5;
 					ctx.drawImage(document.getElementById('nebula'), 0, (h/2)-(w/2), w, (h/2)+(w/2));
 				}
 				else {
 					ctx.drawImage(document.getElementById('background'), (w/2)-h, 0, (w/2)+h, h);
-					ctx.globalAlpha = (1-(z/maxZ))/2;
+					ctx.globalAlpha = (1-(z/maxZ))/4 * 2.5;
 					ctx.drawImage(document.getElementById('nebula'), (w/2)-h, 0, (w/2)+h, h);
 				}
 			}
@@ -339,48 +339,50 @@ $(document).ready(function() {
 					if(systems[i].planets[j].click) //if planet is hovered over,
 						object = systems[i].planets[j];
 				if(object!=null){
-					drawRect2(cursorX-100, cursorY-120, cursorX+100, cursorY-20, 0, "rgb(50,50,64)", 1); //draw dialogue box
-					drawRect2(cursorX-100, cursorY-120, cursorX-70, cursorY-20, 0, "rgb(40,40,54)", 1); //draw dialogue box
-					drawRect2(cursorX-100, cursorY-120, cursorX+100, cursorY-20, 4, "rgb(30,30,44)", 1); //draw dialogue box
+					drawRect2(cursorX-150, cursorY-120, cursorX+150, cursorY-20, 0, "rgb(50,50,64)", 1); //draw dialogue box
+					drawRect2(cursorX-150, cursorY-120, cursorX-120, cursorY-20, 0, "rgb(40,40,54)", 1); //draw dialogue box
+					drawRect2(cursorX-150, cursorY-120, cursorX+150, cursorY-20, 4, "rgb(30,30,44)", 1); //draw dialogue box
 					if(object.name=='Unknown' && object.type==1)
-						drawText("Star #"+object.id, cursorX-57.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
+						drawText("Star #"+object.id, cursorX-107.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
 					else
-						drawText(object.name, cursorX-57.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
-					if(object.type==1) drawText("☉", cursorX+80, cursorY-95, 20, "rgb(255,255,255)", 'center');
-					else if(object.type==2) drawText("🜨", cursorX+80, cursorY-95, 24, "rgb(255,255,255)", 'center');
-					else if(object.type==3) drawText("☽", cursorX+80, cursorY-95, 18, "rgb(255,255,255)", 'center');
-					drawLine2(cursorX-57.5, cursorY-70, cursorX+87.5, cursorY-70, 2, "rgb(255,255,255)", 1);
-					if(object.inhabited) drawText("⚘", cursorX+80, cursorY-75, 20, "rgb(255,255,255)", 'center');
-					if(object.text1!=""){
-						if(object.text2!=null){
-							drawText(object.text1, cursorX-57.5, cursorY-50, 16, "rgb(255,255,255)", 'left');
-							drawText(object.text2, cursorX-57.5, cursorY-30, 16, "rgb(255,255,255)", 'left');
+						drawText(object.name, cursorX-107.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
+					if(object.type==1) drawText("☉", cursorX+130, cursorY-95, 20, "rgb(255,255,255)", 'center');
+					else if(object.type==2) drawText("🜨", cursorX+130, cursorY-95, 24, "rgb(255,255,255)", 'center');
+					else if(object.type==3) drawText("☽", cursorX+130, cursorY-95, 18, "rgb(255,255,255)", 'center');
+					else if(object.type==4) drawText("♅", cursorX+130, cursorY-95, 20, "rgb(255,255,255)", 'center');
+					drawLine2(cursorX-107.5, cursorY-70, cursorX+137.5, cursorY-70, 2, "rgb(255,255,255)", 1);
+					if(object.inhabited) drawText("⚘", cursorX+130, cursorY-75, 20, "rgb(255,255,255)", 'center');
+					if(object.text1!="" || object.text1!=null){
+						if(object.text2!="" || object.text2!=null){
+							drawText(object.text1, cursorX-107.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
+							drawText(object.text2, cursorX-107.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
 						}
-						else drawText(object.text1, cursorX-57.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
+						else drawText(object.text1, cursorX-107.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
 					}
-					else drawText("Unclaimed", cursorX-57.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
+					else drawText("Unclaimed", cursorX-107.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
 					if(object.pl==-1) object.pl = Math.round(Math.random());
-					if(object.pl==0) drawText("Pl", cursorX-85, cursorY-100, 16, "rgb(0,0,0)", 'center');
-					else drawText("Pl", cursorX-85, cursorY-100, 16, "rgb(255,255,255)", 'center');
+					if(object.pl==0) drawText("Pl", cursorX-135, cursorY-100, 16, "rgb(0,0,0)", 'center');
+					else drawText("Pl", cursorX-135, cursorY-100, 16, "rgb(255,255,255)", 'center');
 					if(object.li==-1) object.li = Math.round(Math.random());
-					if(object.li==0) drawText("Li", cursorX-85, cursorY-82.5, 16, "rgb(0,0,0)", 'center');
-					else drawText("Li", cursorX-85, cursorY-82.5, 16, "rgb(255,255,255)", 'center');
+					if(object.li==0) drawText("Li", cursorX-135, cursorY-82.5, 16, "rgb(0,0,0)", 'center');
+					else drawText("Li", cursorX-135, cursorY-82.5, 16, "rgb(255,255,255)", 'center');
 					if(object.de==-1) object.de = Math.round(Math.random());
-					if(object.de==0) drawText("²H", cursorX-85, cursorY-65, 16, "rgb(0,0,0)", 'center');
-					else drawText("²H", cursorX-85, cursorY-65, 16, "rgb(255,255,255)", 'center');
+					if(object.de==0) drawText("²H", cursorX-135, cursorY-65, 16, "rgb(0,0,0)", 'center');
+					else drawText("²H", cursorX-135, cursorY-65, 16, "rgb(255,255,255)", 'center');
 					if(object.he==-1) object.he = Math.round(Math.random());
-					if(object.he==0) drawText("³He", cursorX-85, cursorY-47.5, 16, "rgb(0,0,0)", 'center');
-					else drawText("³He", cursorX-85, cursorY-47.5, 16, "rgb(255,255,255)", 'center');
+					if(object.he==0) drawText("³He", cursorX-135, cursorY-47.5, 16, "rgb(0,0,0)", 'center');
+					else drawText("³He", cursorX-135, cursorY-47.5, 16, "rgb(255,255,255)", 'center');
 					if(object.ha==-1) object.ha = Math.round(Math.random());
-					if(object.ha==0) drawText("Ha", cursorX-85, cursorY-30, 16, "rgb(0,0,0)", 'center');
-					else drawText("Ha", cursorX-85, cursorY-30, 16, "rgb(255,255,255)", 'center');
+					if(object.ha==0) drawText("Ha", cursorX-135, cursorY-30, 16, "rgb(0,0,0)", 'center');
+					else drawText("Ha", cursorX-135, cursorY-30, 16, "rgb(255,255,255)", 'center');
 
 				}
 			}
 		}
 
-		function drawLine(x1, y1, x2, y2, stroke, colour, alpha){
+		function drawLine(x1, y1, x2, y2, stroke, colour, alpha, dashed){
 			if(alpha!=null) ctx.globalAlpha = alpha;
+			if(dashed!=null) ctx.setLineDash([5, 15]);
 			ctx.strokeStyle = colour;
 			ctx.lineWidth = stroke;
 			ctx.beginPath();
