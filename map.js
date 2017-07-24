@@ -607,17 +607,19 @@ $(document).ready(function() {
 						// console.log('z='+z+', maxZ='+maxZ);
 						if(z == maxZ){
 							// console.log("zooming out");
-							while(z>minZ){
-								setTimeout(zoom(z-z*0.01, 0, 0), 0);
-								draw();
-							}
+							// while(z>minZ){
+							// 	// setTimeout(zoom(z-z*0.01, 0, 0), 0);
+							// 	draw();
+							// }
+							zoom(minZ, 0, 0);
 							// offset(0, 0);
 						}
 						else{
-							while(z<maxZ){
-								setTimeout(zoom(z+z*0.01, x(systems[i].x), y(systems[i].y)), 1);
-								draw();
-							}
+							// while(z<maxZ){
+							// 	// setTimeout(zoom(z+z*0.01, x(systems[i].x), y(systems[i].y)), 1);
+							// 	draw();
+							// }
+							zoom(maxZ, x(systems[i].x), y(systems[i].y));
 						}
 						// for(var j=z; j<z+0.1; j+=0.1){ //if multi-increment zoom, do this
 						// 	zoom(maxZ, systems[i].x, systems[i].y); //set zoom to new level
