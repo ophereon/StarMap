@@ -346,7 +346,7 @@ $(document).ready(function() {
 						drawText("Star #"+object.id, cursorX-107.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
 					else
 						drawText(object.name, cursorX-107.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
-					if(object.type==1) drawText("☉", cursorX+130, cursorY-95, 20, "rgb(255,255,255)", 'center');
+					if(object.type==1 || object.type==6) drawText("☉", cursorX+130, cursorY-95, 20, "rgb(255,255,255)", 'center');
 					else if(object.type==2) drawText("🜨", cursorX+130, cursorY-95, 24, "rgb(255,255,255)", 'center');
 					else if(object.type==3) drawText("☽", cursorX+130, cursorY-95, 18, "rgb(255,255,255)", 'center');
 					else if(object.type==4) drawText("♅", cursorX+130, cursorY-95, 20, "rgb(255,255,255)", 'center');
