@@ -267,8 +267,8 @@ $(document).ready(function() {
 			drawClaims();
 			drawNetwork();
 			drawSystems();
-			drawDialogue();
 			drawFocus();
+			drawDialogue();
 		}
 
 		function drawClaims(){
