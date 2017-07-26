@@ -11,7 +11,7 @@ $(document).ready(function() {
 			var ox = oy = 0; //offset x and offset y
 			var minZ = maxZ = 0; //minimum and maximum zoom level
 			var z = 0; //current zoom level
-			var prm = 12.5; //planet radius magnitute
+			var fm = 0; //focus magnitute
 			var systems = new Array();
 			var network = new Array();
 			var claims = new Array();
@@ -34,6 +34,7 @@ $(document).ready(function() {
 			// cw = ch = 2.3 * Math.max(Math.abs(minW), Math.abs(maxW), Math.abs(minH), Math.abs(maxH));
 			cw = ch = 800;
 			resize();
+			fm = Math.min(h/50, w/50);
 			zoom(0, ox, oy); //zoom out to initial view
 			offset(0, 0);
 			{ // colour drawing stuff
@@ -125,13 +126,13 @@ $(document).ready(function() {
 				}
 			});
 			$.ajax({ //read network files
-				type: "GET", url: "connections.csv", dataType: "text",
+				type: "GET", url: "network.csv", dataType: "text",
 				success: function(file){
 					var lines = file.split(/\r\n|\n/);
-					for(var i=0; i<lines.length; i++){
+					for(var i=1; i<lines.length; i++){
 						var inst = lines[i].split(',');
-						if(inst.length == 2){
-							network.push(new edge(parseInt(inst[0]), parseInt(inst[1])));
+						if(inst.length == 3){
+							network.push(new edge(parseInt(inst[0]), parseInt(inst[1]), inst[2]));
 						}
 					}
 				}
@@ -140,13 +141,33 @@ $(document).ready(function() {
 				type: "GET", url: "claims.csv", dataType: "text",
 				success: function(file){
 					var lines = file.split(/\r\n|\n/);
-					for(var i=2; i<lines.length-1; i++){
+					for(var i=1; i<lines.length-1; i++){
 						// console.log("-> "+lines[i]);
 						if(lines[i]!=" " || lines[i]!=null){
 							var inst = lines[i].split(',');
 							var name = inst[0];
-							var col = inst[1].split(";");
-							var colour = "rgb("+col[0]+","+col[1]+","+col[2]+")";
+							var colour = "";
+							switch(inst[1]){
+								case 'green':
+									colour = "rgb(0,192,0)";
+									break;
+								case 'blue':
+									colour = "rgb(128,64,255)";
+									break;
+								case 'yellow':
+									colour = "rgb(192,192,0)";
+									break;
+								case 'cyan':
+									colour = "rgb(64,192,255)";
+									break;
+								case 'red':
+									colour = "rgb(255,64,64)";
+									break;
+								default:
+									var col = inst[1].split(";");
+									colour = "rgb("+col[0]+","+col[1]+","+col[2]+")";
+									break;
+							}
 							var polygons = new Array();
 							for(var j=2; j<inst.length; j++){
 								var p = new polygon(new Array());
@@ -264,7 +285,7 @@ $(document).ready(function() {
 				// 	else drawCirc(systems[i].x, systems[i].y, 1, 0, "rgb(255,255,255)", 1.0);
 				// }
 			}
-			drawClaims();
+			// drawClaims();
 			drawNetwork();
 			drawSystems();
 			drawFocus();
@@ -277,7 +298,7 @@ $(document).ready(function() {
 					ctx.globalAlpha = 0.25;
 					ctx.fillStyle = claims[i].colour;
 					ctx.strokeStyle = claims[i].colour;
-					ctx.lineWidth = 4;
+					ctx.lineWidth = 1;
 					ctx.beginPath();
 					for(var k=0; k<claims[i].polygons[j].vertices.length; k++){
 						ctx.lineTo(x(claims[i].polygons[j].vertices[k].x), y(claims[i].polygons[j].vertices[k].y));
@@ -285,6 +306,7 @@ $(document).ready(function() {
 					ctx.lineTo(x(claims[i].polygons[j].vertices[0].x), y(claims[i].polygons[j].vertices[0].y));
 					ctx.fill();
 					ctx.globalAlpha = 1.0;
+					ctx.stroke();
 				}
 			}
 		}
@@ -298,7 +320,12 @@ $(document).ready(function() {
 					else if(e.b == systems[j].id)
 						b = systems[j];
 				}
-				drawLine(a.x, a.y, b.x, b.y, 2, "rgb(128,128,128)", 0.5);
+				if(e.type=="dashed"){
+					drawLine(a.x, a.y, b.x, b.y, 2, "rgb(128,128,128)", 1, true);
+				}
+				else if(e.type=="solid"){
+					drawLine(a.x, a.y, b.x, b.y, 2, "rgb(128,128,128)", 1, false);
+				}
 			}
 		}
 		function drawSystems(){
@@ -348,6 +375,8 @@ $(document).ready(function() {
 						else drawText(object.text1, cursorX-107.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
 					}
 					else drawText("Unclaimed", cursorX-107.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
+					if(object.type==1)
+						drawText("#"+object.id, cursorX+137.5, cursorY-30, 12, "rgb(255,255,255)", 'right');
 					if(object.pl==-1) object.pl = Math.round(Math.random());
 					if(object.pl==0) drawText("Pl", cursorX-135, cursorY-100, 16, "rgb(0,0,0)", 'center');
 					else drawText("Pl", cursorX-135, cursorY-100, 16, "rgb(255,255,255)", 'center');
@@ -369,7 +398,6 @@ $(document).ready(function() {
 		}
 		function drawFocus(){
 			if(focus!=null){
-				var fm = h/50; //focus magnitude
 				var x = w/2;
 				var y = h/2;
 				var alpha = 1.0;
@@ -420,7 +448,7 @@ $(document).ready(function() {
 					var px = 0 - radius/1.22 * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
 					var py = 0 - radius/1.22 * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
 					if(planet.klass=="asteroid")
-						drawImage(x, y, (star.mass/1.5+(planet.r*(prm/star.planets[star.planets.length-1].r))), planet.klass, 1.0); //draw asteroid belt
+						drawImage(x, y, (star.mass/1.5+(planet.r*(12.5/star.planets[star.planets.length-1].r))), planet.klass, 1.0); //draw asteroid belt
 					else drawImage(px, py, (planet.mass*2), planet.klass, 1.0); //draw non-asteroid planet
 					ctx.shadowBlur = 0;
 				}
@@ -430,7 +458,7 @@ $(document).ready(function() {
 
 		function drawLine(x1, y1, x2, y2, stroke, colour, alpha, dashed){
 			if(alpha!=null) ctx.globalAlpha = alpha;
-			if(dashed!=null) ctx.setLineDash([5, 15]);
+			if(dashed) ctx.setLineDash([3, 3]);
 			ctx.strokeStyle = colour;
 			ctx.lineWidth = stroke;
 			ctx.beginPath();
@@ -438,6 +466,7 @@ $(document).ready(function() {
 			ctx.lineTo(x(x2), y(y2));
 			ctx.stroke();
 			ctx.globalAlpha = 1.0;
+			ctx.setLineDash([]);
 		}
 		function drawLine2(x1, y1, x2, y2, stroke, colour, alpha){
 			if(alpha!=null) ctx.globalAlpha = alpha;
@@ -580,9 +609,10 @@ $(document).ready(function() {
 		}
 	}
 	class edge{
-		constructor(a, b){
+		constructor(a, b, type){
 			this.a = a;
 			this.b = b;
+			this.type = type;
 		}
 	}
 	class line{
