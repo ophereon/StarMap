@@ -4,6 +4,92 @@ $(document).ready(function() {
 
 	if(canvas.getContext){
 
+		class system{
+			constructor(type, name, x, y, mass, klass, id, pl, li, de, he, ha, text1, text2){
+				this.type = type;
+				this.name = name;
+				this.inhabited = false;
+				this.x = x;
+				this.y = y;
+				this.mass = mass;
+				this.klass = klass;
+				this.id = id;
+				this.pl = pl;
+				this.li = li;
+				this.de = de;
+				this.he = he;
+				this.ha = ha;
+				this.text1 = text1;
+				this.text2 = text2;
+				this.planets = new Array();
+				this.hover = false;
+				this.colour = "rgb(0,0,0)";
+			}
+		}
+		class planet{
+			constructor(type, name, inhabited, r, th,  mass, klass, atmosphere, pl, li, de, he, ha, text1, text2){
+				this.type = type;
+				this.name = name;
+				this.inhabited = inhabited;
+				this.r = r;
+				this.th = th;
+				this.mass = mass;
+				this.klass = klass;
+				this.atmosphere = atmosphere;
+				this.pl = pl;
+				this.li = li;
+				this.de = de;
+				this.he = he;
+				this.ha = ha;
+				this.text1 = text1;
+				this.text2 = text2;
+				this.hover = false;
+			}
+		}
+		class vertex{
+			constructor(x, y, star){
+				this.x = x;
+				this.y = y;
+				this.star = star;
+			}
+		}
+		class edge{
+			constructor(a, b, type){
+				this.a = a;
+				this.b = b;
+				this.type = type;
+			}
+		}
+		class line{
+			constructor(x1, y1, x2, y2){
+				this.x1 = x1;
+				this.y1 = y1;
+				this.x2 = x2;
+				this.y2 = y2;
+			}
+		}
+		class claim{
+			constructor(name, colour, polygons){
+				this.name = name;
+				this.colour = colour;
+				this.polygons = polygons;
+			}
+		}
+		class polygon{
+			constructor(vertices){
+				this.vertices = vertices;
+			}
+		}
+		class toggle{
+			constructor(x, y, value, icon){
+				this.x = x;
+				this.y = y;
+				this.value = value;
+				this.icon = icon;
+				this.hover = false;
+			}
+		}
+
 		{ //global variables
 			var ctx = canvas.getContext('2d'); //canvas context
 			var w = h = 0; //width and height of window
@@ -17,7 +103,9 @@ $(document).ready(function() {
 			var claims = new Array();
 			var focus = null;
 			var exitFocus = false;
-			var toggleFree = false;
+			var showClaims = new toggle(25, 25, false, "showClaims");
+			var showGrid = new toggle(25, 65, false, "showGrid");
+			var moveFree = new toggle(25, 105, false, "moveFree");
 			// var proximity = new Array();
 			var cursorX = cursorY = 0;
 		}
@@ -146,20 +234,23 @@ $(document).ready(function() {
 							var name = inst[0];
 							var colour = "";
 							switch(inst[1]){
+								case 'red':
+									colour = "rgb(255,64,64)";
+									break;
 								case 'green':
 									colour = "rgb(0,192,0)";
 									break;
 								case 'blue':
 									colour = "rgb(128,64,255)";
 									break;
-								case 'yellow':
-									colour = "rgb(192,192,0)";
-									break;
 								case 'cyan':
 									colour = "rgb(64,192,255)";
 									break;
-								case 'red':
-									colour = "rgb(255,64,64)";
+								case 'magenta':
+									colour = "rgb(192,64,192)";
+									break;
+								case 'yellow':
+									colour = "rgb(192,192,0)";
 									break;
 								default:
 									var col = inst[1].split(";");
@@ -230,66 +321,71 @@ $(document).ready(function() {
 		function r2(ir){ return (ir*(((z/minZ)+2)/2)); }
 
 		function draw(){
-			{ //draw map backgrounds
-				ctx.clearRect(0, 0, w, h);
-				ctx.fillStyle = "rgb(0,0,0)";
-				ctx.fillRect(0, 0, w, h);
-				ctx.globalAlpha = 0.5;
-				if(w>(h*2)){
-					ctx.drawImage(document.getElementById('background'), 0, (h/2)-(w/2), w, (h/2)+(w/2));
-					ctx.globalAlpha = (1-(z/maxZ))/4 * 2.5;
-					ctx.drawImage(document.getElementById('nebula'), 0, (h/2)-(w/2), w, (h/2)+(w/2));
-				}
-				else {
-					ctx.drawImage(document.getElementById('background'), (w/2)-h, 0, (w/2)+h, h);
-					ctx.globalAlpha = (1-(z/maxZ))/4 * 2.5;
-					ctx.drawImage(document.getElementById('nebula'), (w/2)-h, 0, (w/2)+h, h);
-				}
-			}
-			{ //draw canvas markers
-				// drawCirc(0, 0, 1, 0, "rgb(0,0,0)", 1);
-				// drawRect(-cw/2, -cw/2, cw/2, cw/2, 2, "rgb(64,64,64)");
-				// for(var i=cw/2; i>-cw/2; i=i-cw/800){
-				// 	drawLine(-cw/2, i, cw/2, i, 2, "rgb(0,0,0)", 0.06);
-				// 	drawLine(i, ch/2, i, -ch/2, 2, "rgb(0,0,0)", 0.06);
-				// 	// drawRect(-i, -i, i, i, 2, "rgb(64,64,64)");
-				// }
-				// for(var i=cw/2; i>-cw/2; i=i-cw/80){
-				// 	drawLine(-cw/2, i, cw/2, i, 2, "rgb(0,0,0)", 0.12);
-				// 	drawLine(i, ch/2, i, -ch/2, 2, "rgb(0,0,0)", 0.12);
-				// 	// drawRect(-i, -i, i, i, 2, "rgb(64,64,64)");
-				// }
-				// for(var i=cw/2; i>-cw/2; i=i-cw/8){
-				// 	drawLine(-cw/2, i, cw/2, i, 2, "rgb(0,0,0)", 0.24);
-				// 	drawLine(i, ch/2, i, -ch/2, 2, "rgb(0,0,0)", 0.24);
-				// 	// drawRect(-i, -i, i, i, 2, "rgb(64,64,64)");
-				// }
-				// for(var i=0; i<proximity.length; i++){
-				// 	drawCirc(proximity[i].x, proximity[i].y, 1,0, proximity[i].star.colour);
-				// }
-				// drawLine(-cw/2, -ch/2, cw/2, ch/2, 2, "rgb(64,64,64)");
-				// drawLine(cw/2, -ch/2, -cw/2, ch/2, 2, "rgb(64,64,64)");
-				// drawLine(-cw/2, 0, cw/2, 0, 2, "rgb(64,64,64)");
-				// drawLine(0, -ch/2, 0, ch/2, 2, "rgb(64,64,64)");
-			}
-			{ //colour drawing stuff
-				// drawCirc(0, 0, 1, 0, "rgb(0,0,0)", 1.0);
-				// for(var i=0; i<proximity.length; i++){
-				// 	drawCirc(proximity[i].x, proximity[i].y, 1, 0, proximity[i].star.colour, 1.0);
-				// }
-				// for(var i=0; i<systems.length; i++){
-				// 	if(systems[i].type==0)
-				// 		drawCirc(systems[i].x, systems[i].y, 1, 0, "rgb(0,0,0)", 1.0);
-				// 	else drawCirc(systems[i].x, systems[i].y, 1, 0, "rgb(255,255,255)", 1.0);
-				// }
-			}
-			// drawClaims();
+			drawBackground();
+			// drawColours();
+			if(showGrid.value==true)
+			 	drawGrid();
+			if(showClaims.value==true)
+				drawClaims();
 			drawNetwork();
 			drawSystems();
+			drawToggle(showClaims);
+			drawToggle(showGrid);
+			drawToggle(moveFree);
 			drawFocus();
 			drawDialogue();
 		}
 
+		function drawBackground(){
+			ctx.clearRect(0, 0, w, h);
+			ctx.fillStyle = "rgb(0,0,0)";
+			ctx.fillRect(0, 0, w, h);
+			ctx.globalAlpha = 0.5;
+			if(w>(h*2)){
+				ctx.drawImage(document.getElementById('background'), 0, (h/2)-(w/2), w, (h/2)+(w/2));
+				ctx.globalAlpha = (1-(z/maxZ))/4 * 2.5;
+				ctx.drawImage(document.getElementById('nebula'), 0, (h/2)-(w/2), w, (h/2)+(w/2));
+			}
+			else {
+				ctx.drawImage(document.getElementById('background'), (w/2)-h, 0, (w/2)+h, h);
+				ctx.globalAlpha = (1-(z/maxZ))/4 * 2.5;
+				ctx.drawImage(document.getElementById('nebula'), (w/2)-h, 0, (w/2)+h, h);
+			}
+		}
+		function drawColours(){
+			// drawCirc(0, 0, 1, 0, "rgb(0,0,0)", 1.0);
+			// for(var i=0; i<proximity.length; i++){
+			// 	drawCirc(proximity[i].x, proximity[i].y, 1, 0, proximity[i].star.colour, 1.0);
+			// }
+			// for(var i=0; i<systems.length; i++){
+			// 	if(systems[i].type==0)
+			// 		drawCirc(systems[i].x, systems[i].y, 1, 0, "rgb(0,0,0)", 1.0);
+			// 	else drawCirc(systems[i].x, systems[i].y, 1, 0, "rgb(255,255,255)", 1.0);
+			// }
+		}
+		function drawGrid(){
+			drawCirc(0, 0, 2, 0, "rgb(0,0,0)", 1);
+			drawRect(-cw/2, -cw/2, cw/2, cw/2, 2, "rgb(0,0,0)", 0.24);
+			for(var i=cw/2; i>-cw/2; i=i-cw/800){
+				drawLine(-cw/2, i, cw/2, i, 2, "rgb(0,0,0)", 0.06);
+				drawLine(i, ch/2, i, -ch/2, 2, "rgb(0,0,0)", 0.06);
+				// drawRect(-i, -i, i, i, 2, "rgb(64,64,64)");
+			}
+			for(var i=cw/2; i>-cw/2; i=i-cw/80){
+				drawLine(-cw/2, i, cw/2, i, 2, "rgb(0,0,0)", 0.12);
+				drawLine(i, ch/2, i, -ch/2, 2, "rgb(0,0,0)", 0.12);
+				// drawRect(-i, -i, i, i, 2, "rgb(64,64,64)");
+			}
+			for(var i=cw/2; i>-cw/2; i=i-cw/8){
+				drawLine(-cw/2, i, cw/2, i, 2, "rgb(0,0,0)", 0.24);
+				drawLine(i, ch/2, i, -ch/2, 2, "rgb(0,0,0)", 0.24);
+				// drawRect(-i, -i, i, i, 2, "rgb(64,64,64)");
+			}
+			// drawLine(-cw/2, -ch/2, cw/2, ch/2, 2, "rgb(64,64,64)");
+			// drawLine(cw/2, -ch/2, -cw/2, ch/2, 2, "rgb(64,64,64)");
+			// drawLine(-cw/2, 0, cw/2, 0, 2, "rgb(64,64,64)");
+			// drawLine(0, -ch/2, 0, ch/2, 2, "rgb(64,64,64)");
+		}
 		function drawClaims(){
 			for(var i=0; i<claims.length; i++){
 				for(var j=0; j<claims[i].polygons.length; j++){
@@ -333,6 +429,25 @@ $(document).ready(function() {
 					drawImage(star.x, star.y, star.mass*2, 'glow', 1.0);
 				drawImage(star.x, star.y, star.mass, star.klass, 1.0, true); //draw star
 			}
+		}
+		function drawToggle(toggle){
+			ctx.shadowBlur = 0;
+			if(toggle.hover==true){
+				ctx.shadowBlur = 10; //3*(planet.r*(prm/star.planets[star.planets.length-1].r));
+				ctx.shadowColor = "rgb(255,255,255)";
+			}
+			drawCirc2(toggle.x, toggle.y, 15, 0, "rgb(50,50,64)", 1.0);
+			drawImage2(toggle.x, toggle.y, 19, toggle.icon+"_b", 1.0);
+			ctx.shadowBlur = 0;
+			if(toggle.value==true){
+				drawCirc2(toggle.x, toggle.y, 15, 2, "rgb(255,255,255)", 1.0);
+				drawImage2(toggle.x, toggle.y, 19, toggle.icon+"_w", 1.0);
+			}
+			else if(toggle.hover==true)
+				drawCirc2(toggle.x, toggle.y, 15, 2, "rgb(30,30,44)", 1.0);
+			else
+				drawCirc2(toggle.x, toggle.y, 15, 2, "rgb(30,30,44)", 1.0);
+			ctx.shadowBlur = 0;
 		}
 		function drawDialogue(){
 			var object = null;
@@ -477,7 +592,7 @@ $(document).ready(function() {
 			ctx.globalAlpha = 1.0;
 		}
 		function drawRect(x1, y1, x2, y2, stroke, colour, alpha){
-			console.log("drawing rectangle");
+			// console.log("drawing rectangle");
 			if(alpha!=null) ctx.globalAlpha = alpha;
 			ctx.fillStyle = colour;
 			ctx.strokeStyle = colour;
@@ -542,6 +657,7 @@ $(document).ready(function() {
 			ctx.globalAlpha = 1.0;
 		}
 		function drawImage2(x1, y1, d1, image, alpha, star){
+			// console.log("trying to draw "+image);
 			if(alpha!=null) ctx.globalAlpha = alpha;
 			ctx.drawImage(document.getElementById(image), x1-(d1/2), y1-(d1/2), d1, d1);
 			ctx.globalAlpha = 1.0;
@@ -557,90 +673,14 @@ $(document).ready(function() {
 		}
 	}
 
-	class system{
-		constructor(type, name, x, y, mass, klass, id, pl, li, de, he, ha, text1, text2){
-			this.type = type;
-			this.name = name;
-			this.inhabited = false;
-			this.x = x;
-			this.y = y;
-			this.mass = mass;
-			this.klass = klass;
-			this.id = id;
-			this.pl = pl;
-			this.li = li;
-			this.de = de;
-			this.he = he;
-			this.ha = ha;
-			this.text1 = text1;
-			this.text2 = text2;
-			this.planets = new Array();
-			this.hover = false;
-			this.colour = "rgb(0,0,0)";
-		}
-	}
-	class planet{
-		constructor(type, name, inhabited, r, th,  mass, klass, atmosphere, pl, li, de, he, ha, text1, text2){
-			this.type = type;
-			this.name = name;
-			this.inhabited = inhabited;
-			this.r = r;
-			this.th = th;
-			this.mass = mass;
-			this.klass = klass;
-			this.atmosphere = atmosphere;
-			this.pl = pl;
-			this.li = li;
-			this.de = de;
-			this.he = he;
-			this.ha = ha;
-			this.text1 = text1;
-			this.text2 = text2;
-			this.hover = false;
-		}
-	}
-	class vertex{
-		constructor(x, y, star){
-			this.x = x;
-			this.y = y;
-			this.star = star;
-		}
-	}
-	class edge{
-		constructor(a, b, type){
-			this.a = a;
-			this.b = b;
-			this.type = type;
-		}
-	}
-	class line{
-		constructor(x1, y1, x2, y2){
-			this.x1 = x1;
-			this.y1 = y1;
-			this.x2 = x2;
-			this.y2 = y2;
-		}
-	}
-	class claim{
-		constructor(name, colour, polygons){
-			this.name = name;
-			this.colour = colour;
-			this.polygons = polygons;
-		}
-	}
-	class polygon{
-		constructor(vertices){
-			this.vertices = vertices;
-		}
-	}
-
 	{ //interaction functions
 		var press = false;
 		var sx = sy = 0;
 		var startX = startY = 0;
 		$(canvas)
 		.mousedown(function(e){
-			document.body.style.cursor = '-webkit-grabbing';
+			if(moveFree.value==true)
+				document.body.style.cursor = '-webkit-grabbing';
 		    press = true;
 			startX = sx = e.originalEvent.clientX;
 			startY = sy = e.originalEvent.clientY;
@@ -648,7 +688,7 @@ $(document).ready(function() {
 		.mousemove(function(e){
 			cursorX = e.originalEvent.clientX;
 			cursorY = e.originalEvent.clientY;
-			if(press && toggleFree && focus==null){
+			if(press && moveFree.value==true && focus==null){
 				document.body.style.cursor = '-webkit-grabbing';
 				offset(ox + (e.originalEvent.clientX - sx), oy + (e.originalEvent.clientY - sy));
 			}
@@ -669,6 +709,16 @@ $(document).ready(function() {
 						systems[i].hover = false;
 					}
 				}
+				//check distance from toggles
+				if(Math.sqrt(Math.pow(e.originalEvent.clientX - showClaims.x,2)	+ Math.pow(e.originalEvent.clientY - showClaims.y,2)) < 15)
+					showClaims.hover = true;
+				else showClaims.hover = false;
+				if(Math.sqrt(Math.pow(e.originalEvent.clientX - showGrid.x,2)	+ Math.pow(e.originalEvent.clientY - showGrid.y,2)) < 15)
+					showGrid.hover = true;
+				else showGrid.hover = false;
+				if(Math.sqrt(Math.pow(e.originalEvent.clientX - moveFree.x,2)	+ Math.pow(e.originalEvent.clientY - moveFree.y,2)) < 15)
+					moveFree.hover = true;
+				else moveFree.hover = false;
 			}
 			else{
 				if(Math.sqrt(Math.pow((sx-(w/2)),2)+Math.pow((sy-(h/2)),2))>(h/2.25)){
@@ -687,7 +737,7 @@ $(document).ready(function() {
 						var radius = ((focus.mass/1.75*(h/50)+(h/5*((planet.r)/focus.planets[focus.planets.length-1].r))));
 						var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
 						var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
-						console.log("distance from planet "+planet.name+": "+Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)));
+						// console.log("distance from planet "+planet.name+": "+Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)));
 						if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/10)){
 							planet.hover = true;
 							document.body.style.cursor = 'pointer';
@@ -724,11 +774,26 @@ $(document).ready(function() {
 						}
 					}
 				}
+				if(showClaims.hover==true)
+					if(showClaims.value==false)
+						showClaims.value = true;
+					else
+						showClaims.value = false;
+				if(showGrid.hover==true)
+					if(showGrid.value==false)
+						showGrid.value = true;
+					else
+						showGrid.value = false;
+				if(moveFree.hover==true)
+					if(moveFree.value==false)
+						moveFree.value = true;
+					else
+						moveFree.value = false;
 			}
 		   	press = false;
 		});
 		$(window).bind('mousewheel DOMMouseScroll', function(event){
-			if(toggleFree){
+			if(moveFree.value==true){
 				sx = event.originalEvent.clientX;
 				sy = event.originalEvent.clientY;
 				if (event.originalEvent.wheelDelta > 0
