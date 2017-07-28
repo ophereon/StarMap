@@ -5,9 +5,10 @@ $(document).ready(function() {
 	if(canvas.getContext){
 
 		class system{
-			constructor(type, name, x, y, mass, klass, id, pl, li, de, he, ha, text1, text2){
+			constructor(type, name, gate, x, y, mass, klass, id, pl, li, de, he, ha, text1, text2){
 				this.type = type;
 				this.name = name;
+				this.gate = gate;
 				this.inhabited = false;
 				this.x = x;
 				this.y = y;
@@ -31,6 +32,7 @@ $(document).ready(function() {
 				this.type = type;
 				this.name = name;
 				this.inhabited = inhabited;
+				this.gate = false;
 				this.r = r;
 				this.th = th;
 				this.mass = mass;
@@ -106,8 +108,9 @@ $(document).ready(function() {
 			var showClaims = new toggle(25, 25, false, "showClaims");
 			var showGrid = new toggle(25, 65, false, "showGrid");
 			var moveFree = new toggle(25, 105, false, "moveFree");
-			// var proximity = new Array();
 			var cursorX = cursorY = 0;
+			var mobile = true;
+			// var proximity = new Array();
 		}
 
 	 	function setup(){
@@ -182,6 +185,7 @@ $(document).ready(function() {
 							var inst = lines[i].split(',');
 							if(parseInt(inst[0])==1){
 								if(sys.name!=null) systems.push(sys);
+								var gate = (inst[2] == 'TRUE');
 								var mass = parseInt(inst[5]);
 								var klass = inst[6];
 								if(klass=="blank"){
@@ -190,7 +194,7 @@ $(document).ready(function() {
 									// mass = (one+two)/2;
 									mass = 10;
 								}
-								sys = new system(parseInt(inst[0]), inst[1], parseInt(inst[3]), parseInt(inst[4]), mass, klass, inst[7].substring(1), parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14]);
+								sys = new system(parseInt(inst[0]), inst[1], gate, parseInt(inst[3]), parseInt(inst[4]), mass, klass, inst[7].substring(1), parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14]);
 							}
 							else if(parseInt(inst[0])>1){
 								var inhabited = (inst[2] == 'TRUE');
@@ -202,7 +206,7 @@ $(document).ready(function() {
 							}
 							else if(parseInt(inst[0])<1){
 								if(sys.name!=null) systems.push(sys);
-								sys = new system(parseInt(inst[0]), inst[1], parseInt(inst[3]),
+								sys = new system(parseInt(inst[0]), inst[1], false, parseInt(inst[3]),
 									parseInt(inst[4]), parseInt(inst[5]), inst[6], inst[7].substring(1), parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14]);
 							}
 						}
@@ -499,6 +503,7 @@ $(document).ready(function() {
 					else if(object.type==4) drawText("♅", rx-20, ty+25, 20, "rgb(255,255,255)", 'center');
 					drawLine2(lx+42.5, ty+50, rx-12.5, ty+50, 2, "rgb(255,255,255)", 1);
 					if(object.inhabited) drawText("⚘", rx-20, ty+45, 20, "rgb(255,255,255)", 'center');
+					else if(object.gate) drawText("☍", rx-20, ty+45, 20, "rgb(255,255,255)", 'center');
 					if(object.text1!="" || object.text1!=null){
 						// console.log(object.text1);
 						if(object.text2!="" || object.text2!=null){
@@ -700,6 +705,9 @@ $(document).ready(function() {
 	}
 
 	{ //interaction functions
+		window.addEventListener('touchstart', function(){
+  			mobile = true;
+		});
 		var press = false;
 		var sx = sy = 0;
 		var startX = startY = 0;
@@ -722,17 +730,19 @@ $(document).ready(function() {
 			sx = e.originalEvent.clientX;
 			sy = e.originalEvent.clientY;
 			if(focus==null){
-				for(var i=0; i<systems.length; ++i){
-					if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x)),2)
-					+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
-					< 16){
-						if(z!=maxZ && systems[i].type!=0)
-							document.body.style.cursor = 'zoom-in';
-						else if(systems[i].type!=0) document.body.style.cursor = 'zoom-out';
-						if(systems[i].type!=0) systems[i].hover = true;
-					}
-					else{
-						systems[i].hover = false;
+				if(!mobile){
+					for(var i=0; i<systems.length; ++i){
+						if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x)),2)
+						+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
+						< 16){
+							if(z!=maxZ && systems[i].type!=0)
+								document.body.style.cursor = 'zoom-in';
+							else if(systems[i].type!=0) document.body.style.cursor = 'zoom-out';
+							if(systems[i].type!=0) systems[i].hover = true;
+						}
+						else{
+							systems[i].hover = false;
+						}
 					}
 				}
 				//check distance from toggles
@@ -747,28 +757,30 @@ $(document).ready(function() {
 				else moveFree.hover = false;
 			}
 			else{
-				if(Math.sqrt(Math.pow((sx-(w/2)),2)+Math.pow((sy-(h/2)),2))>(h/2.25)){
+				if(Math.sqrt(Math.pow((sx-(w/2)),2)+Math.pow((sy-(h/2)),2))>(h/2.25)){ //if move outside of focus circle
 					exitFocus = true;
 					document.body.style.cursor = 'alias';
 				}
 				else exitFocus = false;
-				if(Math.sqrt(Math.pow((e.originalEvent.clientX-(w/2)),2) + Math.pow((e.originalEvent.clientY-(h/2)),2)) < focus.mass*(h/100)){
-					focus.hover = true;
-					document.body.style.cursor = 'pointer';
-				}
-				else{
-					focus.hover = false;
-					for(var j=0; j<focus.planets.length; j++){
-						var planet = focus.planets[j];
-						var radius = ((focus.mass/1.75*(h/50)+(h/5*((planet.r)/focus.planets[focus.planets.length-1].r))));
-						var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
-						var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
-						// console.log("distance from planet "+planet.name+": "+Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)));
-						if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/10)){
-							planet.hover = true;
-							document.body.style.cursor = 'pointer';
+				if(!mobile){
+					if(Math.sqrt(Math.pow((e.originalEvent.clientX-(w/2)),2) + Math.pow((e.originalEvent.clientY-(h/2)),2)) < focus.mass*(h/100)){ //if hover over star
+						focus.hover = true;
+						document.body.style.cursor = 'pointer';
+					}
+					else{
+						focus.hover = false;
+						for(var j=0; j<focus.planets.length; j++){
+							var planet = focus.planets[j];
+							var radius = ((focus.mass/1.75*(h/50)+(h/5*((planet.r)/focus.planets[focus.planets.length-1].r))));
+							var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
+							var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
+							// console.log("distance from planet "+planet.name+": "+Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)));
+							if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/10)){
+								planet.hover = true;
+								document.body.style.cursor = 'pointer';
+							}
+							else planet.hover = false;
 						}
-						else planet.hover = false;
 					}
 				}
 			}
@@ -781,22 +793,69 @@ $(document).ready(function() {
 					focus = null;
 					exitFocus = false;
 				}
-				if(focus.hover && focus.name!="Unknown"){
+				if(!mobile && focus.hover && focus.name!="Unknown"){
 					press = false;
 					window.open("http://createthisworld.wikia.com/wiki/"+focus.name);
 				}
 			}
 			if(startX == e.originalEvent.clientX && startY == e.originalEvent.clientY){
-				for(var i=0; i<systems.length; ++i){
-					if(systems[i].hover){
-						focus = systems[i];
-						systems[i].hover = false;
-						// console.log('focus on star '+systems[i].name);
+				if(!mobile){
+					for(var i=0; i<systems.length; ++i){
+						if(systems[i].hover){
+							focus = systems[i];
+							systems[i].hover = false;
+							// console.log('focus on star '+systems[i].name);
+						}
+						for(var j=0; j<systems[i].planets.length; ++j){
+							if(systems[i].planets[j].hover){
+								press = false;
+								window.open("http://createthisworld.wikia.com/wiki/"+systems[i].planets[j].name);
+							}
+						}
 					}
-					for(var j=0; j<systems[i].planets.length; ++j){
-						if(systems[i].planets[j].hover){
-							press = false;
-							window.open("http://createthisworld.wikia.com/wiki/"+systems[i].planets[j].name);
+				}
+				else if(mobile){
+					if(focus==null){
+						for(var i=0; i<systems.length; ++i){
+							if(Math.sqrt(Math.pow((e.originalEvent.clientX - x(systems[i].x)),2)
+							+ Math.pow((e.originalEvent.clientY - y(systems[i].y)),2))
+							< 16){
+								if(systems[i].type!=0){
+									if(systems[i].hover==false)
+										systems[i].hover = true;
+									else{
+										systems[i].hover = false;
+										focus = systems[i];
+									}
+								}
+							}
+							else{
+								systems[i].hover = false;
+							}
+						}
+					}
+					else{
+						if(Math.sqrt(Math.pow((e.originalEvent.clientX-(w/2)),2) + Math.pow((e.originalEvent.clientY-(h/2)),2)) < focus.mass*(h/100)){ //if hover over star
+							if(focus.hover==false)
+								focus.hover = true;
+							else
+								window.open("http://createthisworld.wikia.com/wiki/"+focus.name);
+						}
+						else{
+							focus.hover = false;
+							for(var j=0; j<focus.planets.length; j++){
+								var planet = focus.planets[j];
+								var radius = ((focus.mass/1.75*(h/50)+(h/5*((planet.r)/focus.planets[focus.planets.length-1].r))));
+								var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
+								var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
+								if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/10)){
+									if(planet.hover==false)
+										planet.hover = true;
+									else
+										window.open("http://createthisworld.wikia.com/wiki/"+planet.name);
+								}
+								else planet.hover = false;
+							}
 						}
 					}
 				}
