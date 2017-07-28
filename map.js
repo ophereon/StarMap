@@ -458,53 +458,73 @@ $(document).ready(function() {
 					if(systems[i].planets[j].hover) //if planet is hovered over,
 						object = systems[i].planets[j];
 				if(object!=null){
+					var lx = cursorX-150; //right edge
+					var rx = cursorX+150; //left edge
+					var ty = cursorY-120; //top edge
+					if(rx>w){
+						rx -= rx-w; //if the right edge is over the page, push it left
+						lx = rx-300;
+					}
+					if(lx<0){
+						lx += -lx; //if the left edge is over the page, push it right
+						rx = lx+300;
+					}
+					if(ty<0){
+						ty = cursorY+20;
+					}
 					ctx.globalAlpha = 1.0;
 					ctx.fillStyle = "rgb(30,30,44)";
 					ctx.beginPath();
 					ctx.lineTo(cursorX, cursorY);
-					ctx.lineTo(cursorX-20, cursorY-20);
-					ctx.lineTo(cursorX, cursorY-40);
-					ctx.lineTo(cursorX+20, cursorY-20);
+					if(ty==cursorY+20){
+						ctx.lineTo(cursorX-20, cursorY+20);
+						ctx.lineTo(cursorX+20, cursorY+20);
+					}
+					else{
+						ctx.lineTo(cursorX-20, cursorY-20);
+						ctx.lineTo(cursorX+20, cursorY-20);
+					}
 					ctx.lineTo(cursorX, cursorY);
 					ctx.fill();
-					drawRect2(cursorX-150, cursorY-120, cursorX+150, cursorY-20, 0, "rgb(50,50,64)", 1); //draw dialogue box
-					drawRect2(cursorX-150, cursorY-120, cursorX-120, cursorY-20, 0, "rgb(40,40,54)", 1); //draw dialogue box
-					drawRect2(cursorX-150, cursorY-120, cursorX+150, cursorY-20, 4, "rgb(30,30,44)", 1); //draw dialogue box
+					drawRect2(lx, ty, rx, ty+100, 0, "rgb(50,50,64)", 1); //draw dialogue box
+					drawRect2(lx, ty, lx+30, ty+100, 0, "rgb(40,40,54)", 1); //draw dialogue box
+					drawRect2(lx, ty, rx, ty+100, 4, "rgb(30,30,44)", 1); //draw dialogue box
 					if(object.name=='Unknown' && object.type==1)
-						drawText("Star #"+object.id, cursorX-107.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
+						drawText("Star #"+object.id, lx+42.5, ty+40, 30, "rgb(255,255,255)", 'left');
 					else
-						drawText(object.name, cursorX-107.5, cursorY-80, 30, "rgb(255,255,255)", 'left');
-					if(object.type==1 || object.type==6) drawText("☉", cursorX+130, cursorY-95, 20, "rgb(255,255,255)", 'center');
-					else if(object.type==2) drawText("🜨", cursorX+130, cursorY-95, 24, "rgb(255,255,255)", 'center');
-					else if(object.type==3) drawText("☽", cursorX+130, cursorY-95, 18, "rgb(255,255,255)", 'center');
-					else if(object.type==4) drawText("♅", cursorX+130, cursorY-95, 20, "rgb(255,255,255)", 'center');
-					drawLine2(cursorX-107.5, cursorY-70, cursorX+137.5, cursorY-70, 2, "rgb(255,255,255)", 1);
-					if(object.inhabited) drawText("⚘", cursorX+130, cursorY-75, 20, "rgb(255,255,255)", 'center');
+						drawText(object.name, lx+42.5, ty+40, 30, "rgb(255,255,255)", 'left');
+					if(object.type==1 || object.type==6) drawText("☉", rx-20, ty+25, 20, "rgb(255,255,255)", 'center');
+					else if(object.type==2) drawText("🜨", rx-20, ty+25, 24, "rgb(255,255,255)", 'center');
+					else if(object.type==3) drawText("☽", rx-20, ty+25, 18, "rgb(255,255,255)", 'center');
+					else if(object.type==4) drawText("♅", rx-20, ty+25, 20, "rgb(255,255,255)", 'center');
+					drawLine2(lx+42.5, ty+50, rx-12.5, ty+50, 2, "rgb(255,255,255)", 1);
+					if(object.inhabited) drawText("⚘", rx-20, ty+45, 20, "rgb(255,255,255)", 'center');
 					if(object.text1!="" || object.text1!=null){
+						// console.log(object.text1);
 						if(object.text2!="" || object.text2!=null){
-							drawText(object.text1, cursorX-107.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
-							drawText(object.text2, cursorX-107.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
+							drawText(object.text1, lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
+							drawText(object.text2, lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
 						}
-						else drawText(object.text1, cursorX-107.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
+						else drawText(object.text1, lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
 					}
-					else drawText("Unclaimed", cursorX-107.5, cursorY-40, 16, "rgb(255,255,255)", 'left');
+					else drawText("Unclaimed", lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
 					if(object.type==1)
-						drawText("#"+object.id, cursorX+137.5, cursorY-30, 12, "rgb(255,255,255)", 'right');
+						drawText("#"+object.id, rx-12.5, ty+90, 12, "rgb(255,255,255)", 'right');
 					if(object.pl==-1) object.pl = Math.round(Math.random());
-					if(object.pl==0) drawText("Pl", cursorX-135, cursorY-100, 16, "rgb(0,0,0)", 'center');
-					else drawText("Pl", cursorX-135, cursorY-100, 16, "rgb(255,255,255)", 'center');
+					if(object.pl==0) drawText("Pl", lx+15, ty+20, 16, "rgb(0,0,0)", 'center');
+					else drawText("Pl", lx+15, ty+20, 16, "rgb(255,255,255)", 'center');
 					if(object.li==-1) object.li = Math.round(Math.random());
-					if(object.li==0) drawText("Li", cursorX-135, cursorY-82.5, 16, "rgb(0,0,0)", 'center');
-					else drawText("Li", cursorX-135, cursorY-82.5, 16, "rgb(255,255,255)", 'center');
+					if(object.li==0) drawText("Li", lx+15, ty+37.5, 16, "rgb(0,0,0)", 'center');
+					else drawText("Li", lx+15, ty+37.5, 16, "rgb(255,255,255)", 'center');
 					if(object.de==-1) object.de = Math.round(Math.random());
-					if(object.de==0) drawText("²H", cursorX-135, cursorY-65, 16, "rgb(0,0,0)", 'center');
-					else drawText("²H", cursorX-135, cursorY-65, 16, "rgb(255,255,255)", 'center');
+					if(object.de==0) drawText("²H", lx+15, ty+55, 16, "rgb(0,0,0)", 'center');
+					else drawText("²H", lx+15, ty+55, 16, "rgb(255,255,255)", 'center');
 					if(object.he==-1) object.he = Math.round(Math.random());
-					if(object.he==0) drawText("³He", cursorX-135, cursorY-47.5, 16, "rgb(0,0,0)", 'center');
-					else drawText("³He", cursorX-135, cursorY-47.5, 16, "rgb(255,255,255)", 'center');
+					if(object.he==0) drawText("³He", lx+15, ty+72.5, 16, "rgb(0,0,0)", 'center');
+					else drawText("³He", lx+15, ty+72.5, 16, "rgb(255,255,255)", 'center');
 					if(object.ha==-1) object.ha = Math.round(Math.random());
-					if(object.ha==0) drawText("Ha", cursorX-135, cursorY-30, 16, "rgb(0,0,0)", 'center');
-					else drawText("Ha", cursorX-135, cursorY-30, 16, "rgb(255,255,255)", 'center');
+					if(object.ha==0) drawText("Ha", lx+15, ty+90, 16, "rgb(0,0,0)", 'center');
+					else drawText("Ha", lx+15, ty+90, 16, "rgb(255,255,255)", 'center');
 
 				}
 			}
@@ -544,11 +564,15 @@ $(document).ready(function() {
 					// var radius = ((star.mass/1.75*m+(planet.r*12*(1.22*prm/star.planets[star.planets.length-1].r))));
 					var radius = ((star.mass/1.75*fm+(h/5*((planet.r)/star.planets[star.planets.length-1].r))));
 					if(planet.inhabited)
-						drawCirc2(x, y, radius, 2, "rgb(128,128,128)");
+						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", 0.5);
 					else if(planet.klass!="asteroid")
-						drawCirc2(x, y, radius, 2, "rgb(64,64,64)");
+						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", 0.25);
+				}
+				for(var j=0; j<star.planets.length; j++){
+					var planet = star.planets[j];
+					var radius = ((star.mass/1.75*fm+(h/5*((planet.r)/star.planets[star.planets.length-1].r))));
 					if(planet.hover){
-						drawCirc2(x, y, radius, 2, "rgb(255,255,255)");
+						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", 1.0);
 					}
 				}
 				for(var j=0; j<star.planets.length; j++){
@@ -560,8 +584,10 @@ $(document).ready(function() {
 					}
 					var px = 0 - radius/1.22 * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
 					var py = 0 - radius/1.22 * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
-					if(planet.klass=="asteroid")
-						drawImage(x, y, (star.mass/1.5+(planet.r*(12.5/star.planets[star.planets.length-1].r))), planet.klass, 1.0); //draw asteroid belt
+					if(planet.klass=="asteroid"){
+						drawImage2(x, y, radius*2.125, planet.klass, 1.0); //draw asteroid belt
+						// drawCirc2(x, y, radius, 4, 'white', 1.0);
+					}
 					else drawImage(px, py, (planet.mass*2), planet.klass, 1.0); //draw non-asteroid planet
 					ctx.shadowBlur = 0;
 				}
