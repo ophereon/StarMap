@@ -838,7 +838,7 @@ $(document).ready(function() {
 						if(Math.sqrt(Math.pow((e.originalEvent.clientX-(w/2)),2) + Math.pow((e.originalEvent.clientY-(h/2)),2)) < focus.mass*(h/100)){ //if hover over star
 							if(focus.hover==false)
 								focus.hover = true;
-							else
+							else if(focus.name!='Unknown')
 								window.open("http://createthisworld.wikia.com/wiki/"+focus.name);
 						}
 						else{
@@ -851,7 +851,7 @@ $(document).ready(function() {
 								if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/10)){
 									if(planet.hover==false)
 										planet.hover = true;
-									else
+									else if(planet.name!='Unknown')
 										window.open("http://createthisworld.wikia.com/wiki/"+planet.name);
 								}
 								else planet.hover = false;
