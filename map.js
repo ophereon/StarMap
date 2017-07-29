@@ -566,9 +566,9 @@ $(document).ready(function() {
 						+ star.mass*fm/2 - planet.r*(star.mass*fm/2/star.planets[star.planets.length-1].r);
 					// var radius = ((star.mass/1.75*fm+(h/5*((planet.r)/star.planets[star.planets.length-1].r))));
 					if(planet.inhabited)
-						drawCirc2(x, y, radius, 2, "rgb(128,128,128)", 1.0);
+						drawCirc2(x, y, radius, 2, "rgb(128,128,128)", alpha);
 					else if(planet.klass!="asteroid")
-						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", 0.25);
+						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", alpha/4);
 				}
 				for(var j=0; j<star.planets.length; j++){
 					var planet = star.planets[j];
@@ -576,7 +576,7 @@ $(document).ready(function() {
 						+ star.mass*fm/2 - planet.r*(star.mass*fm/2/star.planets[star.planets.length-1].r);
 					// var radius = ((star.mass/1.75*fm+(h/5*((planet.r)/star.planets[star.planets.length-1].r))));
 					if(planet.hover){
-						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", 1.0);
+						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", alpha);
 					}
 				}
 				for(var j=0; j<star.planets.length; j++){
@@ -588,13 +588,14 @@ $(document).ready(function() {
 						ctx.shadowBlur = 20; //3*(planet.r*(prm/star.planets[star.planets.length-1].r));
 						ctx.shadowColor = planet.atmosphere; //set glow to atmosphere colour
 					}
-					var px = (0-radius*1.56) * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
-					var py = (0-radius*1.55) * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
+					var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
+					var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
 					if(planet.klass=="asteroid"){
-						drawImage2(x, y, radius*2.125, planet.klass, 1.0); //draw asteroid belt
+						drawImage2(x, y, radius*2.125, planet.klass, alpha); //draw asteroid belt
 						// drawCirc2(x, y, radius, 4, 'white', 1.0);
 					}
-					else drawImage(px, py, (planet.mass*fm/7.5), planet.klass, 1.0); //draw non-asteroid planet
+					// else drawCirc2(px, py, (planet.mass*fm/7.5), 0, "rgb(255,255,255)", 1.0);
+					else drawImage2(px, py, (planet.mass*fm/6), planet.klass, alpha); //draw non-asteroid planet
 					ctx.shadowBlur = 0;
 				}
 				drawImage2(x, y, star.mass*fm, star.klass, alpha, true); //draw star
