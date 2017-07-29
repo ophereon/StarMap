@@ -849,7 +849,8 @@ $(document).ready(function() {
 							focus.hover = false;
 							for(var j=0; j<focus.planets.length; j++){
 								var planet = focus.planets[j];
-								var radius = ((focus.mass/1.75*(h/50)+(h/5*((planet.r)/focus.planets[focus.planets.length-1].r))));
+								var radius = (fm*19)*((planet.r)/star.planets[star.planets.length-1].r)
+									+ star.mass*fm/2 - planet.r*(star.mass*fm/2/star.planets[star.planets.length-1].r);
 								var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
 								var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
 								if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/10)){
