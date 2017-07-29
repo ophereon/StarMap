@@ -109,7 +109,7 @@ $(document).ready(function() {
 			var showGrid = new toggle(25, 65, false, "showGrid");
 			var moveFree = new toggle(25, 105, false, "moveFree");
 			var cursorX = cursorY = 0;
-			var mobile = true;
+			var mobile = false;
 			// var proximity = new Array();
 		}
 
