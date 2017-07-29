@@ -109,7 +109,7 @@ $(document).ready(function() {
 			var showGrid = new toggle(25, 65, false, "showGrid");
 			var moveFree = new toggle(25, 105, false, "moveFree");
 			var cursorX = cursorY = 0;
-			var mobile = false;
+			var mobile = true;
 			// var proximity = new Array();
 		}
 
@@ -849,11 +849,12 @@ $(document).ready(function() {
 							focus.hover = false;
 							for(var j=0; j<focus.planets.length; j++){
 								var planet = focus.planets[j];
-								var radius = (fm*19)*((planet.r)/star.planets[star.planets.length-1].r)
-									+ star.mass*fm/2 - planet.r*(star.mass*fm/2/star.planets[star.planets.length-1].r);
+								var radius = (fm*19)*((planet.r)/focus.planets[focus.planets.length-1].r)
+									+ focus.mass*fm/2 - planet.r*(focus.mass*fm/2/focus.planets[focus.planets.length-1].r);
 								var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
 								var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
-								if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/10)){
+								console.log(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)));
+								if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/8)){
 									if(planet.hover==false)
 										planet.hover = true;
 									else if(planet.name!='Unknown')
