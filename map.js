@@ -853,7 +853,7 @@ $(document).ready(function() {
 									+ focus.mass*fm/2 - planet.r*(focus.mass*fm/2/focus.planets[focus.planets.length-1].r);
 								var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
 								var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
-								console.log(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)));
+								// console.log(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)));
 								if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/8)){
 									if(planet.hover==false)
 										planet.hover = true;
