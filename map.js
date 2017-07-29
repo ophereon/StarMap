@@ -504,15 +504,10 @@ $(document).ready(function() {
 					drawLine2(lx+42.5, ty+50, rx-12.5, ty+50, 2, "rgb(255,255,255)", 1);
 					if(object.inhabited) drawText("⚘", rx-20, ty+45, 20, "rgb(255,255,255)", 'center');
 					else if(object.gate) drawText("☍", rx-20, ty+45, 20, "rgb(255,255,255)", 'center');
-					if(object.text1!="" || object.text1!=null){
-						// console.log(object.text1);
-						if(object.text2!="" || object.text2!=null){
-							drawText(object.text1, lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
-							drawText(object.text2, lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
-						}
-						else drawText(object.text1, lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
-					}
-					else drawText("Unclaimed", lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
+					if(object.text1==" " || object.text1=="" || object.text1==null)
+						drawText("Unclaimed", lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
+					else if(object.text1!="" || object.text1!=null)
+						drawText(object.text1, lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
 					if(object.type==1)
 						drawText("#"+object.id, rx-12.5, ty+90, 12, "rgb(255,255,255)", 'right');
 					if(object.pl==-1) object.pl = Math.round(Math.random());
