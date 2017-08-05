@@ -588,14 +588,9 @@ $(document).ready(function() {
 						ctx.shadowBlur = 20; //3*(planet.r*(prm/star.planets[star.planets.length-1].r));
 						ctx.shadowColor = planet.atmosphere; //set glow to atmosphere colour
 					}
-<<<<<<< HEAD
 					// console.log(fm+", "+fm/11.4)
 					var px = 0 - radius/(fm/15.9) * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
 					var py = 0 - radius/(fm/15.9) * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
-=======
-					var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
-					var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
->>>>>>> 3d71a128b85643828b01479a7d54c411150eca23
 					if(planet.klass=="asteroid"){
 						drawImage2(x, y, radius*2.125, planet.klass, alpha); //draw asteroid belt
 						// drawCirc2(x, y, radius, 4, 'white', 1.0);
