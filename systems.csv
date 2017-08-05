@@ -19,8 +19,19 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-254,-198,8,blank,'010,1,1,0,0,0,
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
-1,Unknown,FALSE,-240,-164,8,blank,'011,1,0,0,1,1,
-2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
+1,Tantrax Luminaris,FALSE,-240,-164,12,red,'011,1,0,0,1,1,Tantrax Entertainment
+2,Tantrax Belkaris,FALSE,1,184,8,callistoan,128;128;128,0,0,0,0,0,Tantrax Entertainment
+2,Tantrax Akaris,TRUE,2,248,9,terran,128;192;255,0,0,0,0,0,Tantrax Entertainment
+3,Akaris Principa,FALSE,2,238,5,mercurian,128;192;255,0,0,0,0,0,Tantrax Entertainment
+3,Akaris Seconda,FALSE,2,258,4,mercurian,128;192;255,0,0,0,0,0,Tantrax Entertainment
+2,Tantrax Athoris,FALSE,3,10,6,venusian,128;255;128,0,0,0,0,0,Tantrax Entertainment
+2,Tantrax Bellerophos,FALSE,4,209,12,jovian,255;255;128,0,0,0,0,0,Tantrax Entertainment
+3,Bellerophos Principa,FALSE,4,199,4,mercurian,128;128;128,0,0,0,0,0,Tantrax Entertainment
+5,Asteroid Belt,FALSE,5,0,1,asteroid,128;128;128,0,0,0,0,0,Tantrax Entertainment
+2,Tantrax V,FALSE,6,68,18,jovian,255;255;128,0,0,0,0,0,Tantrax Entertainment
+3,Edrephos,FALSE,6,287,5,mercurian,128;128;128,0,0,0,0,0,Tantrax Entertainment
+2,Tantrax VI,FALSE,7,145,25,gas_white,255;255;255,0,0,0,0,0,Tantrax Entertainment
+2,Tantrax VII,FALSE,8,77,6,uranian,128;128;128,0,0,0,0,0,Tantrax Entertainment
 1,Unknown,FALSE,-224,-132,8,blank,'012,1,1,0,0,1,
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-232,-90,8,blank,'013,0,1,1,1,0,
@@ -52,8 +63,9 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-140,-50,8,blank,'026,0,1,0,1,1,
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
-1,Unknown,FALSE,-194,98,8,blank,'027,1,1,1,1,0,
-2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
+1,b2d2 (Bebedede),FALSE,-194,98,16,blue,'027,1,1,1,1,0,Unclaimed
+2,t2d8b2t4,FALSE,1,98,5,venusian,192;192;128,0,0,0,0,0,Unclaimed
+2,g16p2,FALSE,2,15,10,ring2,192;192;128,0,0,0,0,0,Unclaimed
 1,Unknown,FALSE,-184,116,8,blank,'028,1,1,0,1,0,
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-238,114,8,blank,'029,0,1,1,1,1,
@@ -74,8 +86,11 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-104,160,8,blank,'037,1,0,1,0,0,
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
-1,Unknown,FALSE,-74,364,8,blank,'038,1,1,1,1,1,
-2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
+1,Urus,FALSE,-74,364,8,yellow,'038,1,1,1,1,1,The Dzakat' Arrahakah
+2,Kazuzh E'al,FALSE,1,95,16,gas_purple,255;192;192,0,0,0,0,0,The Dzakat' Arrahakah
+2,Hutal,FALSE,2,259,7,martian,128;192;255,0,0,0,0,0,The Dzakat' Arrahakah
+3,Kelos,FALSE,2,265,4,mercurian,128;128;128,0,0,0,0,0,The Dzakat' Arrahakah
+2,Aztur,FALSE,3,30,21,gas_green,128;255;128,0,0,0,0,0,The Dzakat' Arrahakah
 1,Hora,TRUE,-60,194,12,orange,'039,0,0,1,1,1,The Ikidaliwen of Mualat
 2,Alrit,FALSE,1,170,6,mercurian,128;128;128,0,0,0,0,0,The Ikidaliwen of Mualat
 2,Mualat,TRUE,2,121,11,martian,64;192;192,0,0,0,0,0,The Ikidaliwen of Mualat
@@ -400,8 +415,12 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,9,35,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy
 4,PIONEER,FALSE,10,277,5,station,128;128;128,0,0,0,0,0,The Klekon Technocracy
 2,Oops,FALSE,11,0,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy
-1,Unknown,FALSE,52,-74,8,blank,'154,1,1,1,1,1,
-2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
+1,Briva,FALSE,52,-74,12,yellow,'154,1,1,1,1,1,The Vora of Doln
+2,Huriol,FALSE,1,106,6,venusian,128;128;128,0,0,0,0,0,The Vora of Doln
+2,Doln,TRUE,2,353,9,terran,255;192;128,1,0,0,0,1,The Vora of Doln
+3,Pehla,FALSE,2,343,4,mercurian,128;128;128,0,0,0,0,0,The Vora of Doln
+5,Rezhfotehn Asteroid Belt,FALSE,3,0,1,asteroid,128;128;128;0,0,0,0,0,The Vora of Doln
+2,Lohshta,FALSE,4,235,7,uranian,192;192;255,1,1,0,0,0,The Vora of Doln
 1,Unknown,FALSE,60,-32,8,blank,'155,0,1,0,0,1,
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-8,-60,8,blank,'156,1,0,0,1,1,
