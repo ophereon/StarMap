@@ -142,7 +142,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Apo Gull,TRUE,3,45,8,neptunian,128;128;255,0,0,0,0,0,The Preti and the Milodacki
 2,Apo Vocce,TRUE,4,142,5,mercurian,128;64;192,0,0,0,0,0,The Preti and the Milodacki
 2,Apo Dask,FALSE,5,32,4,uranian,128;128;255,0,0,0,0,0,The Preti and the Milodacki
-6,Tarwater,FALSE,6,234,24,red,255;255;255,0,0,0,0,0,The Preti and the Milodacki
+6,Tarwater,FALSE,7,234,24,red,255;255;255,0,0,0,0,0,The Preti and the Milodacki
 1,Unknown,FALSE,76,232,8,blank,'057,0,0,0,1,1,
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,124,238,8,blank,'058,0,0,1,0,1,

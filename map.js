@@ -552,7 +552,7 @@ $(document).ready(function() {
 				else
 					ctx.drawImage(document.getElementById('background'), (w/2)-h, 0, (w/2)+h, h);
 				ctx.restore();
-				drawCirc2(w/2, h/2, h/2.25, 6, "rgb(30,30,44)", alpha);
+				drawCirc2(w/2, h/2, fm*22.22, 6, "rgb(30,30,44)", alpha);
 				var star = focus;
 				if(star.hover && star.klass!="black"){
 					drawImage2(x, y, star.mass*fm*2, 'glow', alpha);
@@ -562,34 +562,46 @@ $(document).ready(function() {
 					// ctx.globalAlpha = ((z/maxZ))/2;
 					ctx.globalAlpha = 1.0;
 					// var radius = ((star.mass/1.75*m+(planet.r*12*(1.22*prm/star.planets[star.planets.length-1].r))));
-					var radius = ((star.mass/1.75*fm+(h/5*((planet.r)/star.planets[star.planets.length-1].r))));
+					var radius = (fm*19)*((planet.r)/star.planets[star.planets.length-1].r)
+						+ star.mass*fm/2 - planet.r*(star.mass*fm/2/star.planets[star.planets.length-1].r);
+					// var radius = ((star.mass/1.75*fm+(h/5*((planet.r)/star.planets[star.planets.length-1].r))));
 					if(planet.inhabited)
-						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", 0.5);
+						drawCirc2(x, y, radius, 2, "rgb(128,128,128)", alpha);
 					else if(planet.klass!="asteroid")
-						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", 0.25);
+						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", alpha/4);
 				}
 				for(var j=0; j<star.planets.length; j++){
 					var planet = star.planets[j];
-					var radius = ((star.mass/1.75*fm+(h/5*((planet.r)/star.planets[star.planets.length-1].r))));
+					var radius = (fm*19)*((planet.r)/star.planets[star.planets.length-1].r)
+						+ star.mass*fm/2 - planet.r*(star.mass*fm/2/star.planets[star.planets.length-1].r);
+					// var radius = ((star.mass/1.75*fm+(h/5*((planet.r)/star.planets[star.planets.length-1].r))));
 					if(planet.hover){
-						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", 1.0);
+						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", alpha);
 					}
 				}
 				for(var j=0; j<star.planets.length; j++){
 					var planet = star.planets[j];
-					var radius = ((star.mass/1.75*fm+(h/5*((planet.r)/star.planets[star.planets.length-1].r))));
+					var radius = (fm*19)*((planet.r)/star.planets[star.planets.length-1].r)
+						+ star.mass*fm/2 - planet.r*(star.mass*fm/2/star.planets[star.planets.length-1].r);
+					// var radius = ((star.mass/1.75*fm+(h/5*((planet.r)/star.planets[star.planets.length-1].r))));
 					if(planet.hover){ //if planet is hovered over
 						ctx.shadowBlur = 20; //3*(planet.r*(prm/star.planets[star.planets.length-1].r));
 						ctx.shadowColor = planet.atmosphere; //set glow to atmosphere colour
 					}
+<<<<<<< HEAD
 					// console.log(fm+", "+fm/11.4)
 					var px = 0 - radius/(fm/15.9) * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
 					var py = 0 - radius/(fm/15.9) * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
+=======
+					var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
+					var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
+>>>>>>> 3d71a128b85643828b01479a7d54c411150eca23
 					if(planet.klass=="asteroid"){
-						drawImage2(x, y, radius*2.125, planet.klass, 1.0); //draw asteroid belt
+						drawImage2(x, y, radius*2.125, planet.klass, alpha); //draw asteroid belt
 						// drawCirc2(x, y, radius, 4, 'white', 1.0);
 					}
-					else drawImage(px, py, (planet.mass*2), planet.klass, 1.0); //draw non-asteroid planet
+					// else drawCirc2(px, py, (planet.mass*fm/7.5), 0, "rgb(255,255,255)", 1.0);
+					else drawImage2(px, py, (planet.mass*fm/6), planet.klass, alpha); //draw non-asteroid planet
 					ctx.shadowBlur = 0;
 				}
 				drawImage2(x, y, star.mass*fm, star.klass, alpha, true); //draw star
@@ -767,7 +779,9 @@ $(document).ready(function() {
 						focus.hover = false;
 						for(var j=0; j<focus.planets.length; j++){
 							var planet = focus.planets[j];
-							var radius = ((focus.mass/1.75*(h/50)+(h/5*((planet.r)/focus.planets[focus.planets.length-1].r))));
+							var radius = (fm*19)*((planet.r)/focus.planets[focus.planets.length-1].r)
+								+ focus.mass*fm/2 - planet.r*(focus.mass*fm/2/focus.planets[focus.planets.length-1].r);
+							// var radius = ((focus.mass/1.75*(h/50)+(h/5*((planet.r)/focus.planets[focus.planets.length-1].r))));
 							var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
 							var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
 							// console.log("distance from planet "+planet.name+": "+Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)));
@@ -841,10 +855,12 @@ $(document).ready(function() {
 							focus.hover = false;
 							for(var j=0; j<focus.planets.length; j++){
 								var planet = focus.planets[j];
-								var radius = ((focus.mass/1.75*(h/50)+(h/5*((planet.r)/focus.planets[focus.planets.length-1].r))));
+								var radius = (fm*19)*((planet.r)/focus.planets[focus.planets.length-1].r)
+									+ focus.mass*fm/2 - planet.r*(focus.mass*fm/2/focus.planets[focus.planets.length-1].r);
 								var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
 								var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
-								if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/10)){
+								// console.log(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)));
+								if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/8)){
 									if(planet.hover==false)
 										planet.hover = true;
 									else if(planet.name!='Unknown')
