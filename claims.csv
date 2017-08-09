@@ -1,10 +1,10 @@
 name,colour,polygons
 ???,green,-177:-221;-152:-221;-113:-172;-114:-164;-128:-151;-133:-127;-176:-125;-196:-148;-199:-163;-196:-177;-200:-200;-197:-212
 Galactic Aquilan Directorate,blue,139:-139;173:-112;175:-107;115:-70;104:-71;98:-87;112:-127
-The T’yet-Sang Confederacy,blue,79:41;110:54;107:84;90:95;71:90;61:63
+The T’yet-Sang Confederacy,magenta,79:41;110:54;107:84;90:95;71:90;61:63
 The Ikidaliwen of Mualat,yellow,-59:146;-25:150;-4:180;-4:225;-8:231;-22:244;-36:245;-94:235;-100:199
 The Centauri,cyan,-35:6;0:19;10:50;-40:64;-45:63;-46:8
-Exeter-Sakamoto Corporation,magenta,-17:-33;21:-33;25:-20;0:19;-35:6
+Exeter-Sakamoto Corporation,blue,-17:-33;21:-33;25:-20;0:19;-35:6
 The Drifting Forests of Jhantavar,green,-400:-62;-316:-47;-327:20;-337:28;-400:20;
 The Preti and the Milodacki,red,-4:225;39:226;93:276;51:295;-8:231
 The God-Kingdom of the Nunnes,green,225:130;239:138;241:162;225:195;218:199;186:303;162:305;146:204;136:195;128:170;131:151;139:145
@@ -14,3 +14,4 @@ The Heimsveldi of the Sattfolks,green,214:-250;233:-189;276:-197;315:-170;289:-1
 Tantrax Entertainment,cyan,-269:-173;-200:-200;-196:-177;-199:-163;-276:-125;-280:-130
 The Dzakat' Arrahakah,magenta,-75:339;-54:349;-53:400;-141:400
 The Vora of Doln,yellow,72:-101;98:-87;104:-71;96:-61;27:-48;19:-85;20:-89
+The Hubari,yellow,57:4;72:5;78:41;61:63;20:57;15:52
