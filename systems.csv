@@ -106,8 +106,8 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,2,177,8,unknown,128;128;128,0,0,0,0,0,The Centauri
 2,Unknown,FALSE,3,30,8,unknown,128;128;128,0,0,0,0,0,The Centauri
 2,Ellowa,FALSE,4,90,16,uranian,128;128;255,0,0,0,0,0,The Centauri
-3,The Centauri Citidel,TRUE,4,80,6,mercurian,128;128;128,0,0,0,0,0,The Centauri
-4,The Ari Sanctum,TRUE,4,100,6,sanctum,128;128;128,0,0,0,0,0,The Interstellar Community of Aries
+3,The Centauri Citidel,TRUE,4,80,6,mercurian,128;128;128,0,0,0,0,1,The Centauri
+4,The Ari Sanctum,TRUE,4,100,6,sanctum,128;128;128,0,0,0,1,1,Intersidereum Civitatem Arietis,The Intersidereal Civitas of the Aries
 2,Unknown,FALSE,5,308,8,unknown,128;128;128,0,0,0,0,0,The Centauri
 2,Unknown,FALSE,6,223,8,unknown,128;128;128,0,0,0,0,0,The Centauri
 2,Unknown,FALSE,7,208,8,unknown,128;128;128,0,0,0,0,0,The Centauri
@@ -217,14 +217,14 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 1,Unknown,FALSE,-114,-208,8,blank,'092,1,0,1,0,1,
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
 1,χ Ari (Goddard),TRUE,-150,-180,8,binary1,'093,0,1,1,1,0,???
-2,χ Ari I,FALSE,1,18,4,callistoan,128;128;128,0,0,0,0,0,???
-2,χ Ari II,FALSE,2,5,6,martian,128;128;255,0,0,0,0,0,???
+2,χ Ari I,FALSE,1,18,4,callistoan,128;128;128,0,0,0,1,0,???
+2,χ Ari II,FALSE,2,5,6,martian,128;128;255,0,1,0,0,0,???
 2,Asteroid Belt,FALSE,3,0,1,asteroid,128;128;128,0,0,0,0,0,???
 2,Empyreus (χ Ari III),FALSE,4,90,24,gas_purple,192;64;255,0,0,0,0,0,???
-3,Aria,TRUE,4,73,8,terran,192;128;255,0,0,0,0,0,???
-4,Welkin Ruins,FALSE,4,65,6,station,128;128;128,0,0,0,0,0,???
+3,Aria,TRUE,4,73,8,terran,192;128;255,0,0,1,0,0,???
+4,Welkin Ruins,FALSE,4,65,6,station,128;128;128,0,0,0,0,1,???
 2,χ Ari IV,FALSE,5,206,20,jovian,255;128;128,0,0,0,0,0,???
-2,χ Ari V,FALSE,6,302,14,uranian,128;128;255,0,0,0,0,0,???
+2,χ Ari V,FALSE,6,302,14,uranian,128;128;255,0,0,1,0,0,???
 2,Asteroid Belt,FALSE,7,0,1,asteroid,128;128;128,0,0,0,0,0,???
 1,EUEC-867,TRUE,-164,-144,8,orange,'094,1,0,1,1,1,???
 2,EUEC-867-1,TRUE,1,41,9,terran,255;255;128,0,0,0,0,0,???

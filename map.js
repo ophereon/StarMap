@@ -194,14 +194,20 @@ $(document).ready(function() {
 									// mass = (one+two)/2;
 									mass = 10;
 								}
-								sys = new system(parseInt(inst[0]), inst[1], gate, parseInt(inst[3]), parseInt(inst[4]), mass, klass, inst[7].substring(1), parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14]);
+								if(inst[15]!=null)
+									sys = new system(parseInt(inst[0]), inst[1], gate, parseInt(inst[3]), parseInt(inst[4]), mass, klass, inst[7].substring(1), parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14], inst[15]);
+								else
+									sys = new system(parseInt(inst[0]), inst[1], gate, parseInt(inst[3]), parseInt(inst[4]), mass, klass, inst[7].substring(1), parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14], null);
 							}
 							else if(parseInt(inst[0])>1){
 								var inhabited = (inst[2] == 'TRUE');
 								var col = inst[7].split(";");
 								var atmosphere = "rgb("+col[0]+","+col[1]+","+col[2]+")";
 								if(inst[1]!=null){
-									sys.planets.push(new planet(parseInt(inst[0]), inst[1], inhabited, parseInt(inst[3]), parseInt(inst[4]), parseInt(inst[5]), inst[6], atmosphere, parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14]));
+									if(inst[15]!=null)
+										sys.planets.push(new planet(parseInt(inst[0]), inst[1], inhabited, parseInt(inst[3]), parseInt(inst[4]), parseInt(inst[5]), inst[6], atmosphere, parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14], inst[15]));
+									else
+										sys.planets.push(new planet(parseInt(inst[0]), inst[1], inhabited, parseInt(inst[3]), parseInt(inst[4]), parseInt(inst[5]), inst[6], atmosphere, parseInt(inst[8]), parseInt(inst[9]), parseInt(inst[10]), parseInt(inst[11]), parseInt(inst[12]), inst[13], inst[14], null));
 								}
 							}
 							else if(parseInt(inst[0])<1){
@@ -453,82 +459,6 @@ $(document).ready(function() {
 				drawCirc2(toggle.x, toggle.y, 15, 2, "rgb(30,30,44)", 1.0);
 			ctx.shadowBlur = 0;
 		}
-		function drawDialogue(){
-			var object = null;
-			for(var i=0; i<systems.length; i++){
-				if(systems[i].hover)//if star is hovered over,
-					object = systems[i];
-				else for(var j=0; j<systems[i].planets.length; j++)
-					if(systems[i].planets[j].hover) //if planet is hovered over,
-						object = systems[i].planets[j];
-				if(object!=null){
-					var lx = cursorX-150; //right edge
-					var rx = cursorX+150; //left edge
-					var ty = cursorY-120; //top edge
-					if(rx>w){
-						rx -= rx-w; //if the right edge is over the page, push it left
-						lx = rx-300;
-					}
-					if(lx<0){
-						lx += -lx; //if the left edge is over the page, push it right
-						rx = lx+300;
-					}
-					if(ty<0){
-						ty = cursorY+20;
-					}
-					ctx.globalAlpha = 1.0;
-					ctx.fillStyle = "rgb(30,30,44)";
-					ctx.beginPath();
-					ctx.lineTo(cursorX, cursorY);
-					if(ty==cursorY+20){
-						ctx.lineTo(cursorX-20, cursorY+20);
-						ctx.lineTo(cursorX+20, cursorY+20);
-					}
-					else{
-						ctx.lineTo(cursorX-20, cursorY-20);
-						ctx.lineTo(cursorX+20, cursorY-20);
-					}
-					ctx.lineTo(cursorX, cursorY);
-					ctx.fill();
-					drawRect2(lx, ty, rx, ty+100, 0, "rgb(50,50,64)", 1); //draw dialogue box
-					drawRect2(lx, ty, lx+30, ty+100, 0, "rgb(40,40,54)", 1); //draw dialogue box
-					drawRect2(lx, ty, rx, ty+100, 4, "rgb(30,30,44)", 1); //draw dialogue box
-					if(object.name=='Unknown' && object.type==1)
-						drawText("Star #"+object.id, lx+42.5, ty+40, 30, "rgb(255,255,255)", 'left');
-					else
-						drawText(object.name, lx+42.5, ty+40, 30, "rgb(255,255,255)", 'left');
-					if(object.type==1 || object.type==6) drawText("☉", rx-20, ty+25, 20, "rgb(255,255,255)", 'center');
-					else if(object.type==2) drawText("🜨", rx-20, ty+25, 24, "rgb(255,255,255)", 'center');
-					else if(object.type==3) drawText("☽", rx-20, ty+25, 18, "rgb(255,255,255)", 'center');
-					else if(object.type==4) drawText("♅", rx-20, ty+25, 20, "rgb(255,255,255)", 'center');
-					drawLine2(lx+42.5, ty+50, rx-12.5, ty+50, 2, "rgb(255,255,255)", 1);
-					if(object.inhabited) drawText("⚘", rx-20, ty+45, 20, "rgb(255,255,255)", 'center');
-					else if(object.gate) drawText("☍", rx-20, ty+45, 20, "rgb(255,255,255)", 'center');
-					if(object.text1==" " || object.text1=="" || object.text1==null)
-						drawText("Unclaimed", lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
-					else if(object.text1!="" || object.text1!=null)
-						drawText(object.text1, lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
-					if(object.type==1)
-						drawText("#"+object.id, rx-12.5, ty+90, 12, "rgb(255,255,255)", 'right');
-					if(object.pl==-1) object.pl = Math.round(Math.random());
-					if(object.pl==0) drawText("Pl", lx+15, ty+20, 16, "rgb(0,0,0)", 'center');
-					else drawText("Pl", lx+15, ty+20, 16, "rgb(255,255,255)", 'center');
-					if(object.li==-1) object.li = Math.round(Math.random());
-					if(object.li==0) drawText("Li", lx+15, ty+37.5, 16, "rgb(0,0,0)", 'center');
-					else drawText("Li", lx+15, ty+37.5, 16, "rgb(255,255,255)", 'center');
-					if(object.de==-1) object.de = Math.round(Math.random());
-					if(object.de==0) drawText("²H", lx+15, ty+55, 16, "rgb(0,0,0)", 'center');
-					else drawText("²H", lx+15, ty+55, 16, "rgb(255,255,255)", 'center');
-					if(object.he==-1) object.he = Math.round(Math.random());
-					if(object.he==0) drawText("³He", lx+15, ty+72.5, 16, "rgb(0,0,0)", 'center');
-					else drawText("³He", lx+15, ty+72.5, 16, "rgb(255,255,255)", 'center');
-					if(object.ha==-1) object.ha = Math.round(Math.random());
-					if(object.ha==0) drawText("Ha", lx+15, ty+90, 16, "rgb(0,0,0)", 'center');
-					else drawText("Ha", lx+15, ty+90, 16, "rgb(255,255,255)", 'center');
-
-				}
-			}
-		}
 		function drawFocus(){
 			if(focus!=null){
 				var x = w/2;
@@ -602,6 +532,89 @@ $(document).ready(function() {
 				drawImage2(x, y, star.mass*fm, star.klass, alpha, true); //draw star
 			}
 		}
+		function drawDialogue(){
+			var object = null;
+			for(var i=0; i<systems.length; i++){
+				if(systems[i].hover)//if star is hovered over,
+					object = systems[i];
+				else for(var j=0; j<systems[i].planets.length; j++)
+					if(systems[i].planets[j].hover) //if planet is hovered over,
+						object = systems[i].planets[j];
+				if(object!=null){
+					var lx = cursorX-150; //right edge
+					var rx = cursorX+150; //left edge
+					var ty = cursorY-120; //top edge
+					if(rx>w){
+						rx -= rx-w; //if the right edge is over the page, push it left
+						lx = rx-300;
+					}
+					if(lx<0){
+						lx += -lx; //if the left edge is over the page, push it right
+						rx = lx+300;
+					}
+					if(ty<0){
+						ty = cursorY+20;
+					}
+					ctx.globalAlpha = 1.0;
+					ctx.fillStyle = "rgb(30,30,44)";
+					ctx.beginPath();
+					ctx.lineTo(cursorX, cursorY);
+					if(ty==cursorY+20){
+						ctx.lineTo(cursorX-20, cursorY+20);
+						ctx.lineTo(cursorX+20, cursorY+20);
+					}
+					else{
+						ctx.lineTo(cursorX-20, cursorY-20);
+						ctx.lineTo(cursorX+20, cursorY-20);
+					}
+					ctx.lineTo(cursorX, cursorY);
+					ctx.fill();
+					drawRect2(lx, ty, rx, ty+100, 0, "rgb(50,50,64)", 1); //draw dialogue box
+					drawRect2(lx, ty, lx+30, ty+100, 0, "rgb(40,40,54)", 1); //draw dialogue box
+					drawRect2(lx, ty, rx, ty+100, 4, "rgb(30,30,44)", 1); //draw dialogue box
+					if(object.name=='Unknown' && object.type==1)
+						drawText("Star #"+object.id, lx+42.5, ty+40, 30, "rgb(255,255,255)", 'left');
+					else
+						drawText(object.name, lx+42.5, ty+40, 30, "rgb(255,255,255)", 'left');
+					if(object.type==1 || object.type==6) drawText("☉", rx-20, ty+25, 20, "rgb(255,255,255)", 'center');
+					else if(object.type==2) drawText("🜨", rx-20, ty+25, 24, "rgb(255,255,255)", 'center');
+					else if(object.type==3) drawText("☽", rx-20, ty+25, 18, "rgb(255,255,255)", 'center');
+					else if(object.type==4) drawText("♅", rx-20, ty+25, 20, "rgb(255,255,255)", 'center');
+					drawLine2(lx+42.5, ty+50, rx-12.5, ty+50, 2, "rgb(255,255,255)", 1);
+					if(object.inhabited) drawText("⚘", rx-20, ty+45, 20, "rgb(255,255,255)", 'center');
+					else if(object.gate) drawText("☍", rx-20, ty+45, 20, "rgb(255,255,255)", 'center');
+					if(object.text1==" " || object.text1=="" || object.text1==null)
+						drawText("Unclaimed", lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
+					else if(object.text1!="" || object.text1!=null){
+						if(object.text2==null)
+							drawText(object.text1, lx+42.5, ty+80, 16, "rgb(255,255,255)", 'left');
+						else{
+							drawText(object.text1, lx+42.5, ty+70, 16, "rgb(255,255,255)", 'left');
+							drawText(object.text2, lx+42.5, ty+90, 16, "rgb(255,255,255)", 'left');
+						}
+					}
+					if(object.type==1)
+						drawText("#"+object.id, rx-12.5, ty+90, 12, "rgb(255,255,255)", 'right');
+					if(object.pl==-1) object.pl = Math.round(Math.random());
+					if(object.pl==0) drawText("Pl", lx+15, ty+20, 16, "rgb(0,0,0)", 'center');
+					else drawText("Pl", lx+15, ty+20, 16, "rgb(255,255,255)", 'center');
+					if(object.li==-1) object.li = Math.round(Math.random());
+					if(object.li==0) drawText("Li", lx+15, ty+37.5, 16, "rgb(0,0,0)", 'center');
+					else drawText("Li", lx+15, ty+37.5, 16, "rgb(255,255,255)", 'center');
+					if(object.de==-1) object.de = Math.round(Math.random());
+					if(object.de==0) drawText("²H", lx+15, ty+55, 16, "rgb(0,0,0)", 'center');
+					else drawText("²H", lx+15, ty+55, 16, "rgb(255,255,255)", 'center');
+					if(object.he==-1) object.he = Math.round(Math.random());
+					if(object.he==0) drawText("³He", lx+15, ty+72.5, 16, "rgb(0,0,0)", 'center');
+					else drawText("³He", lx+15, ty+72.5, 16, "rgb(255,255,255)", 'center');
+					if(object.ha==-1) object.ha = Math.round(Math.random());
+					if(object.ha==0) drawText("Ha", lx+15, ty+90, 16, "rgb(0,0,0)", 'center');
+					else drawText("Ha", lx+15, ty+90, 16, "rgb(255,255,255)", 'center');
+
+				}
+			}
+		}
+
 
 		function drawLine(x1, y1, x2, y2, stroke, colour, alpha, dashed){
 			if(alpha!=null) ctx.globalAlpha = alpha;
