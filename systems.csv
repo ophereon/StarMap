@@ -101,16 +101,16 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-68,34,8,blank,'042,1,0,1,1,0,
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
-1,Omega Centauri,TRUE,-22,32,12,white,'043,0,0,1,1,1,The Centauri
-2,Unknown,FALSE,1,157,8,unknown,128;128;128,0,0,0,0,0,The Centauri
-2,Unknown,FALSE,2,177,8,unknown,128;128;128,0,0,0,0,0,The Centauri
-2,Unknown,FALSE,3,30,8,unknown,128;128;128,0,0,0,0,0,The Centauri
+1,Omega Centauri,TRUE,-22,32,12,white,'043,0,0,1,1,1,Neutral,The Centauri
+2,Unknown,FALSE,1,157,8,unknown,128;128;128,0,0,0,0,0,Neutral
+2,Unknown,FALSE,2,177,8,unknown,128;128;128,0,0,0,0,0,Neutral
+2,Unknown,FALSE,3,30,8,unknown,128;128;128,0,0,0,0,0,Neutral
 2,Ellowa,FALSE,4,90,16,uranian,128;128;255,0,0,0,0,0,The Centauri
 3,The Centauri Citidel,TRUE,4,80,6,mercurian,128;128;128,0,0,0,0,1,The Centauri
-4,The Ari Sanctum,TRUE,4,100,6,sanctum,128;128;128,0,0,0,1,1,Intersidereum Civitatem Arietis,The Intersidereal Civitas of the Aries
-2,Unknown,FALSE,5,308,8,unknown,128;128;128,0,0,0,0,0,The Centauri
-2,Unknown,FALSE,6,223,8,unknown,128;128;128,0,0,0,0,0,The Centauri
-2,Unknown,FALSE,7,208,8,unknown,128;128;128,0,0,0,0,0,The Centauri
+4,The Ari Sanctum,TRUE,4,100,6,sanctum,128;128;128,0,0,0,1,1,The Intersidereal Civitas of the Aries,(Intersidereum Civitatem Arietis)
+2,Unknown,FALSE,5,308,8,unknown,128;128;128,0,0,0,0,0,Neutral
+2,Unknown,FALSE,6,223,8,unknown,128;128;128,0,0,0,0,0,Neutral
+2,Unknown,FALSE,7,208,8,unknown,128;128;128,0,0,0,0,0,Neutral
 1,Unknown,FALSE,-50,100,8,blank,'044,1,0,0,0,1,
 2,Unknown,FALSE,3,0,16,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-8,82,8,blank,'045,0,0,1,0,1,
