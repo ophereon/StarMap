@@ -497,7 +497,7 @@ $(document).ready(function() {
 					// var radius = ((star.mass/1.75*fm+(h/5*((planet.r)/star.planets[star.planets.length-1].r))));
 					if(planet.inhabited)
 						drawCirc2(x, y, radius, 2, "rgb(128,128,128)", alpha);
-					else if(planet.klass!="asteroid")
+					else if(!planet.klass.startsWith("belt"))
 						drawCirc2(x, y, radius, 2, "rgb(255,255,255)", alpha/4);
 				}
 				for(var j=0; j<star.planets.length; j++){
@@ -521,7 +521,7 @@ $(document).ready(function() {
 					// console.log(fm+", "+fm/11.4)
 					var px = w/2 - radius * Math.sin((-planet.th*Math.PI)/180); //calculate x-coordinate of planet
 					var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
-					if(planet.klass=="asteroid"){
+					if(planet.klass.startsWith("belt")){
 						drawImage2(x, y, radius*2.125, planet.klass, alpha); //draw asteroid belt
 						// drawCirc2(x, y, radius, 4, 'white', 1.0);
 					}
@@ -697,7 +697,7 @@ $(document).ready(function() {
 			if(alpha!=null) ctx.globalAlpha = alpha;
 			if(star)
 				ctx.drawImage(document.getElementById(image), x(x1)-r2(d1/2), y(y1)-r2(d1/2), r2(d1), r2(d1));
-			else if(image=="asteroid")
+			else if(image.startsWith("belt"))
 				ctx.drawImage(document.getElementById(image), x(x1-(d1/2)), y(y1-(d1/2)), r2(d1), r2(d1));
 			else
 				ctx.drawImage(document.getElementById(image), x(x1)-r2(d1/2), y(y1)-r2(d1/2), r2(d1), r2(d1));
@@ -794,8 +794,14 @@ $(document).ready(function() {
 							var py = h/2 - radius * Math.cos((-planet.th*Math.PI)/180); //calculate y-coordinate of planet
 							// console.log("distance from planet "+planet.name+": "+Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)));
 							if(Math.sqrt(Math.pow(e.originalEvent.clientX-px,2) + Math.pow(e.originalEvent.clientY-py,2)) < planet.mass*(fm/10)){
-								planet.hover = true;
-								document.body.style.cursor = 'pointer';
+								if(!planet.klass.startsWith("ring")){
+									planet.hover = true;
+									// console.log('planet klass = '+planet.klass);
+									document.body.style.cursor = 'pointer';
+								}
+								else{
+									// console.log('!planet klass = '+planet.klass);
+								}
 							}
 							else planet.hover = false;
 						}
