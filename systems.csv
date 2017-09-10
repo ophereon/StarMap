@@ -84,8 +84,8 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-144,152,8,blank,'036,1,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Unknown,FALSE,-104,160,8,blank,'037,1,0,1,0,0,
-2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
+1,Fros,FALSE,-104,160,8,yellow,'037,1,0,1,0,0,The Ikidaliwen of Mualat
+2,Unknown,FALSE,1,68,16,uranian,164;164;255,0,0,0,0,0,The Ikidaliwen of Mualat
 1,Urus,FALSE,-74,364,8,yellow,'038,1,1,1,1,1,The Dzakat' Arrahakah
 2,Kazuzh E'al,FALSE,1,95,16,gas_purple,255;192;192,0,0,0,0,0,The Dzakat' Arrahakah
 2,Hutal,FALSE,2,259,7,martian,128;192;255,0,0,0,0,0,The Dzakat' Arrahakah
@@ -288,11 +288,15 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 1,Suuer,TRUE,178,230,12,red,'108,0,1,1,1,0,The God-Kingdom of the Nunnes
 2,Unknown,FALSE,1,68,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
 2,Gudun,TRUE,2,318,10,neptunian,128;128;255,0,0,0,0,0,The God-Kingdom of the Nunnes
-4,Recov VI,TRUE,2.5,239,10,uranian,128;128;255,0,0,0,0,0,The God-Kingdom of the Nunnes
+4,Recov VI,TRUE,2.5,239,6,station,128;128;255,0,0,0,0,0,The God-Kingdom of the Nunnes
 2,Unknown,FALSE,3,8,10,uranian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
 2,Unknown,FALSE,4,188,10,unknown,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-1,Unknown,FALSE,234,248,8,blank,'109,0,1,1,0,1,
-2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
+1,Sassime,FALSE,234,248,4,red,'109,0,1,1,0,1,The God-Kingdom of the Nunnes
+2,Kipo,FALSE,1,114,6,venusian,255;255;128,0,0,0,0,0,The God-Kingdom of the Nunnes
+2,Zaub,TRUE,2,338,8,terran,164;164;255,0,0,0,0,0,The God-Kingdom of the Nunnes
+5,Asteroid Belt,FALSE,3,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
+4,Recov II,FALSE,3,70,6,station,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
+2,Adei,FALSE,4,147,4,uranian,128;128;192,0,0,0,0,0,The God-Kingdom of the Nunnes
 1,Unknown,FALSE,270,224,8,blank,'110,0,0,1,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Tol,FALSE,304,206,8,red,'111,1,0,0,1,1,The Ravagers of Y'lenna Tol
