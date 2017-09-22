@@ -712,7 +712,7 @@ $(document).ready(function() {
 		function drawText(text, x1, y1, size, colour, align){
 			ctx.globalAlpha = 1.0;
 			ctx.fillStyle = colour;
-			ctx.font = size+"px Agency FB";
+			ctx.font = size+"px AgencyFBLocal";
 			ctx.textAlign = "center";
 			if(align!=null) ctx.textAlign = align;
 			ctx.fillText(text, x1, y1);

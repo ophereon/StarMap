@@ -1,6 +1,11 @@
 klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium,helium-3,handwavium,claim
-1,Unknown,FALSE,-308,-318,8,blank,'001,1,0,1,0,0,
-2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
+1,Kurash,FALSE,-308,-318,8,yellow,'001,1,0,1,0,0,The Kurash System,/u/Cereborn
+2,Arkata,FALSE,1,254,5,venusian,192;192;128,0,0,0,0,0,The Kurash System,/u/Cereborn
+2,Harkona,TRUE,2,84,9,martian,164;164;255,0,0,0,0,0,The Kurash System,/u/Cereborn
+2,Atreda,TRUE,3,124,7,terran,255;128;128,0,0,0,0,0,The Kurash System,/u/Cereborn
+2,Korso,FALSE,4,40,10,uranian,128;192;255,0,0,0,0,0,The Kurash System,/u/Cereborn
+2,Naxau,FALSE,5,178,18,jovian,255;192;128,0,0,0,0,0,The Kurash System,/u/Cereborn
+3,Naxau Prime,TRUE,5,168,6,terran,128;128;255,0,0,0,0,0,The Kurash System,/u/Cereborn
 1,Unknown,FALSE,-256,-312,8,blank,'002,0,1,1,1,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-298,-278,8,blank,'003,1,0,0,1,1,
@@ -19,28 +24,28 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-254,-198,8,blank,'010,1,1,0,0,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Tantrax Luminaris,FALSE,-240,-164,12,red,'011,1,0,0,1,1,Tantrax Entertainment
-2,Tantrax Belkaris,FALSE,1,184,8,callistoan,128;128;128,0,0,0,0,0,Tantrax Entertainment
-2,Tantrax Akaris,TRUE,2,248,9,terran,128;192;255,0,0,0,0,0,Tantrax Entertainment
-3,Akaris Principa,FALSE,2,238,5,mercurian,128;192;255,0,0,0,0,0,Tantrax Entertainment
-3,Akaris Seconda,FALSE,2,258,4,mercurian,128;192;255,0,0,0,0,0,Tantrax Entertainment
-2,Tantrax Athoris,FALSE,3,10,6,venusian,128;255;128,0,0,0,0,0,Tantrax Entertainment
-2,Tantrax Bellerophos,FALSE,4,209,12,jovian,255;255;128,0,0,0,0,0,Tantrax Entertainment
-3,Bellerophos Principa,FALSE,4,199,4,mercurian,128;128;128,0,0,0,0,0,Tantrax Entertainment
-5,Asteroid Belt,FALSE,5,0,1,belt_asteroid,128;128;128,0,0,0,0,0,Tantrax Entertainment
-2,Tantrax V,FALSE,6,68,18,jovian,255;255;128,0,0,0,0,0,Tantrax Entertainment
-3,Edrephos,FALSE,6,287,5,mercurian,128;128;128,0,0,0,0,0,Tantrax Entertainment
-2,Tantrax VI,FALSE,7,145,25,gas_white,255;255;255,0,0,0,0,0,Tantrax Entertainment
-2,Tantrax VII,FALSE,8,77,6,uranian,128;128;128,0,0,0,0,0,Tantrax Entertainment
+1,Tantrax Luminaris,FALSE,-240,-164,12,red,'011,1,0,0,1,1,Tantrax Entertainment,/u/Cereborn
+2,Tantrax Belkaris,FALSE,1,184,8,callistoan,128;128;128,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
+2,Tantrax Akaris,TRUE,2,248,9,terran,128;192;255,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
+3,Akaris Principa,FALSE,2,238,5,mercurian,128;192;255,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
+3,Akaris Seconda,FALSE,2,258,4,mercurian,128;192;255,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
+2,Tantrax Athoris,FALSE,3,10,6,venusian,128;255;128,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
+2,Tantrax Bellerophos,FALSE,4,209,12,jovian,255;255;128,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
+3,Bellerophos Principa,FALSE,4,199,4,mercurian,128;128;128,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
+5,Asteroid Belt,FALSE,5,0,1,belt_asteroid,128;128;128,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
+2,Tantrax V,FALSE,6,68,18,jovian,255;255;128,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
+3,Edrephos,FALSE,6,287,5,mercurian,128;128;128,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
+2,Tantrax VI,FALSE,7,145,25,gas_white,255;255;255,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
+2,Tantrax VII,FALSE,8,77,6,uranian,128;128;128,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
 1,Unknown,FALSE,-224,-132,8,blank,'012,1,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-232,-90,8,blank,'013,0,1,1,1,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-198,-116,8,blank,'014,1,1,0,0,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Vheraak,TRUE,-342,2,4,orange,'015,1,0,0,0,1,The Drifting Forests of Jhantavar
-2,Jhantavar,TRUE,1,321,9,uranian,128;128;255,0,0,0,0,0,The Drifting Forests of Jhantavar
-2,Sestara,FALSE,2,101,10,mercurian,128;128;128,0,0,0,0,0,The Drifting Forests of Jhantavar
+1,Vheraak,TRUE,-342,2,4,orange,'015,1,0,0,0,1,The Drifting Forests of Jhantavar,/u/Lord_Hoot
+2,Jhantavar,TRUE,1,321,9,uranian,128;128;255,0,0,0,0,0,The Drifting Forests of Jhantavar,/u/Lord_Hoot
+2,Sestara,FALSE,2,101,10,mercurian,128;128;128,0,0,0,0,0,The Drifting Forests of Jhantavar,/u/Lord_Hoot
 1,Unknown,FALSE,-308,8,8,blank,'016,1,0,1,0,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-348,52,8,blank,'017,0,1,0,1,1,
@@ -84,30 +89,30 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-144,152,8,blank,'036,1,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Fros,FALSE,-104,160,8,yellow,'037,1,0,1,0,0,The Ikidaliwen of Mualat
-2,Unknown,FALSE,1,68,16,uranian,164;164;255,0,0,0,0,0,The Ikidaliwen of Mualat
-1,Urus,FALSE,-74,364,8,yellow,'038,1,1,1,1,1,The Dzakat' Arrahakah
-2,Kazuzh E'al,FALSE,1,95,16,gas_purple,255;192;192,0,0,0,0,0,The Dzakat' Arrahakah
-2,Hutal,FALSE,2,259,7,martian,128;192;255,0,0,0,0,0,The Dzakat' Arrahakah
-3,Kelos,FALSE,2,265,4,mercurian,128;128;128,0,0,0,0,0,The Dzakat' Arrahakah
-2,Aztur,FALSE,3,30,21,gas_green,128;255;128,0,0,0,0,0,The Dzakat' Arrahakah
-1,Hora,TRUE,-60,194,12,orange,'039,0,0,1,1,1,The Ikidaliwen of Mualat
-2,Alrit,FALSE,1,170,6,mercurian,128;128;128,0,0,0,0,0,The Ikidaliwen of Mualat
-2,Mualat,TRUE,2,121,11,martian,64;192;192,0,0,0,0,0,The Ikidaliwen of Mualat
-2,Ris,TRUE,3,272,10,neptunian,128;128;255,0,0,0,0,0,The Ikidaliwen of Mualat
+1,Fros,FALSE,-104,160,8,yellow,'037,1,0,1,0,0,The Ikidaliwen of Mualat,/u/dontfearme22
+2,Unknown,FALSE,1,68,16,uranian,164;164;255,0,0,0,0,0,The Ikidaliwen of Mualat,/u/dontfearme22
+1,Urus,FALSE,-74,364,8,yellow,'038,1,1,1,1,1,The Dzakat' Arrahakah,/u/aDwarfNamedUrist
+2,Kazuzh E'al,FALSE,1,95,16,gas_purple,255;192;192,0,0,0,0,0,The Dzakat' Arrahakah,/u/aDwarfNamedUrist
+2,Hutal,FALSE,2,259,7,martian,128;192;255,0,0,0,0,0,The Dzakat' Arrahakah,/u/aDwarfNamedUrist
+3,Kelos,FALSE,2,265,4,mercurian,128;128;128,0,0,0,0,0,The Dzakat' Arrahakah,/u/aDwarfNamedUrist
+2,Aztur,FALSE,3,30,21,gas_green,128;255;128,0,0,0,0,0,The Dzakat' Arrahakah,/u/aDwarfNamedUrist
+1,Hora,TRUE,-60,194,12,orange,'039,0,0,1,1,1,The Ikidaliwen of Mualat,/u/dontfearme22
+2,Alrit,FALSE,1,170,6,mercurian,128;128;128,0,0,0,0,0,The Ikidaliwen of Mualat,/u/dontfearme22
+2,Mualat,TRUE,2,121,11,martian,64;192;192,0,0,0,0,0,The Ikidaliwen of Mualat,/u/dontfearme22
+2,Ris,TRUE,3,272,10,neptunian,128;128;255,0,0,0,0,0,The Ikidaliwen of Mualat,/u/dontfearme22
 1,Unknown,FALSE,-102,110,8,blank,'040,1,1,0,1,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-116,62,8,blank,'041,0,1,0,1,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-68,34,8,blank,'042,1,0,1,1,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Omega Centauri,TRUE,-22,32,12,white,'043,0,0,1,1,1,Neutral,The Centauri
+1,Omega Centauri,TRUE,-22,32,12,white,'043,0,0,1,1,1,Neutral,The Centauri,NPC
 2,Unknown,FALSE,1,157,8,unknown,128;128;128,0,0,0,0,0,Neutral
 2,Unknown,FALSE,2,177,8,unknown,128;128;128,0,0,0,0,0,Neutral
 2,Unknown,FALSE,3,30,8,unknown,128;128;128,0,0,0,0,0,Neutral
-2,Ellowa,FALSE,4,90,16,uranian,128;128;255,0,0,0,0,0,The Centauri
-3,The Centauri Citidel,TRUE,4,80,6,mercurian,128;128;128,0,0,0,0,1,The Centauri
-4,The Ari Sanctum,TRUE,4,100,6,sanctum,128;128;128,0,0,0,1,1,The Intersidereal Civitas of the Aries,(Intersidereum Civitatem Arietis)
+2,Ellowa,FALSE,4,90,16,uranian,128;128;255,0,0,0,0,0,The Centauri,NPC
+3,The Centauri Citidel,TRUE,4,80,6,mercurian,128;128;128,0,0,0,0,1,The Centauri,NPC
+4,The Ari Sanctum,TRUE,4,100,6,sanctum,128;128;128,0,0,0,1,1,The Intersidereal Civitas of the Aries,/u/ophereon
 2,Unknown,FALSE,5,308,8,unknown,128;128;128,0,0,0,0,0,Neutral
 2,Unknown,FALSE,6,223,8,unknown,128;128;128,0,0,0,0,0,Neutral
 2,Unknown,FALSE,7,208,8,unknown,128;128;128,0,0,0,0,0,Neutral
@@ -135,15 +140,15 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,20,290,8,blank,'055,0,1,1,0,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Apolinglautnie,TRUE,48,264,16,blue,'056,0,1,1,1,1,The Preti and the Milodacki
-2,Apo Kesh,FALSE,1,337,20,gas_purple,192;128;192,0,0,0,0,0,The Preti and the Milodacki
-4,WARDEN,FALSE,1,347,6,station,128;128;128,0,0,0,0,0,The Preti and the Milodacki
-4,Preti settlements,FALSE,1,327,6,station,128;128;128,0,0,0,0,0,The Preti and the Milodacki
-2,Apo Milodack,TRUE,2,211,7,terran,128;128;255,0,0,0,0,0,The Preti and the Milodacki
-2,Apo Gull,TRUE,3,45,8,neptunian,128;128;255,0,0,0,0,0,The Preti and the Milodacki
-2,Apo Vocce,TRUE,4,142,5,mercurian,128;64;192,0,0,0,0,0,The Preti and the Milodacki
-2,Apo Dask,FALSE,5,32,4,uranian,128;128;255,0,0,0,0,0,The Preti and the Milodacki
-6,Tarwater,FALSE,7,234,24,red,255;255;255,0,0,0,0,0,The Preti and the Milodacki
+1,Apolinglautnie,TRUE,48,264,16,blue,'056,0,1,1,1,1,The Preti and the Milodacki,/u/VictorCrowne
+2,Apo Kesh,FALSE,1,337,20,gas_purple,192;128;192,0,0,0,0,0,The Preti and the Milodacki,/u/VictorCrowne
+4,WARDEN,FALSE,1,347,6,station,128;128;128,0,0,0,0,0,The Preti and the Milodacki,/u/VictorCrowne
+4,Preti settlements,FALSE,1,327,6,station,128;128;128,0,0,0,0,0,The Preti and the Milodacki,/u/VictorCrowne
+2,Apo Milodack,TRUE,2,211,7,terran,128;128;255,0,0,0,0,0,The Preti and the Milodacki,/u/VictorCrowne
+2,Apo Gull,TRUE,3,45,8,neptunian,128;128;255,0,0,0,0,0,The Preti and the Milodacki,/u/VictorCrowne
+2,Apo Vocce,TRUE,4,142,5,mercurian,128;64;192,0,0,0,0,0,The Preti and the Milodacki,/u/VictorCrowne
+2,Apo Dask,FALSE,5,32,4,uranian,128;128;255,0,0,0,0,0,The Preti and the Milodacki,/u/VictorCrowne
+6,Tarwater,FALSE,7,234,24,red,255;255;255,0,0,0,0,0,The Preti and the Milodacki,/u/VictorCrowne
 1,Unknown,FALSE,76,232,8,blank,'057,0,0,0,1,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,124,238,8,blank,'058,0,0,1,0,1,
@@ -168,8 +173,18 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-106,-322,8,blank,'068,1,1,0,1,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Unknown,FALSE,-66,-334,8,blank,'069,1,1,1,1,1,
-2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
+1,INOBRAC,FALSE,-66,-334,12,white,'069,1,1,1,1,1,the INOBRAC System,/u/MoronWriter
+2,Kram,TRUE,1,21,14,venusian,255;164;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
+3,Moon,False,1,9,4,mercurian,128;128;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
+3,Moon,False,1,2,4,mercurian,128;128;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
+3,Moon,False,1,33,4,mercurian,128;128;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
+3,Moon,False,1,40,4,mercurian,128;128;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
+2,Han’ayra,TRUE,2,120,12,callistoan,128;255;192,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
+3,Moon,False,2,129,4,mercurian,128;128;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
+2,Aht’namas,TRUE,3,217,11,terran,64;64;255,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
+3,Moon,False,3,210,4,mercurian,128;128;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
+2,Adnil,FALSE,4,328,10,venusian,255;255;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
+3,Rings of Adnil,FALSE,4,328,20,ring_saturn,128;128;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
 1,Unknown,FALSE,-16,-322,8,blank,'070,0,1,0,1,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,0,-306,8,blank,'071,0,1,1,0,0,
@@ -216,27 +231,28 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-114,-208,8,blank,'092,1,0,1,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,χ Ari (Goddard),TRUE,-150,-180,8,binary1,'093,0,1,1,1,0,???
-2,χ Ari I,FALSE,1,18,4,callistoan,128;128;128,0,0,0,1,0,???
-2,χ Ari II,FALSE,2,5,6,martian,128;128;255,0,1,0,0,0,???
-2,Asteroid Belt,FALSE,3,0,1,belt_asteroid,128;128;128,0,0,0,0,0,???
-2,Empyreus (χ Ari III),FALSE,4,90,24,gas_purple,192;64;255,0,0,0,0,0,???
-3,Aria,TRUE,4,73,8,terran,192;128;255,0,0,1,0,0,???
-3,Cordon,FALSE,4,73,12,ring3,128;128;128,0,0,0,0,0,???
-4,Welkin Ruins,FALSE,4,65,6,station,128;128;128,0,0,0,0,1,???
-2,χ Ari IV,FALSE,5,206,20,jovian,255;128;128,0,0,0,0,0,???
-2,χ Ari V,FALSE,6,302,14,uranian,128;128;255,0,0,1,0,0,???
-2,Asteroid Belt,FALSE,7,0,1,belt_asteroid,128;128;128,0,0,0,0,0,???
-1,EUEC-867,TRUE,-164,-144,8,orange,'094,1,0,1,1,1,???
-2,EUEC-867-1,TRUE,1,41,9,terran,255;255;128,0,0,0,0,0,???
-2,EUEC-867-2,FALSE,2,219,8,venusian,128;128;128,0,0,0,0,0,???
-2,Cordon,FALSE,3,0,1,belt_artificial,128;128;128,0,0,0,0,0,???
-2,EUEC-867-3,FALSE,3,133,7,mercurian,128;128;128,0,0,0,0,0,???
-2,EUEC-867-4,FALSE,4,333,18,gas_purple,192;128;192,0,0,0,0,0,???
-3,EUEC-867-5,FALSE,4,323,4,uranian,128;128;128,0,0,0,0,0,???
-2,EUEC-867-6,FALSE,5,5,14,neptunian,128;128;255,0,0,0,0,0,???
-2,EUEC-867-7,FALSE,6,167,22,jovian,192;192;128,0,0,0,0,0,???
-2,EUEC-867-8,FALSE,7,351,4,uranian,128;128;128,0,0,0,0,0,???
+1,χ Ari (Goddard),TRUE,-150,-180,8,binary1,'093,0,1,1,1,0,???,/u/ophereon
+2,χ Ari I,FALSE,1,18,4,callistoan,128;128;128,0,0,0,1,0,???,/u/ophereon
+2,χ Ari II,FALSE,2,5,6,martian,128;128;255,0,1,0,0,0,???,/u/ophereon
+2,Asteroid Belt,FALSE,3,0,1,belt_asteroid,128;128;128,0,0,0,0,0,???,/u/ophereon
+2,Empyreus (χ Ari III),FALSE,4,90,24,gas_purple,192;64;255,0,0,0,0,0,???,/u/ophereon
+3,Rings of Empyreus,FALSE,4,90,48,ring_grey,128;128;128,0,0,0,0,0,???,/u/ophereon
+3,Cordon,FALSE,4,73,12,ring3,128;128;128,0,0,0,0,0,???,/u/ophereon
+3,Aria,TRUE,4,73,8,terran,192;128;255,0,0,1,0,0,???,/u/ophereon
+4,Welkin Ruins,FALSE,4,65,6,station,128;128;128,0,0,0,0,1,???,/u/ophereon
+2,χ Ari IV,FALSE,5,206,20,jovian,255;128;128,0,0,0,0,0,???,/u/ophereon
+2,χ Ari V,FALSE,6,302,14,uranian,128;128;255,0,0,1,0,0,???,/u/ophereon
+2,Asteroid Belt,FALSE,7,0,1,belt_asteroid,128;128;128,0,0,0,0,0,???,/u/ophereon
+1,EUEC-867,TRUE,-164,-144,8,orange,'094,1,0,1,1,1,???,/u/winglings
+2,EUEC-867-1,TRUE,1,41,9,terran,255;255;128,0,0,0,0,0,???,/u/winglings
+2,EUEC-867-2,FALSE,2,219,8,venusian,128;128;128,0,0,0,0,0,???,/u/winglings
+2,Cordon,FALSE,3,0,1,belt_artificial,128;128;128,0,0,0,0,0,???,/u/winglings
+2,EUEC-867-3,FALSE,3,133,7,mercurian,128;128;128,0,0,0,0,0,???,/u/winglings
+2,EUEC-867-4,FALSE,4,333,18,gas_purple,192;128;192,0,0,0,0,0,???,/u/winglings
+3,EUEC-867-5,FALSE,4,323,4,uranian,128;128;128,0,0,0,0,0,???,/u/winglings
+2,EUEC-867-6,FALSE,5,5,14,neptunian,128;128;255,0,0,0,0,0,???,/u/winglings
+2,EUEC-867-7,FALSE,6,167,22,jovian,192;192;128,0,0,0,0,0,???,/u/winglings
+2,EUEC-867-8,FALSE,7,351,4,uranian,128;128;128,0,0,0,0,0,???,/u/winglings
 1,Unknown,FALSE,-162,-104,8,blank,'095,1,1,1,1,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-150,-78,8,blank,'096,1,1,0,0,0,
@@ -247,20 +263,20 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,26,16,8,blank,'099,0,0,0,1,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Hubanan System,FALSE,50,38,4,white,'100,1,1,0,0,1,The Hubari
-2,Huba,TRUE,1,143,8,martian,255;255;128,0,0,0,0,0,The Hubari
-5,Grahla,FALSE,2,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The Hubari
-2,Zha,FALSE,3,38,20,jovian,128;128;128,0,0,0,0,0,The Hubari
-2,Nalari,FALSE,4,339,6,mercurian,128;128;128,0,0,0,0,0,The Hubari
-5,Grahli,FALSE,5,0,8,belt_asteroid,128;128;128,0,0,0,0,0,The Hubari
-1,T’yet-Sáng,TRUE,88,68,8,orange,'101,1,0,1,1,1,The T’yet-Sang Confederacy
-5,Halo Array,FALSE,1,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The T’yet-Sang Confederacy
-5,Tsukh Belt,FALSE,5,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The T’yet-Sang Confederacy
-5,Sodnar Belt,FALSE,6,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The T’yet-Sang Confederacy
-2,Kallen,TRUE,2,99,11,terran,192;0;192,0,0,0,0,0,The T’yet-Sang Confederacy
-2,Arast,TRUE,3,355,14,terran,192;0;192,0,0,0,0,0,The T’yet-Sang Confederacy
-2,Tsukh,TRUE,4,173,25,gas_black,64;64;64,0,0,0,0,0,The T’yet-Sang Confederacy
-2,Planet 4,FALSE,6,285,18,uranian,192;192;192,0,0,0,0,0,The T’yet-Sang Confederacy
+1,Hubanan System,FALSE,50,38,4,white,'100,1,1,0,0,1,The Hubari,/u/Dogrill
+2,Huba,TRUE,1,143,8,martian,255;255;128,0,0,0,0,0,The Hubari,/u/Dogrill
+5,Grahla,FALSE,2,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The Hubari,/u/Dogrill
+2,Zha,FALSE,3,38,20,jovian,128;128;128,0,0,0,0,0,The Hubari,/u/Dogrill
+2,Nalari,FALSE,4,339,6,mercurian,128;128;128,0,0,0,0,0,The Hubari,/u/Dogrill
+5,Grahli,FALSE,5,0,8,belt_asteroid,128;128;128,0,0,0,0,0,The Hubari,/u/Dogrill
+1,T’yet-Sáng,TRUE,88,68,8,orange,'101,1,0,1,1,1,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
+5,Halo Array,FALSE,1,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
+5,Tsukh Belt,FALSE,5,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
+5,Sodnar Belt,FALSE,6,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
+2,Kallen,TRUE,2,99,11,terran,192;0;192,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
+2,Arast,TRUE,3,355,14,terran,192;0;192,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
+2,Tsukh,TRUE,4,173,25,gas_black,64;64;64,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
+2,Planet 4,FALSE,6,285,18,uranian,192;192;192,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
 1,Unknown,FALSE,104,28,8,blank,'102,1,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,132,14,8,blank,'103,1,0,1,1,0,
@@ -271,47 +287,47 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,162,108,8,blank,'106,0,0,1,1,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Auero'pk,FALSE,174,174,8,blue,'107,1,1,1,0,1,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,1,308,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,2,344,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,3,80,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,4,307,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,5,143,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Asheo'tu,TRUE,6,272,10,terran,128;128;255,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Esh,TRUE,7,150,9,martian,128;128;192,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,8,209,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Lure'pkoc,FALSE,9,244,25,neptunian,128;128;255,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,10,14,22,jovian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,11,280,22,jovian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,12,152,16,uranian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,13,66,16,uranian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-1,Suuer,TRUE,178,230,12,red,'108,0,1,1,1,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,1,68,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Gudun,TRUE,2,318,10,neptunian,128;128;255,0,0,0,0,0,The God-Kingdom of the Nunnes
-4,Recov VI,TRUE,2.5,239,6,station,128;128;255,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,3,8,10,uranian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Unknown,FALSE,4,188,10,unknown,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-1,Sassime,FALSE,234,248,4,red,'109,0,1,1,0,1,The God-Kingdom of the Nunnes
-2,Kipo,FALSE,1,114,6,venusian,255;255;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Zaub,TRUE,2,338,8,terran,164;164;255,0,0,0,0,0,The God-Kingdom of the Nunnes
-5,Asteroid Belt,FALSE,3,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-4,Recov II,FALSE,3,70,6,station,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes
-2,Adei,FALSE,4,147,4,uranian,128;128;192,0,0,0,0,0,The God-Kingdom of the Nunnes
+1,Auero'pk,FALSE,174,174,8,blue,'107,1,1,1,0,1,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,1,308,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,2,344,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,3,80,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,4,307,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,5,143,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Asheo'tu,TRUE,6,272,10,terran,128;128;255,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Esh,TRUE,7,150,9,martian,128;128;192,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,8,209,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Lure'pkoc,FALSE,9,244,25,neptunian,128;128;255,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,10,14,22,jovian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,11,280,22,jovian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,12,152,16,uranian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,13,66,16,uranian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+1,Suuer,TRUE,178,230,12,red,'108,0,1,1,1,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,1,68,10,venusian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Gudun,TRUE,2,318,10,neptunian,128;128;255,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+4,Recov VI,TRUE,2.5,239,6,station,128;128;255,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,3,8,10,uranian,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Unknown,FALSE,4,188,10,unknown,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+1,Sassime,FALSE,234,248,4,red,'109,0,1,1,0,1,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Kipo,FALSE,1,114,6,venusian,255;255;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Zaub,TRUE,2,338,8,terran,164;164;255,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+5,Asteroid Belt,FALSE,3,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+4,Recov II,FALSE,3,70,6,station,128;128;128,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
+2,Adei,FALSE,4,147,4,uranian,128;128;192,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
 1,Unknown,FALSE,270,224,8,blank,'110,0,0,1,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Tol,FALSE,304,206,8,red,'111,1,0,0,1,1,The Ravagers of Y'lenna Tol
-2,Diabhal,FALSE,1,96,5,venusian,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol
-2,Daor,FALSE,2,165,4,mercurian,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol
-2,Baile,TRUE,3,234,8,terran,128;128;255,0,0,0,0,0,The Ravagers of Y'lenna Tol
-2,Mor,FALSE,4,7,16,jovian,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol
-2,Reoite,FALSE,5,237,6,uranian,255;255;255,0,0,0,0,0,The Ravagers of Y'lenna Tol
-1,Y'lenna,FALSE,310,156,8,orange,'112,1,1,1,1,1,The Ravagers of Y'lenna Tol
-2,Horúco,FALSE,1,208,4,venusian,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol
-2,Zavriet,FALSE,2,64,6,callistoan,192;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol
-2,Domov,TRUE,3,256,8,terran,128;128;255,0,0,0,0,0,The Ravagers of Y'lenna Tol
-4,New Falangist State of Y'lenna,FALSE,3,263,6,station,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol
-2,Blizkosti,FALSE,4,310,8,martian,0;0;0,0,0,0,0,0,The Ravagers of Y'lenna Tol
-2,Zurit,FALSE,5,146,16,jovian,192;192;128,0,0,0,0,0,The Ravagers of Y'lenna Tol
+1,Tol,FALSE,304,206,8,red,'111,1,0,0,1,1,The Ravagers of Y'lenna Tol,/u/jameskilgour
+2,Diabhal,FALSE,1,96,5,venusian,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
+2,Daor,FALSE,2,165,4,mercurian,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
+2,Baile,TRUE,3,234,8,terran,128;128;255,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
+2,Mor,FALSE,4,7,16,jovian,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
+2,Reoite,FALSE,5,237,6,uranian,255;255;255,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
+1,Y'lenna,FALSE,310,156,8,orange,'112,1,1,1,1,1,The Ravagers of Y'lenna Tol,/u/jameskilgour
+2,Horúco,FALSE,1,208,4,venusian,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
+2,Zavriet,FALSE,2,64,6,callistoan,192;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
+2,Domov,TRUE,3,256,8,terran,128;128;255,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
+4,New Falangist State of Y'lenna,FALSE,3,263,6,station,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
+2,Blizkosti,FALSE,4,310,8,martian,0;0;0,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
+2,Zurit,FALSE,5,146,16,jovian,192;192;128,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
 1,Unknown,FALSE,304,106,8,blank,'113,1,0,1,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,292,46,8,blank,'114,1,0,0,1,0,
@@ -361,61 +377,61 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 1,Unknown,FALSE,236,-320,8,blank,'136,0,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Alpha,FALSE,282,-338,12,red,'137,1,1,0,0,1,Zharintu
-2,Alpha 1,FALSE,1,210,5,mercurian,128;128;128,0,0,0,0,0,Zharintu
-2,Alpha 2,FALSE,2,117,8,venusian,255;128;128,0,0,0,0,0,Zharintu
-3,Alpha 2-A,FALSE,2,107,4,mercurian,128;128;128,0,0,0,0,0,Zharintu
-2,Alpha 3,FALSE,3,3,9,martian,192;192;128,0,0,0,0,0,Zharintu
-3,Alpha 3-A,FALSE,3,13,4,mercurian,128;128;128,0,0,0,0,0,Zharintu
-2,Alpha 4,FALSE,4,312,11,neptunian,128;128;255,0,0,0,0,0,Zharintu
-3,Alpha 4-A,TRUE,4,322,6,terran,128;255;128,0,0,0,0,0,Zharintu
-3,Alpha 4-B,TRUE,4,302,8,terran,128;255;128,0,0,0,0,0,Zharintu
-2,Alpha 5 (Soltres),TRUE,5,182,8,terran,128;164;255,0,0,0,0,0,Zharintu
-3,Alpha 5-A (Aerto),FALSE,5,190,6,mercurian,128;128;128,0,0,0,0,0,Zharintu
-2,Alpha 6,FALSE,6,245,11,mercurian,255;128;128,0,0,0,0,0,Zharintu
-2,Alpha 7,FALSE,7,92,20,jovian,255;192;128,0,0,0,0,0,Zharintu
-2,Alpha 7-A to Alpha 7-ZB,FALSE,7,92,28,ring,128;128;128,0,0,0,0,0,Zharintu
-2,Alpha 8 (Rellim),FALSE,8,212,16,gas_green,128;255;128,0,0,0,0,0,Zharintu
-3,Alpha 8-A (Aber),TRUE,8,222,12,terran,128;255;128,0,0,0,0,0,Zharintu
-2,Alpha 9,FALSE,9,42,17,gas_purple,192;128;192,0,0,0,0,0,Zharintu
-4,Alpha 9-1,FALSE,9,35,4,station,128;128;128,0,0,0,0,0,Zharintu
-2,Alpha 10,FALSE,10,353,6,uranian,128;192;255,0,0,0,0,0,Zharintu
-4,Alpha 10-1,FALSE,10,358,4,station,128;128;128,0,0,0,0,0,Zharintu
-1,Æther Prime,TRUE,328,-364,6,white,'138,1,1,0,0,0,Zharintu
-2,Æther 1,FALSE,1,229,20,jovian,255;128;128,0,0,0,0,0,Zharintu
-2,Æther 1 Άlpha,FALSE,1,249,5,venusian,255;255;128,0,0,0,0,0,Zharintu
-2,Æther 2,FALSE,2,351,7,mercurian,255;192;128,0,0,0,0,0,Zharintu
-2,Æther 3,TRUE,3,123,8,terran,255;255;128,0,0,0,0,0,Zharintu
-2,Æther 3 Άlpha,TRUE,3,113,5,terran,128;192;255,0,0,0,0,0,Zharintu
-2,Æther 3 βeta,TRUE,3,133,6,terran,128;192;255,0,0,0,0,0,Zharintu
-2,Æther 4,FALSE,4,210,11,neptunian,128;128;128,0,0,0,0,0,Zharintu
-2,Æther 5,FALSE,5,38,15,uranian,128;128;255,0,0,0,0,0,Zharintu
-2,Æther 6,FALSE,6,138,25,gas_purple,192;128;192,0,0,0,0,0,Zharintu
-2,Æther 6 Άlpha,FALSE,6,128,7,uranian,192;128;192,0,0,0,0,0,Zharintu
-2,Æther 7,FALSE,7,6,5,mercurian,128;128;128,0,0,0,0,0,Zharintu
+2,Alpha 1,FALSE,1,210,5,mercurian,128;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Alpha 2,FALSE,2,117,8,venusian,255;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
+3,Alpha 2-A,FALSE,2,107,4,mercurian,128;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Alpha 3,FALSE,3,3,9,martian,192;192;128,0,0,0,0,0,Zharintu,/u/nukajoe
+3,Alpha 3-A,FALSE,3,13,4,mercurian,128;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Alpha 4,FALSE,4,312,11,neptunian,128;128;255,0,0,0,0,0,Zharintu,/u/nukajoe
+3,Alpha 4-A,TRUE,4,322,6,terran,128;255;128,0,0,0,0,0,Zharintu,/u/nukajoe
+3,Alpha 4-B,TRUE,4,302,8,terran,128;255;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Alpha 5 (Soltres),TRUE,5,182,8,terran,128;164;255,0,0,0,0,0,Zharintu,/u/nukajoe
+3,Alpha 5-A (Aerto),FALSE,5,190,6,mercurian,128;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Alpha 6,FALSE,6,245,11,mercurian,255;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Alpha 7,FALSE,7,92,20,jovian,255;192;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Alpha 7-A to Alpha 7-ZB,FALSE,7,92,28,ring,128;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Alpha 8 (Rellim),FALSE,8,212,16,gas_green,128;255;128,0,0,0,0,0,Zharintu,/u/nukajoe
+3,Alpha 8-A (Aber),TRUE,8,222,12,terran,128;255;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Alpha 9,FALSE,9,42,17,gas_purple,192;128;192,0,0,0,0,0,Zharintu,/u/nukajoe
+4,Alpha 9-1,FALSE,9,35,4,station,128;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Alpha 10,FALSE,10,353,6,uranian,128;192;255,0,0,0,0,0,Zharintu,/u/nukajoe
+4,Alpha 10-1,FALSE,10,358,4,station,128;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
+1,Æther Prime,TRUE,328,-364,6,white,'138,1,1,0,0,0,Zharintu,/u/nukajoe
+2,Æther 1,FALSE,1,229,20,jovian,255;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Æther 1 Άlpha,FALSE,1,249,5,venusian,255;255;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Æther 2,FALSE,2,351,7,mercurian,255;192;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Æther 3,TRUE,3,123,8,terran,255;255;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Æther 3 Άlpha,TRUE,3,113,5,terran,128;192;255,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Æther 3 βeta,TRUE,3,133,6,terran,128;192;255,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Æther 4,FALSE,4,210,11,neptunian,128;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Æther 5,FALSE,5,38,15,uranian,128;128;255,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Æther 6,FALSE,6,138,25,gas_purple,192;128;192,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Æther 6 Άlpha,FALSE,6,128,7,uranian,192;128;192,0,0,0,0,0,Zharintu,/u/nukajoe
+2,Æther 7,FALSE,7,6,5,mercurian,128;128;128,0,0,0,0,0,Zharintu,/u/nukajoe
 1,Unknown,FALSE,292,-282,8,blank,'139,0,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,164,-190,8,blank,'140,0,0,1,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Brokkr,FALSE,202,-208,12,orange,'141,0,1,1,1,1,The Heimsveldi of the Sattfolks
-2,Einmanna,FALSE,1,300,7,mercurian,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks
-2,Frjosom,TRUEStor,2,112,8,terran,128;128;255,0,0,0,0,0,The Heimsveldi of the Sattfolks
-2,Stor,FALSE,3,311,17,neptunian,0;0;255,0,0,0,0,0,The Heimsveldi of the Sattfolks
-5,Asteroid Belt,FALSE,4,0,11,belt_asteroid,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks
-2,Hraun,FALSE,4,238,11,venusian,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks
+1,Brokkr,FALSE,202,-208,12,orange,'141,0,1,1,1,1,The Heimsveldi of the Sattfolks,/u/benzasome
+2,Einmanna,FALSE,1,300,7,mercurian,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+2,Frjosom,TRUEStor,2,112,8,terran,128;128;255,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+2,Stor,FALSE,3,311,17,neptunian,0;0;255,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+5,Asteroid Belt,FALSE,4,0,11,belt_asteroid,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+2,Hraun,FALSE,4,238,11,venusian,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
 1,Unknown,FALSE,248,-222,8,blank,'142,0,0,1,1,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,302,-224,8,blank,'143,1,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Gottfreyr,TRUE,260,-164,16,red,'144,1,1,1,0,0,The Heimsveldi of the Sattfolks
-2,Reithi,FALSE,1,176,6,venusian,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks
-2,Kosinus,FALSE,2,92,8,mercurian,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks
-2,Alfhiem,TRUE,3,301,9,terran,128;128;255,0,0,0,0,0,The Heimsveldi of the Sattfolks
-3,Moon (Alfheim),FALSE,3,294,4,mercurian,128;128;255,0,0,0,0,0,The Heimsveldi of the Sattfolks
-4,Space Station (Alfheim),FALSE,3,309,6,station,128;128;255,0,0,0,0,0,The Heimsveldi of the Sattfolks
-2,Safir,FALSE,4,266,8,neptunian,128;128;255,0,0,0,0,0,The Heimsveldi of the Sattfolks
-2,Hringja,FALSE,5,325,14,jovian,192;192;128,0,0,0,0,0,The Heimsveldi of the Sattfolks
-2,Umkringdur,FALSE,6,124,16,uranian,192;192;255,0,0,0,0,0,The Heimsveldi of the Sattfolks
-2,Iss,FALSE,7,9,11,uranian,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks
+1,Gottfreyr,TRUE,260,-164,16,red,'144,1,1,1,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+2,Reithi,FALSE,1,176,6,venusian,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+2,Kosinus,FALSE,2,92,8,mercurian,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+2,Alfhiem,TRUE,3,301,9,terran,128;128;255,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+3,Moon (Alfheim),FALSE,3,294,4,mercurian,128;128;255,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+4,Space Station (Alfheim),FALSE,3,309,6,station,128;128;255,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+2,Safir,FALSE,4,266,8,neptunian,128;128;255,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+2,Hringja,FALSE,5,325,14,jovian,192;192;128,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+2,Umkringdur,FALSE,6,124,16,uranian,192;192;255,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
+2,Iss,FALSE,7,9,11,uranian,128;128;128,0,0,0,0,0,The Heimsveldi of the Sattfolks,/u/benzasome
 1,Unknown,FALSE,166,-146,8,blank,'145,1,0,1,0,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,206,-128,8,blank,'146,0,1,1,0,1,
@@ -424,54 +440,54 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,214,-64,8,blank,'148,0,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Padre,TRUE,138,-112,12,blue,'149,0,0,1,1,1,Galactic Aquilan Directorate
-2,Grande Aquila,FALSE,1,37,4,venusian,128;128;128,0,0,0,0,0,Galactic Aquilan Directorate
-2,Santuario,TRUE,2,128,10,terran,128;128;255,0,0,0,0,0,Galactic Aquilan Directorate
-3,Vigilia Della Madre,FALSE,2,118,3,terran,128;128;128,0,0,0,0,0,Galactic Aquilan Directorate
-2,Corvo,FALSE,3,178,8,mercurian,128;128;128,0,0,0,0,0,Galactic Aquilan Directorate
-2,Cigno,FALSE,4,267,25,jovian,192;192;128,0,0,0,0,0,Galactic Aquilan Directorate
-2,Falco,FALSE,5,238,20,jovian,192;192;128,0,0,0,0,0,Galactic Aquilan Directorate
-2,Servitore Delle Madri,FALSE,6,334,12,uranian,128;128;255,0,0,0,0,0,Galactic Aquilan Directorate
-2,Avvoltoio,FALSE,7,171,6,mercurian,64;64;64,0,0,0,0,0,Galactic Aquilan Directorate
+1,Padre,TRUE,138,-112,12,blue,'149,0,0,1,1,1,Galactic Aquilan Directorate,/u/Joec533
+2,Grande Aquila,FALSE,1,37,4,venusian,128;128;128,0,0,0,0,0,Galactic Aquilan Directorate,/u/Joec533
+2,Santuario,TRUE,2,128,10,terran,128;128;255,0,0,0,0,0,Galactic Aquilan Directorate,/u/Joec533
+3,Vigilia Della Madre,FALSE,2,118,3,terran,128;128;128,0,0,0,0,0,Galactic Aquilan Directorate,/u/Joec533
+2,Corvo,FALSE,3,178,8,mercurian,128;128;128,0,0,0,0,0,Galactic Aquilan Directorate,/u/Joec533
+2,Cigno,FALSE,4,267,25,jovian,192;192;128,0,0,0,0,0,Galactic Aquilan Directorate,/u/Joec533
+2,Falco,FALSE,5,238,20,jovian,192;192;128,0,0,0,0,0,Galactic Aquilan Directorate,/u/Joec533
+2,Servitore Delle Madri,FALSE,6,334,12,uranian,128;128;255,0,0,0,0,0,Galactic Aquilan Directorate,/u/Joec533
+2,Avvoltoio,FALSE,7,171,6,mercurian,64;64;64,0,0,0,0,0,Galactic Aquilan Directorate,/u/Joec533
 1,Unknown,FALSE,164,-70,8,blank,'150,1,0,1,1,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,182,-34,8,blank,'151,1,1,1,1,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,192,4,8,blank,'152,1,1,1,0,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Conith,TRUE,124,-22,4,red,'153,1,1,0,1,1,The Klekon Technocracy
-2,Unknown,FALSE,1,307,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy
-2,Unknown,FALSE,2,126,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy
-2,Nefti,FALSE,3,352,5,mercurian,128;128;128,0,0,0,0,0,The Klekon Technocracy
-2,Unknown,FALSE,4,252,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy
-2,Frito,FALSE,5,22,8,venusian,128;128;128,0,0,0,0,0,The Klekon Technocracy
-2,Klei,FALSE,6,53,8,terran,128;128;128,0,0,0,0,0,The Klekon Technocracy
-2,Enra,FALSE,6,43,4,mercurian,128;128;128,0,0,0,0,0,The Klekon Technocracy
-6,Heilon,FALSE,7,153,24,red,128;128;128,0,0,0,0,0,The Klekon Technocracy
-2,Unknown,FALSE,8,234,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy
-2,Unknown,FALSE,9,35,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy
-4,PIONEER,FALSE,10,277,5,station,128;128;128,0,0,0,0,0,The Klekon Technocracy
-2,Oops,FALSE,11,0,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy
-1,Briva,FALSE,52,-74,12,yellow,'154,1,1,1,1,1,The Vora of Doln
-2,Huriol,FALSE,1,106,6,venusian,128;128;128,0,0,0,0,0,The Vora of Doln
-2,Doln,TRUE,2,353,9,terran,255;192;128,1,0,0,0,1,The Vora of Doln
-3,Pehla,FALSE,2,343,4,mercurian,128;128;128,0,0,0,0,0,The Vora of Doln
-5,Rezhfotehn Asteroid Belt,FALSE,3,0,1,belt_asteroid,128;128;128;0,0,0,0,0,The Vora of Doln
-2,Lohshta,FALSE,4,235,7,uranian,192;192;255,1,1,0,0,0,The Vora of Doln
+1,Conith,TRUE,124,-22,4,red,'153,1,1,0,1,1,The Klekon Technocracy,/u/Terkmc
+2,Unknown,FALSE,1,307,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+2,Unknown,FALSE,2,126,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+2,Nefti,FALSE,3,352,5,mercurian,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+2,Unknown,FALSE,4,252,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+2,Frito,FALSE,5,22,8,venusian,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+2,Klei,FALSE,6,53,8,terran,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+2,Enra,FALSE,6,43,4,mercurian,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+6,Heilon,FALSE,7,153,24,red,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+2,Unknown,FALSE,8,234,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+2,Unknown,FALSE,9,35,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+4,PIONEER,FALSE,10,277,5,station,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+2,Oops,FALSE,11,0,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
+1,Briva,FALSE,52,-74,12,yellow,'154,1,1,1,1,1,The Vora of Doln,/u/Bilbrath
+2,Huriol,FALSE,1,106,6,venusian,128;128;128,0,0,0,0,0,The Vora of Doln,/u/Bilbrath
+2,Doln,TRUE,2,353,9,terran,255;192;128,1,0,0,0,1,The Vora of Doln,/u/Bilbrath
+3,Pehla,FALSE,2,343,4,mercurian,128;128;128,0,0,0,0,0,The Vora of Doln,/u/Bilbrath
+5,Rezhfotehn Asteroid Belt,FALSE,3,0,1,belt_asteroid,128;128;128;0,0,0,0,0,The Vora of Doln,/u/Bilbrath
+2,Lohshta,FALSE,4,235,7,uranian,192;192;255,1,1,0,0,0,The Vora of Doln,/u/Bilbrath
 1,Unknown,FALSE,60,-32,8,blank,'155,0,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-8,-60,8,blank,'156,1,0,0,1,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Kami (神),TRUE,-8,-6,8,orange,'157,0,1,1,1,1,Exeter-Sakamoto Corporation
-2,Unknown,FALSE,1,35,8,mercurian,128;128;128,0,0,0,0,0,Exeter-Sakamoto Corporation
-2,Industry,FALSE,2,276,11,martian,128;128;128,0,0,0,0,0,Exeter-Sakamoto Corporation
-2,Corporate,TRUE,3,187,9,terran,128;128;255,0,0,0,0,0,Exeter-Sakamoto Corporation
-2,Niwa (庭),TRUE,4,101,7,terran,128;128;255,0,0,0,0,0,Exeter-Sakamoto Corporation
-2,Kyojin (巨人),FALSE,5,24,25,gas_purple,192;128;192,0,0,0,0,0,Exeter-Sakamoto Corporation
-3,A’xl’Ko’a / Soto (外),TRUE,5,14,5,martian,128:128:192,0,0,0,0,0,Exeter-Sakamoto Corporation
-2,Unknown,FALSE,6,310,20,jovian,128;128;128,0,0,0,0,0,Exeter-Sakamoto Corporation
-2,Unknown,FALSE,7,59,20,jovian,128;128;128,0,0,0,0,0,Exeter-Sakamoto Corporation
-2,Unknown,FALSE,8,199,8,mercurian,128;128;128,0,0,0,0,0,Exeter-Sakamoto Corporation
+1,Kami (神),TRUE,-8,-6,8,orange,'157,0,1,1,1,1,Exeter-Sakamoto Corporation,/u/MoaXing
+2,Unknown,FALSE,1,35,8,mercurian,128;128;128,0,0,0,0,0,Exeter-Sakamoto Corporation,/u/MoaXing
+2,Industry,FALSE,2,276,11,martian,128;128;128,0,0,0,0,0,Exeter-Sakamoto Corporation,/u/MoaXing
+2,Corporate,TRUE,3,187,9,terran,128;128;255,0,0,0,0,0,Exeter-Sakamoto Corporation,/u/MoaXing
+2,Niwa (庭),TRUE,4,101,7,terran,128;128;255,0,0,0,0,0,Exeter-Sakamoto Corporation,/u/MoaXing
+2,Kyojin (巨人),FALSE,5,24,25,gas_purple,192;128;192,0,0,0,0,0,Exeter-Sakamoto Corporation,/u/MoaXing
+3,A’xl’Ko’a / Soto (外),TRUE,5,14,5,martian,128:128:192,0,0,0,0,0,Exeter-Sakamoto Corporation,/u/MoaXing
+2,Unknown,FALSE,6,310,20,jovian,128;128;128,0,0,0,0,0,Exeter-Sakamoto Corporation,/u/MoaXing
+2,Unknown,FALSE,7,59,20,jovian,128;128;128,0,0,0,0,0,Exeter-Sakamoto Corporation,/u/MoaXing
+2,Unknown,FALSE,8,199,8,mercurian,128;128;128,0,0,0,0,0,Exeter-Sakamoto Corporation,/u/MoaXing
 0,BlackHole,FALSE,-300,300,180,microquasar,'000,0,0,0,0,0,
 0,BlackHole,FALSE,-325,-100,30,black,'000,0,0,0,0,0,
 0,Invisible,FALSE,-360,200,8,invisible,'000,0,0,0,0,0,
