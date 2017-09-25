@@ -112,7 +112,8 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,30,8,unknown,128;128;128,0,0,0,0,0,Neutral
 2,Ellowa,FALSE,4,90,16,uranian,128;128;255,0,0,0,0,0,The Centauri,NPC
 3,The Centauri Citidel,TRUE,4,80,6,mercurian,128;128;128,0,0,0,0,1,The Centauri,NPC
-4,The Ari Sanctum,TRUE,4,100,6,sanctum,128;128;128,0,0,0,1,1,The Intersidereal Civitas of the Aries,/u/ophereon
+4,The Ari Sanctum,TRUE,4,100,4,callistoan,128;128;128,0,0,0,1,1,The Intersidereal Civitas of the Aries,/u/ophereon
+3,Sanctum,TRUE,4,100,6,ring_a2,128;128;128,0,0,0,0,0,???,/u/ophereon
 2,Unknown,FALSE,5,308,8,unknown,128;128;128,0,0,0,0,0,Neutral
 2,Unknown,FALSE,6,223,8,unknown,128;128;128,0,0,0,0,0,Neutral
 2,Unknown,FALSE,7,208,8,unknown,128;128;128,0,0,0,0,0,Neutral
@@ -237,8 +238,8 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Asteroid Belt,FALSE,3,0,1,belt_asteroid,128;128;128,0,0,0,0,0,???,/u/ophereon
 2,Empyreus (χ Ari III),FALSE,4,90,24,gas_purple,192;64;255,0,0,0,0,0,???,/u/ophereon
 3,Rings of Empyreus,FALSE,4,90,48,ring_grey,128;128;128,0,0,0,0,0,???,/u/ophereon
-3,Cordon,FALSE,4,73,12,ring3,128;128;128,0,0,0,0,0,???,/u/ophereon
 3,Aria,TRUE,4,73,8,terran,192;128;255,0,0,1,0,0,???,/u/ophereon
+3,Cordon,FALSE,4,73,12,ring_a2,128;128;128,0,0,0,0,0,???,/u/ophereon
 4,Welkin Ruins,FALSE,4,65,6,station,128;128;128,0,0,0,0,1,???,/u/ophereon
 2,χ Ari IV,FALSE,5,206,20,jovian,255;128;128,0,0,0,0,0,???,/u/ophereon
 2,χ Ari V,FALSE,6,302,14,uranian,128;128;255,0,0,1,0,0,???,/u/ophereon
