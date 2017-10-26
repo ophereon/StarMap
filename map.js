@@ -425,10 +425,10 @@ $(document).ready(function() {
 						b = systems[j];
 				}
 				if(e.type=="dashed"){
-					drawLine(a.x, a.y, b.x, b.y, 2, "rgb(128,128,128)", 1, true);
+					drawLine(a.x, a.y, b.x, b.y, 2, "rgb(255,255,255)", 0.33, true);
 				}
 				else if(e.type=="solid"){
-					drawLine(a.x, a.y, b.x, b.y, 2, "rgb(128,128,128)", 1, false);
+					drawLine(a.x, a.y, b.x, b.y, 2, "rgb(255,255,255)", 0.33, false);
 				}
 			}
 		}

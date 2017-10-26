@@ -1,5 +1,5 @@
 klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium,helium-3,handwavium,claim
-1,Kurash,FALSE,-308,-318,8,yellow,'001,1,0,1,0,0,The Kurash System,/u/Cereborn
+1,Kurash,TRUE,-308,-318,8,yellow,'001,1,0,1,0,0,The Kurash System,/u/Cereborn
 2,Arkata,FALSE,1,254,5,venusian,192;192;128,0,0,0,0,0,The Kurash System,/u/Cereborn
 2,Harkona,TRUE,2,84,9,martian,164;164;255,0,0,0,0,0,The Kurash System,/u/Cereborn
 2,Atreda,TRUE,3,124,7,terran,255;128;128,0,0,0,0,0,The Kurash System,/u/Cereborn
@@ -24,7 +24,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-254,-198,8,blank,'010,1,1,0,0,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Tantrax Luminaris,FALSE,-240,-164,12,red,'011,1,0,0,1,1,Tantrax Entertainment,/u/Cereborn
+1,Tantrax Luminaris,TRUE,-240,-164,12,red,'011,1,0,0,1,1,Tantrax Entertainment,/u/Cereborn
 2,Tantrax Belkaris,FALSE,1,184,8,callistoan,128;128;128,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
 2,Tantrax Akaris,TRUE,2,248,9,terran,128;192;255,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
 3,Akaris Principa,FALSE,2,238,5,mercurian,128;192;255,0,0,0,0,0,Tantrax Entertainment,/u/Cereborn
@@ -68,7 +68,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-140,-50,8,blank,'026,0,1,0,1,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,b2d2 (Bebedede),FALSE,-194,98,16,blue,'027,1,1,1,1,0,Unclaimed
+1,b2d2 (Bebedede),TRUE,-194,98,16,blue,'027,1,1,1,1,0,Unclaimed
 2,t2d8b2t4,FALSE,1,98,5,venusian,192;192;128,0,0,0,0,0,Unclaimed
 2,g16p2,FALSE,2,15,10,ring2,192;192;128,0,0,0,0,0,Unclaimed
 1,Unknown,FALSE,-184,116,8,blank,'028,1,1,0,1,0,
@@ -91,7 +91,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Fros,FALSE,-104,160,8,yellow,'037,1,0,1,0,0,The Ikidaliwen of Mualat,/u/dontfearme22
 2,Unknown,FALSE,1,68,16,uranian,164;164;255,0,0,0,0,0,The Ikidaliwen of Mualat,/u/dontfearme22
-1,Urus,FALSE,-74,364,8,yellow,'038,1,1,1,1,1,The Dzakat' Arrahakah,/u/aDwarfNamedUrist
+1,Urus,TRUE,-74,364,8,yellow,'038,1,1,1,1,1,The Dzakat' Arrahakah,/u/aDwarfNamedUrist
 2,Kazuzh E'al,FALSE,1,95,16,gas_purple,255;192;192,0,0,0,0,0,The Dzakat' Arrahakah,/u/aDwarfNamedUrist
 2,Hutal,FALSE,2,259,7,martian,128;192;255,0,0,0,0,0,The Dzakat' Arrahakah,/u/aDwarfNamedUrist
 3,Kelos,FALSE,2,265,4,mercurian,128;128;128,0,0,0,0,0,The Dzakat' Arrahakah,/u/aDwarfNamedUrist
@@ -174,7 +174,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-106,-322,8,blank,'068,1,1,0,1,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,INOBRAC,FALSE,-66,-334,12,white,'069,1,1,1,1,1,the INOBRAC System,/u/MoronWriter
+1,INOBRAC,TRUE,-66,-334,12,white,'069,1,1,1,1,1,the INOBRAC System,/u/MoronWriter
 2,Kram,TRUE,1,21,14,venusian,255;164;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
 3,Moon,False,1,9,4,mercurian,128;128;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
 3,Moon,False,1,2,4,mercurian,128;128;128,0,0,0,0,0,the INOBRAC System,/u/MoronWriter
@@ -273,7 +273,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,26,16,8,blank,'099,0,0,0,1,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Hubanan System,FALSE,50,38,4,white,'100,1,1,0,0,1,The Hubari,/u/Dogrill
+1,Hubanan System,TRUE,50,38,4,white,'100,1,1,0,0,1,The Hubari,/u/Dogrill
 2,Huba,TRUE,1,143,8,martian,255;255;128,0,0,0,0,0,The Hubari,/u/Dogrill
 5,Grahla,FALSE,2,0,1,belt_asteroid,128;128;128,0,0,0,0,0,The Hubari,/u/Dogrill
 2,Zha,FALSE,3,38,20,jovian,128;128;128,0,0,0,0,0,The Hubari,/u/Dogrill
@@ -325,7 +325,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Adei,FALSE,4,147,4,uranian,128;128;192,0,0,0,0,0,The God-Kingdom of the Nunnes,/u/Silverdragon701
 1,Unknown,FALSE,270,224,8,blank,'110,0,0,1,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Tol,FALSE,304,206,8,red,'111,1,0,0,1,1,The Ravagers of Y'lenna Tol,/u/jameskilgour
+1,Tol,TRUE,304,206,8,red,'111,1,0,0,1,1,The Ravagers of Y'lenna Tol,/u/jameskilgour
 2,Diabhal,FALSE,1,96,5,venusian,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
 2,Daor,FALSE,2,165,4,mercurian,128;128;128,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
 2,Baile,TRUE,3,234,8,terran,128;128;255,0,0,0,0,0,The Ravagers of Y'lenna Tol,/u/jameskilgour
@@ -478,7 +478,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,9,35,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
 4,PIONEER,FALSE,10,277,5,station,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
 2,Oops,FALSE,11,0,8,unknown,128;128;128,0,0,0,0,0,The Klekon Technocracy,/u/Terkmc
-1,Briva,FALSE,52,-74,12,yellow,'154,1,1,1,1,1,The Vora of Doln,/u/Bilbrath
+1,Briva,TRUE,52,-74,12,yellow,'154,1,1,1,1,1,The Vora of Doln,/u/Bilbrath
 2,Huriol,FALSE,1,106,6,venusian,128;128;128,0,0,0,0,0,The Vora of Doln,/u/Bilbrath
 2,Doln,TRUE,2,353,9,terran,255;192;128,1,0,0,0,1,The Vora of Doln,/u/Bilbrath
 3,Pehla,FALSE,2,343,4,mercurian,128;128;128,0,0,0,0,0,The Vora of Doln,/u/Bilbrath
