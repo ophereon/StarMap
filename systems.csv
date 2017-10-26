@@ -216,8 +216,17 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,26,-262,8,blank,'084,1,0,1,1,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Unknown,FALSE,10,-206,8,blank,'085,1,1,0,1,1,
-2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
+1,Orthuo and Orthar,TRUE,10,-206,10,binary2,'085,1,1,0,1,1,Pharate Of Damani,/u/TyrAlexander
+2,Unknown,FALSE,1,114,8,unknown,128;128;128,0,0,0,0,0,Pharate Of Damani,/u/TyrAlexander
+2,Unknown,FALSE,2,172,8,unknown,128;128;128,0,0,0,0,0,Pharate Of Damani,/u/TyrAlexander
+2,Unknown,FALSE,3,252,8,unknown,128;128;128,0,0,0,0,0,Pharate Of Damani,/u/TyrAlexander
+2,Unknown,FALSE,4,83,8,unknown,128;128;128,0,0,0,0,0,Pharate Of Damani,/u/TyrAlexander
+2,Sephid,FALSE,5,168,8,martian,128;128;255,0,0,0,0,0,Pharate Of Damani,/u/TyrAlexander
+3,Dae,FALSE,5,163,4,mercurian,128;128;128,0,0,0,0,0,Pharate Of Damani,/u/TyrAlexander
+3,Dae Dar,TRUE,5,173,4,terran,128;128;255,0,0,0,0,0,Pharate Of Damani,/u/TyrAlexander
+3,Mar Dae,FALSE,5,160,3,mercurian,128;128;128,0,0,0,0,0,Pharate Of Damani,/u/TyrAlexander
+2,Unknown,FALSE,6,8,8,unknown,128;128;128,0,0,0,0,0,Pharate Of Damani,/u/TyrAlexander
+2,Unknown,FALSE,7,283,8,unknown,128;128;128,0,0,0,0,0,Pharate Of Damani,/u/TyrAlexander
 1,Unknown,FALSE,-22,-150,8,blank,'086,1,1,1,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-48,-194,8,blank,'087,1,0,0,0,1,
