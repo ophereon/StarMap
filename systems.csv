@@ -70,7 +70,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,b2d2 (Bebedede),TRUE,-194,98,16,blue,'027,1,1,1,1,0,Unclaimed
 2,t2d8b2t4,FALSE,1,98,5,venusian,192;192;128,0,0,0,0,0,Unclaimed
-2,g16p2,FALSE,2,15,10,ring2,192;192;128,0,0,0,0,0,Unclaimed
+2,g16p2,FALSE,2,15,10,cracked,192;192;128,0,0,0,0,0,Unclaimed
 1,Unknown,FALSE,-184,116,8,blank,'028,1,1,0,1,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-238,114,8,blank,'029,0,1,1,1,1,
