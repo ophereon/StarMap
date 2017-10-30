@@ -241,7 +241,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-114,-208,8,blank,'092,1,0,1,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,χ Ari (Goddard),TRUE,-150,-180,8,binary1,'093,0,1,1,1,0,???,/u/ophereon
+1,χ Ari (EUEC-866),TRUE,-150,-180,8,binary1,'093,0,1,1,1,0,???,/u/ophereon
 2,χ Ari I,FALSE,1,18,4,callistoan,128;128;128,0,0,0,1,0,???,/u/ophereon
 2,χ Ari II,FALSE,2,5,6,martian,128;128;255,0,1,0,0,0,???,/u/ophereon
 2,Asteroid Belt,FALSE,3,0,1,belt_asteroid,128;128;128,0,0,0,0,0,???,/u/ophereon
