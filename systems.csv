@@ -158,8 +158,23 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,52,192,8,blank,'060,0,0,1,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Unknown,FALSE,30,134,8,blank,'061,1,1,0,1,0,
-2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
+1,Yuu'won,FALSE,30,134,8,binary2,'061,1,1,0,1,0,Rai Lae Ascendancy,/u/wulfAlpha
+2,Aos,FALSE,1,9,5,venusian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+2,Sufi,FALSE,2,291,16,jovian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+3,Rings of Sufi,FALSE,2,291,32,ring_grey,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+2,Gowi,FALSE,3,246,16,jovian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+4,Station,FALSE,3,236,6,station,128;128;128,0,0,0,0,1,Rai Lae Ascendancy,/u/wulfAlpha
+3,Moon,FALSE,3,231,5,mercurian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+3,Moon,FALSE,3,256,5,mercurian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+3,Moon,FALSE,3,261,5,mercurian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+3,Moon,FALSE,3,266,5,mercurian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+2,Lae,FALSE,4,54,16,jovian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+3,Lae'wi,TRUE,4,63,6,terran,128;128;255,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+3,Moon,FALSE,4,45,5,mercurian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+2,Amn,FALSE,5,138,16,jovian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+3,Moon,TRUE,5,130,5,terran,128;128;255,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+3,Moon,TRUE,5,146,5,terran,128;128;255,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
+2,An'wi,TRUE,6,192,8,terran,128;128;255,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
 1,Unknown,FALSE,84,160,8,blank,'062,1,1,1,1,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,72,118,8,blank,'063,1,0,1,1,0,
