@@ -58,8 +58,12 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-272,14,8,blank,'021,1,1,0,0,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Unknown,FALSE,-192,20,8,blank,'022,0,1,0,1,0,
-2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
+1,Zifequefron,FALSE,-192,20,4,red,'022,0,1,0,1,0,The Znork Belt,/u/Nyx-Fleece
+2,Llacho,FALSE,1,147,7,venusian,128;128;128,0,0,0,0,0,The Znork Belt,/u/Nyx-Fleece
+2,Znorkulon,TRUE,2,352,7,terran,128;128;255,0,0,0,0,0,The Znork Belt,/u/Nyx-Fleece
+3,Gnarticle,FALSE,2,344,4,callistoan,128;128;255,0,0,0,0,0,The Znork Belt,/u/Nyx-Fleece
+2,New Bathubar,FALSE,3,247,10,martian,128;128;196,0,0,0,0,0,The Znork Belt,/u/Nyx-Fleece
+2,Quorne,FALSE,4,56,16,uranian,128;196;196,0,0,0,0,0,The Znork Belt,/u/Nyx-Fleece
 1,Unknown,FALSE,-230,18,8,blank,'023,1,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-226,-10,8,blank,'024,0,1,0,1,0,
