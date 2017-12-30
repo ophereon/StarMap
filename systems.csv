@@ -305,7 +305,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Kallen,TRUE,2,99,11,terran,192;0;192,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
 2,Arast,TRUE,3,355,14,terran,192;0;192,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
 2,Tsukh,TRUE,4,173,25,gas_black,64;64;64,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
-2,Planet 4,FALSE,6,285,18,uranian,192;192;192,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
+2,Polimios,FALSE,6,285,18,uranian,192;192;192,0,0,0,0,0,The T’yet-Sang Confederacy,/u/TechnicolorTraveler
 1,Unknown,FALSE,104,28,8,blank,'102,1,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,132,14,8,blank,'103,1,0,1,1,0,
