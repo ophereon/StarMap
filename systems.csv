@@ -58,7 +58,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,-272,14,8,blank,'021,1,1,0,0,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Zifequefron,FALSE,-192,20,4,red,'022,0,1,0,1,0,The Znork Belt,/u/Nyx-Fleece
+1,Zifequefron,TRUE,-192,20,4,red,'022,0,1,0,1,0,The Znork Belt,/u/Nyx-Fleece
 2,Llacho,FALSE,1,147,7,venusian,128;128;128,0,0,0,0,0,The Znork Belt,/u/Nyx-Fleece
 2,Znorkulon,TRUE,2,352,7,terran,128;128;255,0,0,0,0,0,The Znork Belt,/u/Nyx-Fleece
 3,Gnarticle,FALSE,2,344,4,callistoan,128;128;255,0,0,0,0,0,The Znork Belt,/u/Nyx-Fleece
@@ -162,7 +162,7 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,52,192,8,blank,'060,0,0,1,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Yuu'won,FALSE,30,134,8,binary2,'061,1,1,0,1,0,Rai Lae Ascendancy,/u/wulfAlpha
+1,Yuu'won,TRUE,30,134,8,binary2,'061,1,1,0,1,0,Rai Lae Ascendancy,/u/wulfAlpha
 2,Aos,FALSE,1,9,5,venusian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
 2,Sufi,FALSE,2,291,16,jovian,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
 3,Rings of Sufi,FALSE,2,291,32,ring_grey,128;128;128,0,0,0,0,0,Rai Lae Ascendancy,/u/wulfAlpha
@@ -377,8 +377,19 @@ klass,name,life/gate,x/r,y/th,mass,type,id/atmosphere,platinum,lithium,deuterium
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,78,-256,8,blank,'122,1,1,0,0,1,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
-1,Unknown,FALSE,112,-290,8,blank,'123,1,1,1,1,1,
-2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
+1,Was (Igan System),TRUE,112,-290,12,orange,'123,1,1,1,1,1,The Assembly of Jetbula,/u/Sgtwolf01
+2,Thonketh,FALSE,1,179,4,venusian,255;192;128,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
+2,Osendia,TRUE,2,254,7,terran,64;64;255,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
+2,Jetbula,TRUE,3,51,8,martian,128;192;255,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
+3,Esbula Prime,False,3,44,4,mercurian,128;128;128,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
+3,Esbula Minor,False,3,58,3,mercurian,128;128;128,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
+2,Avisnus,FALSE,4,114,5,martian,192;192;255,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
+3,Moon of Avisnus,False,4,120,3,mercurian,128;128;128,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
+2,Cinrad,FALSE,5,312,22,jovian,255;255;128,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
+2,Olrind,FALSE,6,24,16,neptunian,64;64;255,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
+2,Jelasuk,FALSE,7,90,5,callistoan,192;192;255,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
+3,Moon of Jelasuk,False,7,86,3,mercurian,128;128;128,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
+3,Moon of Jelasuk,False,7,94,3,mercurian,128;128;128,0,0,0,0,0,The Assembly of Jetbula,/u/Sgtwolf01
 1,Unknown,FALSE,150,-316,8,blank,'124,1,1,1,1,0,
 2,Unknown,FALSE,3,0,8,unknown,128;128;128,0,0,0,0,0,
 1,Unknown,FALSE,186,-336,8,blank,'125,1,0,1,0,1,
